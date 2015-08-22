@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package org.sim.service.resources;
+package org.sim.services.resources;
 
 import javax.ejb.Stateless;
 import javax.ws.rs.GET;
@@ -17,13 +17,13 @@ import javax.ws.rs.Path;
  *
  * @author adengra
  */
- @Path("/NotaResource")
-public class NotaResource{
+ @Path("/UsuarioResource")
+public class UsuarioResource{
     
   @GET
-    public String getNota(){
+    public String getUsuario(){
     
-     return "Nota Resource";
+     return "Usuario Resource";
 }
     
     

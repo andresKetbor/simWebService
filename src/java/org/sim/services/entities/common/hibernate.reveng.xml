@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
+<hibernate-reverse-engineering>
+  <schema-selection match-catalog="sim2"/>
+  <table-filter match-name="mensaje"/>
+  <table-filter match-name="visita"/>
+  <table-filter match-name="rol"/>
+  <table-filter match-name="tensionarterial"/>
+  <table-filter match-name="nivelglucosa"/>
+  <table-filter match-name="freceunciarespiratoria"/>
+  <table-filter match-name="log"/>
+  <table-filter match-name="saturometria"/>
+  <table-filter match-name="ecg"/>
+  <table-filter match-name="paciente"/>
+  <table-filter match-name="accion"/>
+  <table-filter match-name="nota"/>
+  <table-filter match-name="administracionmedicamento"/>
+  <table-filter match-name="usuario"/>
+  <table-filter match-name="rolaccion"/>
+  <table-filter match-name="permiso"/>
+  <table-filter match-name="temperatura"/>
+  <table-filter match-name="libroreport"/>
+  <table-filter match-name="alerta"/>
+  <table-filter match-name="medicion"/>
+</hibernate-reverse-engineering>

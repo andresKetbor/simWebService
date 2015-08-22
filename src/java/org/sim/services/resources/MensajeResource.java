@@ -4,33 +4,37 @@
  * and open the template in the editor.
  */
 
-package org.sim.service.resources;
+package org.sim.services.resources;
 
-import javax.ejb.Stateless;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
-
 
 /**
  *
  * @author adengra
  */
- @Path("/UsuarioResource")
-public class UsuarioResource{
-    
-  @GET
-    public String getUsuario(){
-    
-     return "Usuario Resource";
-}
+
+@Path("/MensajeResource") 
+public class MensajeResource {
     
     
-        
-        
-        
-    
-    
+ //@POST   
+ public void addMensaje(){
+     
+     
+ }  
+ 
+ 
+ @GET
+ public String getMensaje(){
+     
+     
+     return "Mensaje Resource";
+     
+ }
+ 
+ 
+ 
     
 }

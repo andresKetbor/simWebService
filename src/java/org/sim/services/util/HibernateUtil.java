@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package org.sim.service.util;
+package org.sim.services.util;
 
 import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.SessionFactory;

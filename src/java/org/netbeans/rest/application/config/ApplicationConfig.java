@@ -7,7 +7,7 @@ package org.netbeans.rest.application.config;
 
 import java.util.Set;
 import javax.ws.rs.core.Application;
-import org.sim.service.resources.UsuarioResource;
+import org.sim.services.resources.UsuarioResource;
 
 /**
  *
@@ -30,13 +30,11 @@ public class ApplicationConfig extends Application {
      * If required, comment out calling this method in getClasses().
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
-        
-        resources.add(org.sim.service.resources.LibroReportResource.class);
-        resources.add(org.sim.service.resources.MensajeResource.class);
-        resources.add(org.sim.service.resources.NotaResource.class);
-        resources.add(org.sim.service.resources.PacienteResource.class);
-        resources.add(org.sim.service.resources.UsuarioResource.class);
-        
+        resources.add(org.sim.services.resources.LibroReportResource.class);
+        resources.add(org.sim.services.resources.MensajeResource.class);
+        resources.add(org.sim.services.resources.NotaResource.class);
+        resources.add(org.sim.services.resources.PacienteResource.class);
+        resources.add(org.sim.services.resources.UsuarioResource.class);
     }
     
 }

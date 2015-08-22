@@ -11,7 +11,7 @@ import org.hibernate.LockMode;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import org.sim.service.util.HibernateUtil;
+import org.sim.services.util.HibernateUtil;
 import org.hibernate.criterion.Example;     
 
 /**

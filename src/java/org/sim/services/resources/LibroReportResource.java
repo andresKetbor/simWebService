@@ -4,13 +4,13 @@
  * and open the template in the editor.
  */
 
-package org.sim.service.resources;
+package org.sim.services.resources;
 
 import com.google.gson.Gson;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import org.sim.services.entities.LibroReport;
+import org.sim.services.entities.Libroreport;
 import org.sim.services.entities.common.daos.LibroReportDao;
 
 /**
@@ -29,7 +29,7 @@ public class LibroReportResource {
       
      Gson gson = new Gson();
      
-     LibroReport libroReport = gson.fromJson(libroReportString, LibroReport.class);
+     Libroreport libroReport = gson.fromJson(libroReportString, Libroreport.class);
      
      libroReportDao.persist(libroReport);
      

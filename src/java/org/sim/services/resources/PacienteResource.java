@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package org.sim.service.resources;
+package org.sim.services.resources;
 
 import com.google.gson.Gson;
 import javax.ws.rs.GET;
@@ -12,6 +12,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import org.sim.services.entities.Paciente;
 import org.sim.services.entities.common.daos.PacienteDao;
+import org.sim.services.util.HibernateUtil;
 
 
 /**
@@ -24,13 +25,17 @@ public class PacienteResource{
      PacienteDao pacienteDao = new PacienteDao();
      
   @POST   
- public void addPaciente(String pacienteString){
-      
+ public Integer addPaciente(String pacienteString){
+     
+      HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
+     
      Gson gson = new Gson();
      
      Paciente paciente = gson.fromJson(pacienteString, Paciente.class);
      
      pacienteDao.persist(paciente);
+     
+HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();     return 2;
      
  }  
     
