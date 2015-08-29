@@ -71,7 +71,7 @@ return 2;
        paciente.setPeso(88);     */
       String pacienteString = gson.toJson(paciente);
      
-     //HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();     
+     HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();     
      return pacienteString;
         
         
