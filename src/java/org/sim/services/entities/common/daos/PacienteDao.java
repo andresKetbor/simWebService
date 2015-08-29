@@ -12,7 +12,7 @@ public class PacienteDao extends GenericDao<Paciente> {
     }
 
     
-    public Paciente findById(long id) {
+    public Paciente findById(int id) {
         return super.findById(id);
     }
 

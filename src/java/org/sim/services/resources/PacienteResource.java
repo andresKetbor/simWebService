@@ -25,7 +25,7 @@ public class PacienteResource{
     
      PacienteDao pacienteDao = new PacienteDao();
      
-  @POST   
+  //@POST   
  public Integer addPaciente(String pacienteString){
      
       HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
@@ -44,14 +44,14 @@ return 2;
      
      
   @GET
-    public String getPaciente(@QueryParam ("id") Integer id){
+    public String getPaciente(@QueryParam ("id") int id){
     
      return $getPaciente(id);
 }
     
  
    
-    private String $getPaciente(Integer id){
+    private String $getPaciente(int id){
         
         
       HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
