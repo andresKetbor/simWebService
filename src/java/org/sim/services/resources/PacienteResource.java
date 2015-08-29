@@ -10,6 +10,8 @@ import com.google.gson.Gson;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PUT;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.QueryParam;
 import org.sim.services.entities.Paciente;
 import org.sim.services.entities.common.daos.PacienteDao;
@@ -25,7 +27,7 @@ public class PacienteResource{
     
      PacienteDao pacienteDao = new PacienteDao();
      
-  //@POST   
+  @POST   
  public Integer addPaciente(String pacienteString){
      
       HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
@@ -40,6 +42,28 @@ HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();
 return 2;
      
  }  
+ 
+ 
+ 
+  @PUT  
+ public Integer updatePaciente(String pacienteString){
+     
+      HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
+     
+     Gson gson = new Gson();
+     
+     Paciente paciente = gson.fromJson(pacienteString, Paciente.class);
+     
+     
+     pacienteDao.merge(paciente);
+     
+
+    HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();     
+return 2;
+     
+ }  
+ 
+ 
     
      
      
@@ -50,6 +74,23 @@ return 2;
 }
     
  
+    
+ @DELETE  
+ public Integer deletePaciente(@QueryParam ("id") int id){
+     
+      HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
+     
+     Paciente paciente = pacienteDao.findById(id);
+     
+     pacienteDao.delete(paciente);
+     
+
+    HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();     
+return 2;
+     
+ }     
+    
+    
    
     private String $getPaciente(int id){
         
