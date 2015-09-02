@@ -32,8 +32,9 @@ public class Rol  implements java.io.Serializable {
     }
 
 	
-    public Rol(String nombreRol) {
+    public Rol(String nombreRol, int idRol) {
         this.nombreRol = nombreRol;
+        this.idRol = idRol;
     }
     public Rol(String nombreRol, Set<Usuario> usuarios, Set<Rolaccion> rolaccions) {
        this.nombreRol = nombreRol;

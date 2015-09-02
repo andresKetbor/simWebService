@@ -28,7 +28,7 @@ public class Usuario  implements java.io.Serializable {
      private Integer idUsuario;
      private Rol rol;
      private int dni;
-     private int nombre;
+     private String nombre;
      private Set<Mensaje> mensajesForIdUsuarioRemitente = new HashSet<Mensaje>(0);
      private Set<Mensaje> mensajesForIdUsuaruiDestinatario = new HashSet<Mensaje>(0);
 
@@ -36,12 +36,12 @@ public class Usuario  implements java.io.Serializable {
     }
 
 	
-    public Usuario(Rol rol, int dni, int nombre) {
+    public Usuario(Rol rol, int dni, String nombre) {
         this.rol = rol;
         this.dni = dni;
         this.nombre = nombre;
     }
-    public Usuario(Rol rol, int dni, int nombre, Set<Mensaje> mensajesForIdUsuarioRemitente, Set<Mensaje> mensajesForIdUsuaruiDestinatario) {
+    public Usuario(Rol rol, int dni, String nombre, Set<Mensaje> mensajesForIdUsuarioRemitente, Set<Mensaje> mensajesForIdUsuaruiDestinatario) {
        this.rol = rol;
        this.dni = dni;
        this.nombre = nombre;
@@ -82,12 +82,12 @@ public class Usuario  implements java.io.Serializable {
     }
 
     
-    @Column(name="Nombre", nullable=false)
-    public int getNombre() {
+    @Column(name="Nombre", nullable=false, length=25)
+    public String getNombre() {
         return this.nombre;
     }
     
-    public void setNombre(int nombre) {
+    public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
