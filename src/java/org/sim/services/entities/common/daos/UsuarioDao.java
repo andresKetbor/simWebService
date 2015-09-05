@@ -13,7 +13,7 @@ public class UsuarioDao extends GenericDao<Usuario> {
 
     
 
-    public Usuario findById(long id) {
+    public Usuario findById(Integer id) {
         return super.findById(id);
     }
 

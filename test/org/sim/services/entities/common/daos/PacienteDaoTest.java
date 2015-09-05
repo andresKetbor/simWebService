@@ -59,7 +59,7 @@ public class PacienteDaoTest extends GenericDaoTest<Paciente>{
        paciente.setEdad(37);
        paciente.setNombre("Andres");
        paciente.setApellido("Dengra");
-       paciente.setPeso(88);
+       paciente.setPeso(88f);
        
        pacienteDao.persist(paciente);
        

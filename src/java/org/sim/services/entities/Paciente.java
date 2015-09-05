@@ -5,8 +5,6 @@ package org.sim.services.entities;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -24,39 +22,54 @@ public class Paciente  implements java.io.Serializable {
 
 
      private Integer idPaciente;
-     private int dni;
+     private Integer dni;
      private String nombre;
      private String apellido;
-     private int edad;
-     private float altura;
-     private float peso;
+     private Integer edad;
+     private Float altura;
+     private Float peso;
      private Libroreport libroreport;
 
     public Paciente() {
     }
 
 	
-    public Paciente(int dni, String nombre, String apellido, int edad, float altura, float peso) {
-        this.dni = dni;
+    public Paciente(Integer idPaciente, String nombre, String apellido, Integer dni, Integer edad, Float altura, Float peso) {   
+        this.idPaciente = idPaciente;
         this.nombre = nombre;
         this.apellido = apellido;
+        this.dni = dni;
         this.edad = edad;
         this.altura = altura;
         this.peso = peso;
     }
-    public Paciente(int dni, String nombre, String apellido, int edad, float altura, float peso, Libroreport libroreport) {
-       this.dni = dni;
+    
+    
+        public Paciente(String nombre, String apellido, Integer dni, Integer edad, Float altura, Float peso) {   
+        
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.dni = dni;
+        this.edad = edad;
+        this.altura = altura;
+        this.peso = peso;
+    }
+    
+     
+    public Paciente(Integer dni, String nombre, String apellido, Integer edad, Float altura, Float peso, Libroreport libroreport) {
        this.nombre = nombre;
        this.apellido = apellido;
+       this.dni = dni;
        this.edad = edad;
        this.altura = altura;
        this.peso = peso;
        this.libroreport = libroreport;
     }
    
-     @Id @GeneratedValue(strategy=IDENTITY)
+     
 
-    
+    //@GenericGenerator(name="generator", strategy="foreign", parameters=@Parameter(name="property", value="libroreport"))@Id @GeneratedValue(generator="generator")
+    @Id
     @Column(name="idPaciente", unique=true, nullable=false)
     public Integer getIdPaciente() {
         return this.idPaciente;
@@ -68,11 +81,11 @@ public class Paciente  implements java.io.Serializable {
 
     
     @Column(name="DNI", unique=true, nullable=false)
-    public int getDni() {
+    public Integer getDni() {
         return this.dni;
     }
     
-    public void setDni(int dni) {
+    public void setDni(Integer dni) {
         this.dni = dni;
     }
 
@@ -98,31 +111,31 @@ public class Paciente  implements java.io.Serializable {
 
     
     @Column(name="Edad", nullable=false)
-    public int getEdad() {
+    public Integer getEdad() {
         return this.edad;
     }
     
-    public void setEdad(int edad) {
+    public void setEdad(Integer edad) {
         this.edad = edad;
     }
 
     
     @Column(name="Altura", nullable=false, precision=12, scale=0)
-    public float getAltura() {
+    public Float getAltura() {
         return this.altura;
     }
     
-    public void setAltura(float altura) {
+    public void setAltura(Float altura) {
         this.altura = altura;
     }
 
     
     @Column(name="Peso", nullable=false, precision=12, scale=0)
-    public float getPeso() {
+    public Float getPeso() {
         return this.peso;
     }
     
-    public void setPeso(float peso) {
+    public void setPeso(Float peso) {
         this.peso = peso;
     }
 

@@ -7,14 +7,17 @@
 package org.sim.services.resources;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.QueryParam;
+import org.hibernate.HibernateException;
 import org.sim.services.entities.Paciente;
 import org.sim.services.entities.common.daos.PacienteDao;
+import org.sim.services.entities.dtos.PacienteDto;
 import org.sim.services.util.HibernateUtil;
 
 
@@ -27,96 +30,138 @@ public class PacienteResource{
     
      PacienteDao pacienteDao = new PacienteDao();
      
-  @POST   
- public Integer addPaciente(String pacienteString){
+ private PacienteDto getDtoFromEntite(Paciente paciente){
+        
+        PacienteDto pacienteDto = new PacienteDto();
+        pacienteDto.setIdPaciente(paciente.getIdPaciente());
+        pacienteDto.setDni(paciente.getDni());
+        pacienteDto.setNombre(paciente.getNombre());
+        pacienteDto.setApellido(paciente.getApellido());
+        pacienteDto.setAltura(paciente.getAltura());
+        paciente.setPeso(paciente.getPeso());
+        pacienteDto.setLibroreport(paciente.getLibroreport());
+        
+        return pacienteDto;
+        
+    }    
      
-      HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
-     
-     Gson gson = new Gson();
-     
-     Paciente paciente = gson.fromJson(pacienteString, Paciente.class);
-     
-     pacienteDao.persist(paciente);
-     
-HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();     
-return 2;
-     
- }  
+ 
+ private Paciente getEntitieFromDto(PacienteDto pacienteDto){
+        
+        Paciente paciente = new Paciente();
+        paciente.setIdPaciente(pacienteDto.getIdPaciente());
+        paciente.setDni(pacienteDto.getDni());
+        paciente.setNombre(pacienteDto.getNombre());
+        paciente.setApellido(pacienteDto.getApellido());
+        paciente.setEdad(pacienteDto.getEdad());
+        paciente.setPeso(pacienteDto.getPeso());
+        paciente.setLibroreport(pacienteDto.getLibroreport());
+        
+        return paciente;
+        
+    }
  
  
- 
-  @PUT  
- public Integer updatePaciente(String pacienteString){
-     
-      HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
-     
-     Gson gson = new Gson();
-     
-     Paciente paciente = gson.fromJson(pacienteString, Paciente.class);
-     
-     
-     pacienteDao.merge(paciente);
-     
-
-    HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();     
-return 2;
-     
- }  
  
  
     
+    @POST   
+ public void addPaciente(String pacienteRequest){
+     
+     try{
+      HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
+     
+      Gson gson = new Gson();
+     
+      PacienteDto pacienteDto = gson.fromJson(pacienteRequest, PacienteDto.class);
+     
+      pacienteDao.persist(getEntitieFromDto(pacienteDto));
      
      
+     }catch(HibernateException | JsonSyntaxException e){
+         System.out.println(e.getMessage());
+     }catch(Exception e){
+         System.out.println(e.getMessage());
+     }
+     finally{
+         HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();     
+     }
+ }  
+ 
+ 
+ 
+ @DELETE  
+ public void deletePaciente(@QueryParam ("id") int id){
+     
+     try{ 
+     HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
+     
+      Paciente paciente = pacienteDao.findById(id);
+     
+      pacienteDao.delete(paciente);
+     }catch(HibernateException e){
+         System.out.println(e.getMessage());
+     }finally{   
+     HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();     
+     }
+ }     
+ 
+ 
+ @PUT  
+ public void updatePaciente(String pacienteRequest){
+     
+     try{ 
+     HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
+     
+      Gson gson = new Gson();
+     
+      PacienteDto pacienteDto = gson.fromJson(pacienteRequest, PacienteDto.class);
+     
+     pacienteDao.merge(getEntitieFromDto(pacienteDto));
+     
+     }catch(HibernateException | JsonSyntaxException e){
+         System.out.println(e.getMessage());
+     }catch(Exception e){
+         System.out.println(e.getMessage());
+     }
+     finally{
+         HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();     
+     }
+     
+ }
+ 
+ 
   @GET
     public String getPaciente(@QueryParam ("id") int id){
     
-     return $getPaciente(id);
-}
-    
- 
-    
- @DELETE  
- public Integer deletePaciente(@QueryParam ("id") int id){
-     
-      HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
-     
-     Paciente paciente = pacienteDao.findById(id);
-     
-     pacienteDao.delete(paciente);
-     
-
-    HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();     
-return 2;
-     
- }     
-    
-    
-   
-    private String $getPaciente(int id){
+     String pacienteResponse ="";   
+     try{   
         
-        
-      HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
+     HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
      
      Gson gson = new Gson();
      
      Paciente paciente = pacienteDao.findById(id);
      
-     /*Paciente paciente = new Paciente();
+     pacienteResponse = gson.toJson(getDtoFromEntite(paciente));
      
-      
-       paciente.setDni(26520555);
-       paciente.setAltura(1.82f);
-       paciente.setEdad(37);
-       paciente.setNombre("Andres");
-       paciente.setApellido("Dengra");
-       paciente.setPeso(88);     */
-      String pacienteString = gson.toJson(paciente);
-     
-     HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();     
-     return pacienteString;
-        
-        
+     }catch(HibernateException | JsonSyntaxException e){
+         System.out.println(e.getMessage());
+     }catch(Exception e){
+         System.out.println(e.getMessage());
+     }
+     finally{
+         HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();     
+         return pacienteResponse;
+     }
+    
+
+    
     }
+    
+ 
+
+    
     
         
         

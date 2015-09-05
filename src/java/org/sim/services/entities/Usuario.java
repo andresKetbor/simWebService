@@ -29,6 +29,8 @@ public class Usuario  implements java.io.Serializable {
      private Rol rol;
      private int dni;
      private String nombre;
+     private String usuario;
+     private String password;
      private Set<Mensaje> mensajesForIdUsuarioRemitente = new HashSet<Mensaje>(0);
      private Set<Mensaje> mensajesForIdUsuaruiDestinatario = new HashSet<Mensaje>(0);
 
@@ -89,6 +91,28 @@ public class Usuario  implements java.io.Serializable {
     
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    @Column(name="Usuario", nullable=false, length=25)
+    public String getUsuario() {
+        return usuario;
+    }
+
+    
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
+    @Column(name="Password", nullable=false, length=25)
+    public String getPassword() {
+        return password;
+    }
+
+    /**
+     * @param password the password to set
+     */
+    public void setPassword(String password) {
+        this.password = password;
     }
 
 @OneToMany(fetch=FetchType.LAZY, mappedBy="usuarioByIdUsuarioRemitente")

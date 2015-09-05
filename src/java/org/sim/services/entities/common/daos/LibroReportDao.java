@@ -12,7 +12,7 @@ public class LibroReportDao extends GenericDao<Libroreport> {
     }
 
     
-    public Libroreport findById(long id) {
+    public Libroreport findById(Integer id) {
         return super.findById(id);
     }
 

@@ -41,6 +41,8 @@ public class UsuarioResource{
         usuarioDto.setDni(usuario.getDni());
         usuarioDto.setIdUsuario(usuario.getIdUsuario());
         usuarioDto.setNombre(usuario.getNombre());
+        usuarioDto.setUsuario(usuario.getUsuario());
+        usuarioDto.setPassword(usuario.getPassword());
         usuarioDto.setRol(new RolDto(usuario.getRol().getIdRol()));
         
         return usuarioDto;
@@ -55,7 +57,9 @@ public class UsuarioResource{
         usuario.setDni(usuarioDto.getDni());
         usuario.setIdUsuario(usuarioDto.getIdUsuario());
         usuario.setNombre(usuarioDto.getNombre());
-        usuario.setRol(new Rol(usuario.getRol().getNombreRol(), usuarioDto.getRol().getIdRol()));
+        usuario.setUsuario(usuarioDto.getUsuario());
+        usuario.setPassword(usuarioDto.getPassword());
+        usuario.setRol(new Rol(usuarioDto.getRol().getIdRol()));
         
         return usuario;
         

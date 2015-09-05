@@ -12,6 +12,8 @@ public class UsuarioDto  implements java.io.Serializable {
      private RolDto rol;
      private int dni;
      private String nombre;
+     private String usuario;
+     private String password;
      
 
     public UsuarioDto() {
@@ -59,6 +61,34 @@ public class UsuarioDto  implements java.io.Serializable {
     
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    /**
+     * @return the usuario
+     */
+    public String getUsuario() {
+        return usuario;
+    }
+
+    /**
+     * @param usuario the usuario to set
+     */
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
+    /**
+     * @return the password
+     */
+    public String getPassword() {
+        return password;
+    }
+
+    /**
+     * @param password the password to set
+     */
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
 

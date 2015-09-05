@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -61,9 +62,9 @@ public class Libroreport  implements java.io.Serializable {
        this.ecgs = ecgs;
     }
    
-     @GenericGenerator(name="generator", strategy="foreign", parameters=@Parameter(name="property", value="paciente"))@Id @GeneratedValue(generator="generator")
+     //@GenericGenerator(name="generator", strategy="foreign", parameters=@Parameter(name="property", value="paciente"))@Id @GeneratedValue(generator="generator")
 
-    
+    @Id @GeneratedValue(strategy=IDENTITY)
     @Column(name="idLibroReport", unique=true, nullable=false)
     public Integer getIdLibroReport() {
         return this.idLibroReport;
