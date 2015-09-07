@@ -77,14 +77,16 @@ public class PacienteResource{
      
       pacienteDao.persist(getEntitieFromDto(pacienteDto));
      
-     
+     HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();     
+      
      }catch(HibernateException | JsonSyntaxException e){
          System.out.println(e.getMessage());
      }catch(Exception e){
          System.out.println(e.getMessage());
      }
      finally{
-         HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();     
+         
+     HibernateUtil.getSessionFactory().getCurrentSession().close();                       
      }
  }  
  
@@ -99,10 +101,14 @@ public class PacienteResource{
       Paciente paciente = pacienteDao.findById(id);
      
       pacienteDao.delete(paciente);
+      
+      HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();
      }catch(HibernateException e){
          System.out.println(e.getMessage());
      }finally{   
-     HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();     
+         
+     HibernateUtil.getSessionFactory().getCurrentSession().close();                  
+          
      }
  }     
  
@@ -119,13 +125,14 @@ public class PacienteResource{
      
      pacienteDao.merge(getEntitieFromDto(pacienteDto));
      
+     HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();
      }catch(HibernateException | JsonSyntaxException e){
          System.out.println(e.getMessage());
      }catch(Exception e){
          System.out.println(e.getMessage());
      }
      finally{
-         HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();     
+         HibernateUtil.getSessionFactory().getCurrentSession().close();                       
      }
      
  }
@@ -145,13 +152,15 @@ public class PacienteResource{
      
      pacienteResponse = gson.toJson(getDtoFromEntite(paciente));
      
+     HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();     
+     
      }catch(HibernateException | JsonSyntaxException e){
          System.out.println(e.getMessage());
      }catch(Exception e){
          System.out.println(e.getMessage());
      }
      finally{
-         HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();     
+         HibernateUtil.getSessionFactory().getCurrentSession().close();                       
          return pacienteResponse;
      }
     

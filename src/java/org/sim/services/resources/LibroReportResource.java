@@ -95,6 +95,7 @@ public class LibroReportResource {
         
       pacienteDao.persist(libroReport.getPaciente());
       
+      HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();
       
      }catch(HibernateException | JsonSyntaxException e){
          System.out.println(e.getMessage());
@@ -102,7 +103,7 @@ public class LibroReportResource {
          System.out.println(e.getMessage());
      }
      finally{
-         HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();     
+         HibernateUtil.getSessionFactory().getCurrentSession().close();         
      }
  }  
  
@@ -117,10 +118,12 @@ public class LibroReportResource {
       Libroreport libroreport = libroReportDao.findById(id);
      
       libroReportDao.delete(libroreport);
+      
+      HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();     
      }catch(HibernateException e){
          System.out.println(e.getMessage());
      }finally{   
-     HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();     
+     HibernateUtil.getSessionFactory().getCurrentSession().close();    
      }
  }     
  
@@ -143,6 +146,7 @@ public class LibroReportResource {
       
       pacienteDao.merge(libroReport.getPaciente());
       
+     HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();
      
      }catch(HibernateException | JsonSyntaxException e){
          System.out.println(e.getMessage());
@@ -150,7 +154,8 @@ public class LibroReportResource {
          System.out.println(e.getMessage());
      }
      finally{
-         HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();     
+        
+         HibernateUtil.getSessionFactory().getCurrentSession().close();              
      }
      
  }
@@ -170,13 +175,14 @@ public class LibroReportResource {
      
      libroReportResponse = gson.toJson(getDtoFromEntite(libroreport));
      
+     HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();
      }catch(HibernateException | JsonSyntaxException e){
          System.out.println(e.getMessage());
      }catch(Exception e){
          System.out.println(e.getMessage());
      }
      finally{
-         HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();     
+         HibernateUtil.getSessionFactory().getCurrentSession().close();              
          return libroReportResponse;
      }
     

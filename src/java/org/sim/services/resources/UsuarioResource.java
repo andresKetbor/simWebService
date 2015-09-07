@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package org.sim.services.resources;
 
 import com.google.gson.Gson;
@@ -22,20 +21,17 @@ import org.sim.services.entities.dtos.RolDto;
 import org.sim.services.entities.dtos.UsuarioDto;
 import org.sim.services.util.HibernateUtil;
 
-
 /**
  *
  * @author adengra
  */
- @Path("/UsuarioResource")
-public class UsuarioResource{
-     
-     UsuarioDao usuarioDao = new UsuarioDao();
-     
-     
-     
- private UsuarioDto getDtoFromEntite(Usuario usuario){
-        
+@Path("/UsuarioResource")
+public class UsuarioResource {
+
+    UsuarioDao usuarioDao = new UsuarioDao();
+
+    private UsuarioDto getDtoFromEntite(Usuario usuario) {
+
         UsuarioDto usuarioDto = new UsuarioDto();
         usuarioDto.setIdUsuario(usuario.getIdUsuario());
         usuarioDto.setDni(usuario.getDni());
@@ -44,14 +40,13 @@ public class UsuarioResource{
         usuarioDto.setUsuario(usuario.getUsuario());
         usuarioDto.setPassword(usuario.getPassword());
         usuarioDto.setRol(new RolDto(usuario.getRol().getIdRol()));
-        
+
         return usuarioDto;
-        
-    }    
-     
- 
- private Usuario getEntitieFromDto(UsuarioDto usuarioDto){
-        
+
+    }
+
+    private Usuario getEntitieFromDto(UsuarioDto usuarioDto) {
+
         Usuario usuario = new Usuario();
         usuario.setIdUsuario(usuarioDto.getIdUsuario());
         usuario.setDni(usuarioDto.getDni());
@@ -60,114 +55,112 @@ public class UsuarioResource{
         usuario.setUsuario(usuarioDto.getUsuario());
         usuario.setPassword(usuarioDto.getPassword());
         usuario.setRol(new Rol(usuarioDto.getRol().getIdRol()));
-        
+
         return usuario;
-        
-    }
- 
- 
- 
- 
-    
-    @POST   
- public void addUsuario(String usuarioRequest){
-     
-     try{
-      HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
-     
-      Gson gson = new Gson();
-     
-      UsuarioDto usuarioDto = gson.fromJson(usuarioRequest, UsuarioDto.class);
-     
-      usuarioDao.persist(getEntitieFromDto(usuarioDto));
-     
-     
-     }catch(HibernateException | JsonSyntaxException e){
-         System.out.println(e.getMessage());
-     }catch(Exception e){
-         System.out.println(e.getMessage());
-     }
-     finally{
-         HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();     
-     }
- }  
- 
- 
- 
- @DELETE  
- public void deleteUsuario(@QueryParam ("id") int id){
-     
-      HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
-     
-      Usuario usuario = usuarioDao.findById(id);
-     
-      usuarioDao.delete(usuario);
-     
-     HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();     
-     
- }     
- 
- 
- @PUT  
- public void updateUsuario(String usuarioRequest){
-     
-     try{ 
-     HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
-     
-      Gson gson = new Gson();
-     
-      UsuarioDto usuarioDto = gson.fromJson(usuarioRequest, UsuarioDto.class);
-     
-     usuarioDao.merge(getEntitieFromDto(usuarioDto));
-     
-     }catch(HibernateException | JsonSyntaxException e){
-         System.out.println(e.getMessage());
-     }catch(Exception e){
-         System.out.println(e.getMessage());
-     }
-     finally{
-         HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();     
-     }
-     
- }
- 
- 
-  @GET
-    public String getUsuario(@QueryParam ("id") int id){
-    
-     String usuarioResponse ="";   
-     try{   
-        
-     HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
-     
-     Gson gson = new Gson();
-     
-     Usuario usuario = usuarioDao.findById(id);
-     
-     usuarioResponse = gson.toJson(getDtoFromEntite(usuario));
-     
-     }catch(HibernateException | JsonSyntaxException e){
-         System.out.println(e.getMessage());
-     }catch(Exception e){
-         System.out.println(e.getMessage());
-     }
-     finally{
-         HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();     
-         return usuarioResponse;
-     }
-    
 
-    
     }
-    
- 
 
-    
-    
-        
-        
-        
-    
-    
-    
+    @POST
+    public void addUsuario(String usuarioRequest) {
+
+        try {
+            HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
+
+            Gson gson = new Gson();
+
+            UsuarioDto usuarioDto = gson.fromJson(usuarioRequest, UsuarioDto.class);
+
+            usuarioDao.persist(getEntitieFromDto(usuarioDto));
+
+            HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();
+
+        } catch (HibernateException | JsonSyntaxException e) {
+            System.out.println(e.getMessage());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+
+            HibernateUtil.getSessionFactory().getCurrentSession().close();
+
+        }
+    }
+
+    @DELETE
+    public void deleteUsuario(@QueryParam("id") int id) {
+
+        try {
+
+            HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
+
+            Usuario usuario = usuarioDao.findById(id);
+
+            usuarioDao.delete(usuario);
+
+            HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();
+
+        } catch (HibernateException | JsonSyntaxException e) {
+            System.out.println(e.getMessage());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+
+            HibernateUtil.getSessionFactory().getCurrentSession().close();
+        }
+
+    }
+
+    @PUT
+    public void updateUsuario(String usuarioRequest) {
+
+        try {
+            HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
+
+            Gson gson = new Gson();
+
+            UsuarioDto usuarioDto = gson.fromJson(usuarioRequest, UsuarioDto.class);
+
+            usuarioDao.merge(getEntitieFromDto(usuarioDto));
+
+            HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();
+
+        } catch (HibernateException | JsonSyntaxException e) {
+            System.out.println(e.getMessage());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+
+            HibernateUtil.getSessionFactory().getCurrentSession().close();
+
+        }
+
+    }
+
+    @GET
+    public String getUsuario(@QueryParam("id") int id) {
+
+        String usuarioResponse = "";
+        try {
+
+            HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
+
+            Gson gson = new Gson();
+
+            Usuario usuario = usuarioDao.findById(id);
+
+            usuarioResponse = gson.toJson(getDtoFromEntite(usuario));
+
+            HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();
+
+        } catch (HibernateException | JsonSyntaxException e) {
+            System.out.println(e.getMessage());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+
+            HibernateUtil.getSessionFactory().getCurrentSession().close();
+            return usuarioResponse;
+        }
+
+    }
+
 }

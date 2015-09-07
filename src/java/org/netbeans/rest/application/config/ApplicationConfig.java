@@ -30,6 +30,7 @@ public class ApplicationConfig extends Application {
      * If required, comment out calling this method in getClasses().
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
+        resources.add(org.sim.services.resources.EcgResource.class);
         resources.add(org.sim.services.resources.LibroReportResource.class);
         resources.add(org.sim.services.resources.MensajeResource.class);
         resources.add(org.sim.services.resources.NotaResource.class);

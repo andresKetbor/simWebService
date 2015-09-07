@@ -18,6 +18,16 @@ public class LibroreportDto  implements java.io.Serializable {
     public LibroreportDto() {
     }
 
+    
+    public LibroreportDto(Integer idLibroReport,Date fechaAlta, Date fechaBaja, String estado, PacienteDto paciente  ) {
+    
+    this.idLibroReport=idLibroReport;
+    this.fechaAlta = fechaAlta;
+    this.fechaBaja = fechaBaja;
+    this.estado = estado;
+    this.paciente = paciente;
+    
+    }
 	
     public LibroreportDto( Date fechaAlta, String estado) {
         this.fechaAlta = fechaAlta;
