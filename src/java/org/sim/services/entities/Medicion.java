@@ -6,7 +6,11 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -20,6 +24,7 @@ import javax.persistence.TemporalType;
 @Table(name="medicion"
     ,catalog="sim2"
 )
+@Inheritance(strategy=InheritanceType.JOINED)
 public class Medicion  implements java.io.Serializable {
 
 
@@ -32,10 +37,10 @@ public class Medicion  implements java.io.Serializable {
     }
 
 	
-    public Medicion(int idMedicion, Libroreport libroreport, Date fecha) {
-        this.idMedicion = idMedicion;
-        this.libroreport = libroreport;
+    public Medicion( Date fecha, String descripcion ) {
+  
         this.fecha = fecha;
+        this.descripcion = descripcion;
     }
     public Medicion(int idMedicion, Libroreport libroreport, Date fecha, String descripcion) {
        this.idMedicion = idMedicion;
@@ -44,9 +49,7 @@ public class Medicion  implements java.io.Serializable {
        this.descripcion = descripcion;
     }
    
-     @Id 
-
-    
+     @Id @GeneratedValue(strategy=IDENTITY)
     @Column(name="idMedicion", unique=true, nullable=false)
     public int getIdMedicion() {
         return this.idMedicion;

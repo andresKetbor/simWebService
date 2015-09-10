@@ -4,7 +4,7 @@ package org.sim.services.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 /**
@@ -14,32 +14,19 @@ import javax.persistence.Table;
 @Table(name="tensionarterial"
     ,catalog="sim2"
 )
-public class Tensionarterial  implements java.io.Serializable {
+@PrimaryKeyJoinColumn(name="idMedicion")
+public class Tensionarterial  extends Medicion {
 
 
-     private int idMedicion;
      private float tensionArterial;
 
     public Tensionarterial() {
     }
 
-    public Tensionarterial(int idMedicion, float tensionArterial) {
-       this.idMedicion = idMedicion;
+    public Tensionarterial(float tensionArterial) {
        this.tensionArterial = tensionArterial;
     }
    
-     @Id 
-
-    
-    @Column(name="idMedicion", unique=true, nullable=false)
-    public int getIdMedicion() {
-        return this.idMedicion;
-    }
-    
-    public void setIdMedicion(int idMedicion) {
-        this.idMedicion = idMedicion;
-    }
-
     
     @Column(name="TensionArterial", nullable=false, precision=12, scale=0)
     public float getTensionArterial() {

@@ -45,18 +45,18 @@ public class EcgResource {
         ecgDto.setEstado(ecg.getEstado());
         ecgDto.setPpm(ecg.getPpm());
         ecgDto.setCaptura(ecg.getCaptura());
-        ecgDto.setLibroreport(new LibroreportDto( ecg.getLibroreport().getIdLibroReport(),
+       /* ecgDto.setLibroreport(new LibroreportDto( ecg.getLibroreport().getIdLibroReport(),
                                            ecg.getLibroreport().getFechaAlta(),
                                            ecg.getLibroreport().getFechaBaja(),
                                            ecg.getLibroreport().getEstado(),
-                                           new PacienteDto(ecg.getLibroreport().getPaciente().getIdPaciente(),
+/*                                           new PacienteDto(ecg.getLibroreport().getPaciente().getIdPaciente(),
                                            ecg.getLibroreport().getPaciente().getNombre(),
                                            ecg.getLibroreport().getPaciente().getApellido(),
                                            ecg.getLibroreport().getPaciente().getDni(),
                                            ecg.getLibroreport().getPaciente().getEdad(),
                                            ecg.getLibroreport().getPaciente().getAltura(),
                                            ecg.getLibroreport().getPaciente().getPeso())
-                                                   ));
+                                                   ));*/
         
         return ecgDto;
         

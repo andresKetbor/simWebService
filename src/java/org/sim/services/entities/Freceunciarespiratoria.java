@@ -4,7 +4,7 @@ package org.sim.services.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 /**
@@ -14,32 +14,18 @@ import javax.persistence.Table;
 @Table(name="freceunciarespiratoria"
     ,catalog="sim2"
 )
-public class Freceunciarespiratoria  implements java.io.Serializable {
+@PrimaryKeyJoinColumn(name="idMedicion")
+public class Freceunciarespiratoria  extends Medicion {
 
-
-     private int idMedicion;
      private String freceunciaRespiratoria;
 
     public Freceunciarespiratoria() {
     }
 
-    public Freceunciarespiratoria(int idMedicion, String freceunciaRespiratoria) {
-       this.idMedicion = idMedicion;
+    public Freceunciarespiratoria(String freceunciaRespiratoria) {
        this.freceunciaRespiratoria = freceunciaRespiratoria;
     }
    
-     @Id 
-
-    
-    @Column(name="idMedicion", unique=true, nullable=false)
-    public int getIdMedicion() {
-        return this.idMedicion;
-    }
-    
-    public void setIdMedicion(int idMedicion) {
-        this.idMedicion = idMedicion;
-    }
-
     
     @Column(name="FreceunciaRespiratoria", nullable=false, length=20)
     public String getFreceunciaRespiratoria() {

@@ -8,6 +8,9 @@ package org.sim.services.resources;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -16,11 +19,18 @@ import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
 import org.hibernate.HibernateException;
 import org.sim.services.entities.Libroreport;
+import org.sim.services.entities.Medicion;
+import org.sim.services.entities.Nivelglucosa;
 import org.sim.services.entities.Paciente;
+import org.sim.services.entities.Temperatura;
 import org.sim.services.entities.common.daos.LibroReportDao;
+import org.sim.services.entities.common.daos.MedicionDao;
 import org.sim.services.entities.common.daos.PacienteDao;
 import org.sim.services.entities.dtos.LibroreportDto;
+import org.sim.services.entities.dtos.MedicionDto;
+import org.sim.services.entities.dtos.NivelglucosaDto;
 import org.sim.services.entities.dtos.PacienteDto;
+import org.sim.services.entities.dtos.TemperaturaDto;
 import org.sim.services.util.HibernateUtil;
 
 /**
@@ -33,7 +43,7 @@ public class LibroReportResource {
     
     private  LibroReportDao libroReportDao = new LibroReportDao(); 
     private PacienteDao pacienteDao = new PacienteDao();
-    
+    private MedicionDao medicionDao =  new MedicionDao();
     
  private LibroreportDto getDtoFromEntite(Libroreport libroreport){
         
@@ -70,13 +80,42 @@ public class LibroReportResource {
                                               libroreportDto.getPaciente().getEdad(),
                                               libroreportDto.getPaciente().getAltura(),
                                               libroreportDto.getPaciente().getPeso() ));
+      
+       Set<Medicion> medicionsEnt = new HashSet<Medicion>(0);
         
-        return libroreport;
+//       while(libroreportDto.getMedicions().iterator().hasNext()){
+        for ( Iterator iterador = libroreportDto.getMedicions().iterator(); iterador.hasNext(); ) {
+            
+            MedicionDto medDto =(MedicionDto) iterador.next(); 
+           
+           if( medDto.getTemperatura()!= null){
+            
+              Temperatura tempEnti = new Temperatura();
+              tempEnti.setFecha(medDto.getFecha());
+              tempEnti.setDescripcion(medDto.getDescripcion());
+              tempEnti.setTemperatura(medDto.getTemperatura());
+              medicionsEnt.add(tempEnti);
+           }else{
+               if(medDto.getGlucosa().isEmpty()){
+               
+              Nivelglucosa ngEnti = new Nivelglucosa();
+              ngEnti.setFecha(medDto.getFecha());
+              ngEnti.setDescripcion(medDto.getDescripcion());
+              ngEnti.setDosis(medDto.getDosis());
+              ngEnti.setGlucosa(medDto.getGlucosa());
+              medicionsEnt.add(ngEnti);
+               }
+           }   
+                
+        }
+       
+       libroreport.setMedicions(medicionsEnt);
+        
+       return libroreport;
         
     }
  
- 
- 
+
     @POST   
  public void addLibroReport(String libroReportRequest){
      
@@ -86,8 +125,8 @@ public class LibroReportResource {
       Gson gson = new Gson();
      
       LibroreportDto libroreportDto = gson.fromJson(libroReportRequest, LibroreportDto.class);
-     
-      Libroreport libroReport = getEntitieFromDto(libroreportDto);
+      
+     Libroreport libroReport = getEntitieFromDto(libroreportDto);
      
       libroReportDao.persist(libroReport);
      
@@ -145,6 +184,16 @@ public class LibroReportResource {
       libroReport.getPaciente().setIdPaciente(libroReport.getIdLibroReport());
       
       pacienteDao.merge(libroReport.getPaciente());
+      
+      
+    for ( Iterator iterador = libroReport.getMedicions().iterator(); iterador.hasNext(); ) {
+          
+            Medicion med =(Medicion) iterador.next();       
+            
+            med.setLibroreport(libroReport);     
+            
+            medicionDao.persist(med);
+    }
       
      HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();
      
