@@ -19,6 +19,9 @@ public class MedicionDto  implements java.io.Serializable {
      private String glucosa;
      private String dosis;
      private Float temperatura;
+     private String freceunciaRespiratoria;
+     private Float oxigenoEnSangre;
+     private Float tensionArterial;
 
     public MedicionDto() {
     }
@@ -111,6 +114,48 @@ public class MedicionDto  implements java.io.Serializable {
      */
     public void setTemperatura(Float temperatura) {
         this.temperatura = temperatura;
+    }
+
+    /**
+     * @return the freceunciaRespiratoria
+     */
+    public String getFreceunciaRespiratoria() {
+        return freceunciaRespiratoria;
+    }
+
+    /**
+     * @param freceunciaRespiratoria the freceunciaRespiratoria to set
+     */
+    public void setFreceunciaRespiratoria(String freceunciaRespiratoria) {
+        this.freceunciaRespiratoria = freceunciaRespiratoria;
+    }
+
+    /**
+     * @return the oxigenoEnSangre
+     */
+    public Float getOxigenoEnSangre() {
+        return oxigenoEnSangre;
+    }
+
+    /**
+     * @param oxigenoEnSangre the oxigenoEnSangre to set
+     */
+    public void setOxigenoEnSangre(Float oxigenoEnSangre) {
+        this.oxigenoEnSangre = oxigenoEnSangre;
+    }
+
+    /**
+     * @return the tensionArterial
+     */
+    public Float getTensionArterial() {
+        return tensionArterial;
+    }
+
+    /**
+     * @param tensionArterial the tensionArterial to set
+     */
+    public void setTensionArterial(Float tensionArterial) {
+        this.tensionArterial = tensionArterial;
     }
 
 

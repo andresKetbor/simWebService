@@ -18,11 +18,14 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
 import org.hibernate.HibernateException;
+import org.sim.services.entities.Freceunciarespiratoria;
 import org.sim.services.entities.Libroreport;
 import org.sim.services.entities.Medicion;
 import org.sim.services.entities.Nivelglucosa;
 import org.sim.services.entities.Paciente;
+import org.sim.services.entities.Saturometria;
 import org.sim.services.entities.Temperatura;
+import org.sim.services.entities.Tensionarterial;
 import org.sim.services.entities.common.daos.LibroReportDao;
 import org.sim.services.entities.common.daos.MedicionDao;
 import org.sim.services.entities.common.daos.PacienteDao;
@@ -60,7 +63,75 @@ public class LibroReportResource {
                                            libroreport.getPaciente().getAltura(),
                                            libroreport.getPaciente().getPeso()));
         
-        return libroreportDto;
+        
+       Set<MedicionDto> medicionsDto = new HashSet<MedicionDto>(0); 
+        
+        if(!libroreport.getMedicions().isEmpty()){
+       
+            for ( Iterator iterador = libroreport.getMedicions().iterator(); iterador.hasNext(); ) {
+            
+            
+                MedicionDto medDto = new MedicionDto();
+
+                Medicion medEnt =(Medicion) iterador.next(); 
+
+
+
+                if( medEnt instanceof Temperatura){
+
+                    Temperatura temp = (Temperatura) medEnt;
+                    medDto.setTemperatura(temp.getTemperatura());
+                    medDto.setDescripcion(temp.getDescripcion());
+                    medDto.setFecha(temp.getFecha());
+
+                }
+
+                if(medEnt instanceof Nivelglucosa) {
+
+                   Nivelglucosa ngEnti = (Nivelglucosa) medEnt;
+                   medDto.setFecha(ngEnti.getFecha());
+                   medDto.setDescripcion(ngEnti.getDescripcion());
+                   medDto.setDosis(ngEnti.getDosis());
+                   medDto.setGlucosa(ngEnti.getGlucosa());
+
+                    }
+
+                if(medEnt instanceof Freceunciarespiratoria) {
+
+                     Freceunciarespiratoria freEnti = (Freceunciarespiratoria) medEnt;
+                     medDto.setFecha(medEnt.getFecha());
+                     medDto.setDescripcion(medEnt.getDescripcion());
+                     medDto.setFreceunciaRespiratoria(medEnt.getDescripcion());
+
+                 }
+
+                 if(medEnt instanceof Saturometria){
+
+                     Saturometria saEnti = (Saturometria) medEnt; 
+                     medDto.setFecha(saEnti.getFecha());
+                     medDto.setDescripcion(saEnti.getDescripcion());  
+                     medDto.setOxigenoEnSangre(saEnti.getOxigenoEnSangre());
+
+                 }
+
+                 if(medEnt instanceof Tensionarterial){
+
+                   Tensionarterial tenEnti = (Tensionarterial) medEnt;
+                   medDto.setFecha(tenEnti.getFecha());
+                   medDto.setDescripcion(tenEnti.getDescripcion());  
+                   medDto.setTensionArterial(tenEnti.getTensionArterial());
+
+                 }
+                       
+             medicionsDto.add(medDto);
+        }
+                   
+    }
+              
+                
+       libroreportDto.setMedicions(medicionsDto);
+        
+       return libroreportDto;
         
     }    
      
@@ -84,7 +155,10 @@ public class LibroReportResource {
        Set<Medicion> medicionsEnt = new HashSet<Medicion>(0);
         
 //       while(libroreportDto.getMedicions().iterator().hasNext()){
-        for ( Iterator iterador = libroreportDto.getMedicions().iterator(); iterador.hasNext(); ) {
+        
+       if(!libroreportDto.getMedicions().isEmpty()){
+       
+       for ( Iterator iterador = libroreportDto.getMedicions().iterator(); iterador.hasNext(); ) {
             
             MedicionDto medDto =(MedicionDto) iterador.next(); 
            
@@ -96,7 +170,7 @@ public class LibroReportResource {
               tempEnti.setTemperatura(medDto.getTemperatura());
               medicionsEnt.add(tempEnti);
            }else{
-               if(medDto.getGlucosa().isEmpty()){
+               if((medDto.getGlucosa()!=null) && !(medDto.getGlucosa().isEmpty())) {
                
               Nivelglucosa ngEnti = new Nivelglucosa();
               ngEnti.setFecha(medDto.getFecha());
@@ -104,10 +178,42 @@ public class LibroReportResource {
               ngEnti.setDosis(medDto.getDosis());
               ngEnti.setGlucosa(medDto.getGlucosa());
               medicionsEnt.add(ngEnti);
+               }else{
+                   if( (medDto.getFreceunciaRespiratoria()!=null) &&  !(medDto.getFreceunciaRespiratoria().isEmpty())){
+                       
+                       Freceunciarespiratoria freEnti = new Freceunciarespiratoria();
+                       freEnti.setFecha(medDto.getFecha());
+                       freEnti.setDescripcion(medDto.getDescripcion());
+                       freEnti.setFreceunciaRespiratoria(medDto.getDescripcion());
+                       medicionsEnt.add(freEnti);
+                   }else{
+                       
+                       if(medDto.getOxigenoEnSangre()!=null){
+                           
+                           Saturometria saEnti = new Saturometria();
+                           saEnti.setFecha(medDto.getFecha());
+                           saEnti.setDescripcion(medDto.getDescripcion());  
+                           saEnti.setOxigenoEnSangre(medDto.getOxigenoEnSangre());
+                           medicionsEnt.add(saEnti);
+                       }else
+                           if(medDto.getTensionArterial()!=null){
+                               
+                             Tensionarterial tenEnti = new Tensionarterial();
+                             tenEnti.setFecha(medDto.getFecha());
+                             tenEnti.setDescripcion(medDto.getDescripcion());  
+                             tenEnti.setTensionArterial(medDto.getTensionArterial());
+                             medicionsEnt.add(tenEnti);  
+                               
+                           }
+                       
+                   }
+                   
                }
            }   
                 
         }
+       
+       }
        
        libroreport.setMedicions(medicionsEnt);
         

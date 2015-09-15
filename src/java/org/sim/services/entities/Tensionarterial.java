@@ -18,12 +18,12 @@ import javax.persistence.Table;
 public class Tensionarterial  extends Medicion {
 
 
-     private float tensionArterial;
+     private Float tensionArterial;
 
     public Tensionarterial() {
     }
 
-    public Tensionarterial(float tensionArterial) {
+    public Tensionarterial(Float tensionArterial) {
        this.tensionArterial = tensionArterial;
     }
    
@@ -33,7 +33,7 @@ public class Tensionarterial  extends Medicion {
         return this.tensionArterial;
     }
     
-    public void setTensionArterial(float tensionArterial) {
+    public void setTensionArterial(Float tensionArterial) {
         this.tensionArterial = tensionArterial;
     }
 
