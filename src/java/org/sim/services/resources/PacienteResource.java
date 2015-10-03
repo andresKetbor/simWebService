@@ -39,7 +39,6 @@ public class PacienteResource{
         pacienteDto.setApellido(paciente.getApellido());
         pacienteDto.setAltura(paciente.getAltura());
         paciente.setPeso(paciente.getPeso());
-        pacienteDto.setLibroreport(paciente.getLibroreport());
         
         return pacienteDto;
         
@@ -55,7 +54,6 @@ public class PacienteResource{
         paciente.setApellido(pacienteDto.getApellido());
         paciente.setEdad(pacienteDto.getEdad());
         paciente.setPeso(pacienteDto.getPeso());
-        paciente.setLibroreport(pacienteDto.getLibroreport());
         
         return paciente;
         

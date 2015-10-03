@@ -27,17 +27,17 @@ public class Mensaje  implements java.io.Serializable {
 
      private Integer idMensaje;
      private Alerta alerta;
-     private Usuario usuarioByIdUsuarioRemitente;
-     private Usuario usuarioByIdUsuaruiDestinatario;
+     private Usuario usuarioRemitente;
+     private Usuario usuarioDestinatario;
      private String texto;
 
     public Mensaje() {
     }
 
-    public Mensaje(Alerta alerta, Usuario usuarioByIdUsuarioRemitente, Usuario usuarioByIdUsuaruiDestinatario, String texto) {
+    public Mensaje(Alerta alerta, Usuario usuarioRemitente, Usuario usuarioDestinatario, String texto) {
        this.alerta = alerta;
-       this.usuarioByIdUsuarioRemitente = usuarioByIdUsuarioRemitente;
-       this.usuarioByIdUsuaruiDestinatario = usuarioByIdUsuaruiDestinatario;
+       this.usuarioRemitente = usuarioRemitente;
+       this.usuarioDestinatario = usuarioDestinatario;
        this.texto = texto;
     }
    
@@ -64,22 +64,22 @@ public class Mensaje  implements java.io.Serializable {
 
 @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="idUsuarioRemitente", nullable=false)
-    public Usuario getUsuarioByIdUsuarioRemitente() {
-        return this.usuarioByIdUsuarioRemitente;
+    public Usuario getUsuarioRemitente() {
+        return this.usuarioRemitente;
     }
     
-    public void setUsuarioByIdUsuarioRemitente(Usuario usuarioByIdUsuarioRemitente) {
-        this.usuarioByIdUsuarioRemitente = usuarioByIdUsuarioRemitente;
+    public void setUsuarioRemitente(Usuario usuarioRemitente) {
+        this.usuarioRemitente = usuarioRemitente;
     }
 
 @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="idUsuaruiDestinatario", nullable=false)
-    public Usuario getUsuarioByIdUsuaruiDestinatario() {
-        return this.usuarioByIdUsuaruiDestinatario;
+    public Usuario getUsuarioDestinatario() {
+        return this.usuarioDestinatario;
     }
     
-    public void setUsuarioByIdUsuaruiDestinatario(Usuario usuarioByIdUsuaruiDestinatario) {
-        this.usuarioByIdUsuaruiDestinatario = usuarioByIdUsuaruiDestinatario;
+    public void setUsuarioDestinatario(Usuario usuarioDestinatario) {
+        this.usuarioDestinatario = usuarioDestinatario;
     }
 
     

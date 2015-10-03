@@ -19,7 +19,7 @@ public class PacienteDto  implements java.io.Serializable {
      private Integer edad;
      private Float altura;
      private Float peso;
-     private Libroreport libroreport;
+     
    
 
     public PacienteDto() {
@@ -109,22 +109,6 @@ public class PacienteDto  implements java.io.Serializable {
     public void setIdPaciente(Integer idPaciente) {
         this.idPaciente = idPaciente;
     }
-
-    /**
-     * @return the libroreport
-     */
-    public Libroreport getLibroreport() {
-        return libroreport;
-    }
-
-    /**
-     * @param libroreport the libroreport to set
-     */
-    public void setLibroreport(Libroreport libroreport) {
-        this.libroreport = libroreport;
-    }
-
-
 
 }
 

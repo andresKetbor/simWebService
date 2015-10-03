@@ -115,7 +115,7 @@ public class Usuario  implements java.io.Serializable {
         this.password = password;
     }
 
-@OneToMany(fetch=FetchType.LAZY, mappedBy="usuarioByIdUsuarioRemitente")
+@OneToMany(fetch=FetchType.LAZY, mappedBy="usuarioRemitente")
     public Set<Mensaje> getMensajesForIdUsuarioRemitente() {
         return this.mensajesForIdUsuarioRemitente;
     }
@@ -124,7 +124,7 @@ public class Usuario  implements java.io.Serializable {
         this.mensajesForIdUsuarioRemitente = mensajesForIdUsuarioRemitente;
     }
 
-@OneToMany(fetch=FetchType.LAZY, mappedBy="usuarioByIdUsuaruiDestinatario")
+@OneToMany(fetch=FetchType.LAZY, mappedBy="usuarioDestinatario")
     public Set<Mensaje> getMensajesForIdUsuaruiDestinatario() {
         return this.mensajesForIdUsuaruiDestinatario;
     }
