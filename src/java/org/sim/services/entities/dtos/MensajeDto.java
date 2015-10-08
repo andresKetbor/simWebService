@@ -9,7 +9,6 @@ public class MensajeDto  implements java.io.Serializable {
 
 
      private Integer idMensaje;
-     private Alerta alerta;
      private UsuarioDto usuarioRemitente;
      private UsuarioDto usuaruiDestinatario;
      private String texto;
@@ -17,8 +16,8 @@ public class MensajeDto  implements java.io.Serializable {
     public MensajeDto() {
     }
 
-    public MensajeDto(Alerta alerta, UsuarioDto usuarioRemitente, UsuarioDto usuaruiDestinatario, String texto) {
-       this.alerta = alerta;
+    public MensajeDto( UsuarioDto usuarioRemitente, UsuarioDto usuaruiDestinatario, String texto) {
+       
        this.usuarioRemitente = usuarioRemitente;
        this.usuaruiDestinatario = usuaruiDestinatario;
        this.texto = texto;
@@ -31,15 +30,6 @@ public class MensajeDto  implements java.io.Serializable {
     
     public void setIdMensaje(Integer idMensaje) {
         this.idMensaje = idMensaje;
-    }
-
-
-    public Alerta getAlerta() {
-        return this.alerta;
-    }
-    
-    public void setAlerta(Alerta alerta) {
-        this.alerta = alerta;
     }
 
 

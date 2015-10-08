@@ -28,7 +28,7 @@ public class Alerta  implements java.io.Serializable {
 
      private Integer idAlerta;
      private Libroreport libroreport;
-     private String criticidad;
+     private Criticidad criticidad;
      private Date fecha;
      private Mensaje mensaje;
 
@@ -36,12 +36,12 @@ public class Alerta  implements java.io.Serializable {
     }
 
 	
-    public Alerta(Libroreport libroreport, String criticidad, Date fecha) {
+    public Alerta(Libroreport libroreport, Criticidad criticidad, Date fecha) {
         this.libroreport = libroreport;
         this.criticidad = criticidad;
         this.fecha = fecha;
     }
-    public Alerta(Libroreport libroreport, String criticidad, Date fecha, Mensaje mensaje) {
+    public Alerta(Libroreport libroreport, Criticidad criticidad, Date fecha, Mensaje mensaje) {
        this.libroreport = libroreport;
        this.criticidad = criticidad;
        this.fecha = fecha;
@@ -70,13 +70,13 @@ public class Alerta  implements java.io.Serializable {
         this.libroreport = libroreport;
     }
 
-    
-    @Column(name="Criticidad", nullable=false, length=25)
-    public String getCriticidad() {
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="idCriticidad", nullable=false)
+    public Criticidad getCriticidad() {
         return this.criticidad;
     }
     
-    public void setCriticidad(String criticidad) {
+    public void setCriticidad(Criticidad criticidad) {
         this.criticidad = criticidad;
     }
 

@@ -19,7 +19,13 @@ public class UsuarioDto  implements java.io.Serializable {
     public UsuarioDto() {
     }
 
-	
+	/**
+         * 
+         * @param rol
+         * @param dni
+         * @param nombre 
+         */
+    
     public UsuarioDto(RolDto rol, int dni, String nombre) {
         this.rol = rol;
         this.dni = dni;

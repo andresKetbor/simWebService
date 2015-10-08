@@ -28,6 +28,7 @@
     <mapping class="org.sim.services.entities.Alerta"/>
     <mapping class="org.sim.services.entities.Paciente"/>
     <mapping class="org.sim.services.entities.Tensionarterial"/>
+    <mapping class="org.sim.services.entities.Criticidad"/>
     <!--mapping class="org.sim.services.entities.common.GenericDao"/>
     <mapping class="org.sim.services.entities.common.daos.LibroReportDao"/>
     <mapping class="org.sim.services.entities.common.daos.VisitaDao"/>
