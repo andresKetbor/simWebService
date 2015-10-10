@@ -213,9 +213,10 @@ public class LibroReportResource {
                 
         }
        
+       libroreport.setMedicions(medicionsEnt);
        }
        
-       libroreport.setMedicions(medicionsEnt);
+       
         
        return libroreport;
         
@@ -336,7 +337,7 @@ public class LibroReportResource {
      }catch(Exception e){
          System.out.println(e.getMessage());
      }
-     finally{
+         finally{
          HibernateUtil.getSessionFactory().getCurrentSession().close();              
          return libroReportResponse;
      }
