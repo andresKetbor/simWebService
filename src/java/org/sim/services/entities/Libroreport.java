@@ -58,6 +58,15 @@ public class Libroreport  implements java.io.Serializable {
     }
     
     
+    public Libroreport(Integer idLibroReport,Paciente paciente, Date fechaAlta,  String estado) {
+        this.idLibroReport = idLibroReport;
+        this.paciente = paciente    ;
+        this.fechaAlta = fechaAlta;
+        this.estado = estado;
+    }
+    
+    
+    
     public Libroreport(Paciente paciente, Date fechaAlta, Date fechaBaja, String estado, Set<Medicion> medicions, Set<Alerta> alertas, Set<Administracionmedicamento> administracionmedicamentos, Set<Nota> notas, Set<Ecg> ecgs) {
        this.paciente = paciente;
        this.fechaAlta = fechaAlta;

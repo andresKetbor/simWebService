@@ -1,0 +1,7 @@
+AIzaSyDHs3Q5SOE4fIbYYmZzo17Dk96_Ita-eyg
+
+
+
+{"fechaAlta":"Oct 10, 2015 9:24:43 PM","fechaBaja":"Oct 10, 2015 9:24:43 PM",
+"estado":"Activo","paciente":{"idPaciente":0,"dni":26520999,"nombre":"Andres",
+"apellido":"Gonzalez","edad":40,"altura":1.8,"peso":90.0},"medicions":[]}

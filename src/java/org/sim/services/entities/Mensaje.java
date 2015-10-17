@@ -41,6 +41,12 @@ public class Mensaje  implements java.io.Serializable {
        this.texto = texto;
     }
    
+    public Mensaje(Usuario usuarioRemitente, Usuario usuarioDestinatario, String texto) {
+       this.usuarioRemitente = usuarioRemitente;
+       this.usuarioDestinatario = usuarioDestinatario;
+       this.texto = texto;
+    }
+    
      @GenericGenerator(name="generator", strategy="foreign", parameters=@Parameter(name="property", value="alerta"))@Id @GeneratedValue(generator="generator")
 
     

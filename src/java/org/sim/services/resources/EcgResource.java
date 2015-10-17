@@ -71,7 +71,7 @@ public class EcgResource {
         ecg.setEstado(ecgDto.getEstado());
         ecg.setPpm(ecgDto.getPpm());
         ecg.setCaptura(ecgDto.getCaptura());
-        ecg.setLibroreport(new Libroreport(ecgDto.getLibroreport().getIdLibroReport(),new Paciente(ecgDto.getLibroreport().getPaciente().getIdPaciente(),
+        ecg.setLibroreport(new Libroreport(ecgDto.getLibroreport().getIdLibroReport(),new Paciente(
                                                         ecgDto.getLibroreport().getPaciente().getNombre(),                            
                                                         ecgDto.getLibroreport().getPaciente().getApellido(),
                                                         ecgDto.getLibroreport().getPaciente().getDni(),
@@ -79,7 +79,6 @@ public class EcgResource {
                                                         ecgDto.getLibroreport().getPaciente().getAltura(),
                                                         ecgDto.getLibroreport().getPaciente().getPeso()),
                                                         ecgDto.getLibroreport().getFechaAlta(),
-                                                        ecgDto.getLibroreport().getFechaBaja(),
                                                         ecgDto.getLibroreport().getEstado()));
         
        

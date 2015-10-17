@@ -6,8 +6,8 @@
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
     <property name="hibernate.connection.url">jdbc:mysql://localhost/sim2</property>
     <property name="hibernate.connection.username">root</property>
-    <property name="hibernate.current_session_context_class">thread</property> 
-    <!--property name="hibernate.connection.password">nuevo_pass</property-->
+    <property name="hibernate.show_sql">true</property>
+    <property name="hibernate.current_session_context_class">thread</property>
     <mapping class="org.sim.services.entities.Administracionmedicamento"/>
     <mapping class="org.sim.services.entities.Freceunciarespiratoria"/>
     <mapping class="org.sim.services.entities.Saturometria"/>
@@ -29,11 +29,10 @@
     <mapping class="org.sim.services.entities.Paciente"/>
     <mapping class="org.sim.services.entities.Tensionarterial"/>
     <mapping class="org.sim.services.entities.Criticidad"/>
-    <!--mapping class="org.sim.services.entities.common.GenericDao"/>
-    <mapping class="org.sim.services.entities.common.daos.LibroReportDao"/>
-    <mapping class="org.sim.services.entities.common.daos.VisitaDao"/>
-    <mapping class="org.sim.services.entities.common.daos.PacienteDao"/>
-    <mapping class="org.sim.services.entities.common.daos.LogDao"/>
-    <mapping class="org.sim.services.entities.common.daos.UsuarioDao"/-->
+    <mapping class="org.sim.services.entities.Categoriarangoedad"/>
+    <mapping class="org.sim.services.entities.Valoresfrecuenciarespiratoria"/>
+    <mapping class="org.sim.services.entities.Valorestemperatura"/>
+    <mapping class="org.sim.services.entities.Valorestensionarterial"/>
+    
   </session-factory>
 </hibernate-configuration>

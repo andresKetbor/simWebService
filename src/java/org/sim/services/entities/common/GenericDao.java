@@ -6,13 +6,18 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.hibernate.Criteria;
 
 import org.hibernate.LockMode;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Criterion;
 
 import org.sim.services.util.HibernateUtil;
 import org.hibernate.criterion.Example;     
+import org.hibernate.criterion.LogicalExpression;
+import org.hibernate.criterion.Restrictions;
+import static org.jboss.weld.resources.ClassTransformer.instance;
 
 /**
  *
@@ -199,6 +204,26 @@ public abstract class GenericDao<T> {
             getLog().log(Level.SEVERE, "get failed", re);
             throw re;
         }
+    }
+    
+    public T  findByEdad(int edad) {
+        getLog().info("getting instance of " + this.getPersistentClass().getName() + " with id: ");
+        try {
+            
+            T instance  = (T)  getSession().createCriteria(this.getPersistentClass()).createCriteria("categoriarangoedad").add(Restrictions.le("edadMinima", edad)).add(Restrictions.ge("edadMaxima", edad)).uniqueResult();
+           
+                        
+            if (instance == null) {
+                getLog().info("get successful, no instance found");
+            } else {
+                getLog().info("get successful, instance found");
+            }
+            return instance;
+        } catch (RuntimeException re) {
+            getLog().log(Level.SEVERE, "get failed", re);
+            throw re;
+        }
+    
     }
     
     /**

@@ -31,9 +31,7 @@ import org.sim.services.entities.common.daos.MedicionDao;
 import org.sim.services.entities.common.daos.PacienteDao;
 import org.sim.services.entities.dtos.LibroreportDto;
 import org.sim.services.entities.dtos.MedicionDto;
-import org.sim.services.entities.dtos.NivelglucosaDto;
 import org.sim.services.entities.dtos.PacienteDto;
-import org.sim.services.entities.dtos.TemperaturaDto;
 import org.sim.services.util.HibernateUtil;
 
 /**
@@ -55,6 +53,7 @@ public class LibroReportResource {
         libroreportDto.setFechaAlta(libroreport.getFechaAlta());
         libroreportDto.setFechaBaja(libroreport.getFechaBaja());
         libroreportDto.setEstado(libroreport.getEstado());
+        
         libroreportDto.setPaciente(new PacienteDto( libroreport.getPaciente().getIdPaciente(),
                                            libroreport.getPaciente().getNombre(),
                                            libroreport.getPaciente().getApellido(),
@@ -152,6 +151,7 @@ public class LibroReportResource {
                                               libroreportDto.getPaciente().getAltura(),
                                               libroreportDto.getPaciente().getPeso() ));
       
+        
        Set<Medicion> medicionsEnt = new HashSet<Medicion>(0);
         
 //       while(libroreportDto.getMedicions().iterator().hasNext()){

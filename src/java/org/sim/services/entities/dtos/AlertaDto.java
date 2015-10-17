@@ -9,7 +9,7 @@ public class AlertaDto implements java.io.Serializable {
 
 
      private Integer idAlerta;
-     private LibroreportDto libroreportDto;
+     private Integer idLibroReport;
      private String criticidad;
      private Date fecha;
      private MensajeDto mensajeDto;
@@ -18,13 +18,12 @@ public class AlertaDto implements java.io.Serializable {
     }
 
 	
-    public AlertaDto(LibroreportDto libroreportDto, String criticidad, Date fecha) {
-        this.libroreportDto = libroreportDto;
+    public AlertaDto( String criticidad, Date fecha) {
         this.criticidad = criticidad;
         this.fecha = fecha;
     }
-    public AlertaDto(LibroreportDto libroreportDto, String criticidad, Date fecha, MensajeDto mensajeDto) {
-       this.libroreportDto = libroreportDto;
+    public AlertaDto(String criticidad, Date fecha, MensajeDto mensajeDto) {
+       
        this.criticidad = criticidad;
        this.fecha = fecha;
        this.mensajeDto = mensajeDto;
@@ -38,15 +37,6 @@ public class AlertaDto implements java.io.Serializable {
     public void setIdAlerta(Integer idAlerta) {
         this.idAlerta = idAlerta;
     }
-
-    public LibroreportDto getLibroreport() {
-        return this.libroreportDto;
-    }
-    
-    public void setLibroreportDto(LibroreportDto libroreportDto) {
-        this.libroreportDto = libroreportDto;
-    }
-
     
     public String getCriticidad() {
         return this.criticidad;
@@ -72,6 +62,20 @@ public class AlertaDto implements java.io.Serializable {
     
     public void setMensajeDto(MensajeDto mensajeDto) {
         this.mensajeDto = mensajeDto;
+    }
+
+    /**
+     * @return the idLibroReport
+     */
+    public Integer getIdLibroReport() {
+        return idLibroReport;
+    }
+
+    /**
+     * @param idLibroReport the idLibroReport to set
+     */
+    public void setIdLibroReport(Integer idLibroReport) {
+        this.idLibroReport = idLibroReport;
     }
 
 

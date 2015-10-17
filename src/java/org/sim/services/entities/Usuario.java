@@ -38,10 +38,12 @@ public class Usuario  implements java.io.Serializable {
     }
 
 	
-    public Usuario(Rol rol, int dni, String nombre) {
-        this.rol = rol;
-        this.dni = dni;
+    public Usuario(int idUsuario,String nombre,int dni,Rol rol) {
+        this.idUsuario = idUsuario;
         this.nombre = nombre;
+        this.dni = dni;
+        this.rol = rol;
+        
     }
     public Usuario(Rol rol, int dni, String nombre, Set<Mensaje> mensajesForIdUsuarioRemitente, Set<Mensaje> mensajesForIdUsuaruiDestinatario) {
        this.rol = rol;

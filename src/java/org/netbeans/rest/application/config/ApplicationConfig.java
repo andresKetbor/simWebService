@@ -36,6 +36,9 @@ public class ApplicationConfig extends Application {
         resources.add(org.sim.services.resources.NotaResource.class);
         resources.add(org.sim.services.resources.PacienteResource.class);
         resources.add(org.sim.services.resources.UsuarioResource.class);
+        resources.add(org.sim.services.resources.ValoresFrecuenciaRespiratoria.class);
+        resources.add(org.sim.services.resources.ValoresTemperaturaResource.class);
+        resources.add(org.sim.services.resources.ValoresTensionArterialResource.class);
     }
     
 }
