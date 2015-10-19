@@ -2,10 +2,16 @@ package org.sim.services.entities;
 // Generated Aug 22, 2015 1:16:11 PM by Hibernate Tools 4.3.1
 
 
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -29,6 +35,7 @@ public class Paciente  implements java.io.Serializable {
      private Float altura;
      private Float peso;
      private Libroreport libroreport;
+     private Set<Usuario> usuarios = new HashSet<Usuario>();
 
     public Paciente() {
     }
@@ -146,6 +153,22 @@ public class Paciente  implements java.io.Serializable {
     
     public void setLibroreport(Libroreport libroreport) {
         this.libroreport = libroreport;
+    }
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "usuariopaciente", catalog = "sim2", joinColumns = { 
+			@JoinColumn(name = "idPaciente", nullable = false, updatable = false) }, 
+			inverseJoinColumns = { @JoinColumn(name = "idUsuario", 
+					nullable = false, updatable = false) })
+    public Set<Usuario> getUsuarios() {
+        return usuarios;
+    }
+
+    /**
+     * @param usuarios the usuarios to set
+     */
+    public void setUsuarios(Set<Usuario> usuarios) {
+        this.usuarios = usuarios;
     }
 
 

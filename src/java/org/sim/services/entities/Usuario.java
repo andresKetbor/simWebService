@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -33,6 +34,7 @@ public class Usuario  implements java.io.Serializable {
      private String password;
      private Set<Mensaje> mensajesForIdUsuarioRemitente = new HashSet<Mensaje>(0);
      private Set<Mensaje> mensajesForIdUsuaruiDestinatario = new HashSet<Mensaje>(0);
+     private Set<Paciente> pacientes = new HashSet<>(0);
 
     public Usuario() {
     }
@@ -133,6 +135,17 @@ public class Usuario  implements java.io.Serializable {
     
     public void setMensajesForIdUsuaruiDestinatario(Set<Mensaje> mensajesForIdUsuaruiDestinatario) {
         this.mensajesForIdUsuaruiDestinatario = mensajesForIdUsuaruiDestinatario;
+    }
+
+    
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "usuarios")
+    public Set<Paciente> getPacientes() {
+        return pacientes;
+    }
+
+
+    public void setPacientes(Set<Paciente> pacientes) {
+        this.pacientes = pacientes;
     }
 
 
