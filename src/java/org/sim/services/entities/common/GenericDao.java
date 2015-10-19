@@ -3,21 +3,19 @@ package org.sim.services.entities.common;
 import static org.hibernate.criterion.Example.create;
 
 import java.io.Serializable;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.hibernate.Criteria;
 
 import org.hibernate.LockMode;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Criterion;
 
 import org.sim.services.util.HibernateUtil;
 import org.hibernate.criterion.Example;     
-import org.hibernate.criterion.LogicalExpression;
 import org.hibernate.criterion.Restrictions;
-import static org.jboss.weld.resources.ClassTransformer.instance;
 
 /**
  *
@@ -83,6 +81,19 @@ public abstract class GenericDao<T> {
             getLog().log(Level.SEVERE, "persist failed", re);
             throw re;
         }
+    }
+    
+    public void persist(Set<T> listInstance){
+        
+        Iterator<T> it = listInstance.iterator();
+        
+        while(it.hasNext()){
+            
+            T instance = (T) it.next();
+            
+            persist(instance);
+        }
+        
     }
 
     public void attachDirty(T instance) {

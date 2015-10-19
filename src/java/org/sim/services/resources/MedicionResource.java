@@ -11,27 +11,20 @@ import com.google.gson.JsonSyntaxException;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
-import javax.ws.rs.QueryParam;
 import org.hibernate.HibernateException;
 import org.sim.services.entities.Freceunciarespiratoria;
 import org.sim.services.entities.Libroreport;
 import org.sim.services.entities.Medicion;
 import org.sim.services.entities.Nivelglucosa;
-import org.sim.services.entities.Paciente;
 import org.sim.services.entities.Saturometria;
 import org.sim.services.entities.Temperatura;
 import org.sim.services.entities.Tensionarterial;
 import org.sim.services.entities.common.daos.LibroReportDao;
 import org.sim.services.entities.common.daos.MedicionDao;
-import org.sim.services.entities.common.daos.PacienteDao;
-import org.sim.services.entities.dtos.LibroreportDto;
 import org.sim.services.entities.dtos.MedicionDto;
-import org.sim.services.entities.dtos.PacienteDto;
+import org.sim.services.entities.dtos.MedicionesDto;
 import org.sim.services.util.HibernateUtil;
 
 /**
@@ -47,18 +40,24 @@ public class MedicionResource {
     
  
      
- private Medicion getEntitieFromDto(MedicionDto medDto){
+ private Set<Medicion> getEntitieFromDto(Set<MedicionDto> medecionsDto){
        
-      Medicion medicion=null;     
-          
-         if( medDto.getTemperatura()!= null){
+      
+      Set<Medicion> medicionsEnt = new HashSet<Medicion>(0);
+      Iterator<MedicionDto> it = medecionsDto.iterator();
+      
+      
+      while(it.hasNext()){
+      
+          MedicionDto medDto = (MedicionDto)it.next();
+         
+          if( medDto.getTemperatura()!= null){
             
               Temperatura tempEnti = new Temperatura();
               tempEnti.setFecha(medDto.getFecha());
               tempEnti.setDescripcion(medDto.getDescripcion());
               tempEnti.setTemperatura(medDto.getTemperatura());
-              
-              medicion = tempEnti;
+              medicionsEnt.add(tempEnti);
            }else{
                if((medDto.getGlucosa()!=null) && !(medDto.getGlucosa().isEmpty())) {
                
@@ -67,8 +66,8 @@ public class MedicionResource {
               ngEnti.setDescripcion(medDto.getDescripcion());
               ngEnti.setDosis(medDto.getDosis());
               ngEnti.setGlucosa(medDto.getGlucosa());
-              
-              medicion = ngEnti;
+              medicionsEnt.add(ngEnti);
+               
                }else{
                    if( (medDto.getFreceunciaRespiratoria()!=null) &&  !(medDto.getFreceunciaRespiratoria().isEmpty())){
                        
@@ -76,8 +75,7 @@ public class MedicionResource {
                        freEnti.setFecha(medDto.getFecha());
                        freEnti.setDescripcion(medDto.getDescripcion());
                        freEnti.setFreceunciaRespiratoria(medDto.getDescripcion());
-              
-                       medicion = freEnti;
+                       medicionsEnt.add(freEnti);
                    }else{
                        
                        if(medDto.getOxigenoEnSangre()!=null){
@@ -86,8 +84,7 @@ public class MedicionResource {
                            saEnti.setFecha(medDto.getFecha());
                            saEnti.setDescripcion(medDto.getDescripcion());  
                            saEnti.setOxigenoEnSangre(medDto.getOxigenoEnSangre());
-                           
-                           medicion = saEnti;
+                           medicionsEnt.add(saEnti);
               
                        }else{
                            if(medDto.getTensionArterial()!=null){
@@ -96,8 +93,7 @@ public class MedicionResource {
                              tenEnti.setFecha(medDto.getFecha());
                              tenEnti.setDescripcion(medDto.getDescripcion());  
                              tenEnti.setTensionArterial(medDto.getTensionArterial());
-                             
-                             medicion = tenEnti;
+                             medicionsEnt.add(tenEnti);
                            }
                        
                    }
@@ -106,8 +102,30 @@ public class MedicionResource {
            }   
                 
           }
-         return medicion;
+      }
+         return medicionsEnt;
  } 
+ 
+ 
+ 
+ 
+ private void setLibroReportToMediciones(Set<Medicion> mediciones, Libroreport libroreport){
+     
+     
+     
+     Iterator<Medicion> it = mediciones.iterator();
+     
+ 
+     while(it.hasNext()){
+     
+     Medicion medicion = (Medicion)it.next();
+     
+     medicion.setLibroreport(libroreport);
+     
+ }
+ 
+ 
+ }
     
  
  @POST   
@@ -118,15 +136,14 @@ public class MedicionResource {
      
       Gson gson = new Gson();
      
-      MedicionDto medicionDto = gson.fromJson(medicionRequest, MedicionDto.class);
+      MedicionesDto medicionesDto = gson.fromJson(medicionRequest, MedicionesDto.class);
       
-      Medicion medicion = getEntitieFromDto(medicionDto);
-     
-      Libroreport libroReport = libroReportDao.findById(medicionDto.getIdLibroreport());
-     
-      medicion.setLibroreport(libroReport);
+      Libroreport libroReport = libroReportDao.findById(medicionesDto.getIdLibroReport());
       
-      medicionDao.persist(medicion);
+      Set<Medicion> mediciones = getEntitieFromDto(medicionesDto.getMediciones());
+      setLibroReportToMediciones(mediciones, libroReport);
+      
+      medicionDao.persist(mediciones);
       
       
       HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();
