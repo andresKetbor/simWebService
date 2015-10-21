@@ -39,6 +39,7 @@ public class PacienteResource{
         pacienteDto.setApellido(paciente.getApellido());
         pacienteDto.setAltura(paciente.getAltura());
         paciente.setPeso(paciente.getPeso());
+        paciente.setEdad(paciente.getEdad());
         
         return pacienteDto;
         
