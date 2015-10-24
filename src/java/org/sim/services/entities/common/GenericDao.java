@@ -3,6 +3,7 @@ package org.sim.services.entities.common;
 import static org.hibernate.criterion.Example.create;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -147,6 +148,24 @@ public abstract class GenericDao<T> {
             throw re;
         }
     }
+    
+    
+   protected <E extends Serializable> Set<T> findListByListId(Set<E> ids){
+       
+       Set<T> instances = new HashSet<T>();
+       
+       Iterator<E> it = ids.iterator();
+       
+       while(it.hasNext()){
+           
+        E id = it.next();
+        T instance = findById(id);
+           
+           instances.add(instance);
+       }
+       return instances;
+   }  
+    
 
     @SuppressWarnings("unchecked")
     public List<T> findByExample(T instance) {

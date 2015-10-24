@@ -31,6 +31,7 @@ public class ApplicationConfig extends Application {
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(org.sim.services.resources.AlertaResource.class);
+        resources.add(org.sim.services.resources.AsignacionPacienteResource.class);
         resources.add(org.sim.services.resources.EcgResource.class);
         resources.add(org.sim.services.resources.LibroReportResource.class);
         resources.add(org.sim.services.resources.MedicionResource.class);

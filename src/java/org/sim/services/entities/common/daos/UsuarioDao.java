@@ -1,6 +1,7 @@
 package org.sim.services.entities.common.daos;
 
 
+import java.util.Set;
 import org.sim.services.entities.Usuario;
 import org.sim.services.entities.common.GenericDao;
 
@@ -18,7 +19,9 @@ public class UsuarioDao extends GenericDao<Usuario> {
     }
 
     
-
+   public Set<Usuario> findByListIds(Set<Integer> ids){
+       return super.findListByListId(ids);
+   }
 
   
     
