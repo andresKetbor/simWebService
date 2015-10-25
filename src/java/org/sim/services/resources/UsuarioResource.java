@@ -45,6 +45,8 @@ public class UsuarioResource {
         usuarioDto.setRol(new RolDto(usuario.getRol().getIdRol()));
 
         
+        if(usuario.getPacientes()!=null){
+        
         Iterator<Paciente> iter =usuario.getPacientes().iterator();
         
         while(iter.hasNext()){
@@ -64,7 +66,7 @@ public class UsuarioResource {
             
         }
         
-        
+        }
         
         return usuarioDto;
 

@@ -8,6 +8,9 @@ package org.sim.services.resources;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -16,8 +19,11 @@ import javax.ws.rs.DELETE;
 import javax.ws.rs.QueryParam;
 import org.hibernate.HibernateException;
 import org.sim.services.entities.Paciente;
+import org.sim.services.entities.Usuario;
 import org.sim.services.entities.common.daos.PacienteDao;
 import org.sim.services.entities.dtos.PacienteDto;
+import org.sim.services.entities.dtos.RolDto;
+import org.sim.services.entities.dtos.UsuarioDto;
 import org.sim.services.util.HibernateUtil;
 
 
@@ -40,6 +46,34 @@ public class PacienteResource{
         pacienteDto.setAltura(paciente.getAltura());
         paciente.setPeso(paciente.getPeso());
         paciente.setEdad(paciente.getEdad());
+        
+        
+        if(paciente.getUsuarios()!=null){
+        
+        Set<UsuarioDto> usuariosDto = new HashSet();
+        
+        Iterator<Usuario> it = paciente.getUsuarios().iterator();
+        
+        while(it.hasNext()){
+            
+            Usuario usuario = it.next();
+            UsuarioDto usuarioDto = new UsuarioDto();
+            usuarioDto.setIdUsuario(usuario.getIdUsuario());
+            usuarioDto.setDni(usuario.getDni());
+            usuarioDto.setIdUsuario(usuario.getIdUsuario());
+            usuarioDto.setNombre(usuario.getNombre());
+            usuarioDto.setUsuario(usuario.getUsuario());
+            usuarioDto.setPassword(usuario.getPassword());
+            usuarioDto.setRol(new RolDto(usuario.getRol().getIdRol()));
+            
+            
+            usuariosDto.add(usuarioDto);
+            
+        }
+        
+        pacienteDto.setUsuariosAsignados(usuariosDto);
+        
+        }
         
         return pacienteDto;
         

@@ -3,6 +3,7 @@ package org.sim.services.entities.dtos;
 
 import java.util.HashSet;
 import java.util.Set;
+import org.sim.services.entities.Usuario;
 
 
 
@@ -12,7 +13,9 @@ public class AsignacionPacienteDto implements java.io.Serializable {
      private Integer idPaciente;
      
      private Set<Integer> idsUsuario = new HashSet();
-
+     private Set<UsuarioDto> usuariosAsignados = new HashSet();
+     private Set<UsuarioDto> usuariosNoAsignados = new HashSet();
+     
     public AsignacionPacienteDto() {
     }
 
@@ -34,6 +37,34 @@ public class AsignacionPacienteDto implements java.io.Serializable {
     
     public void setIdsUsuario(Set<Integer> idsUsuario) {
         this.idsUsuario = idsUsuario;
+    }
+
+    /**
+     * @return the usuariosAsignados
+     */
+    public Set<UsuarioDto> getUsuariosAsignados() {
+        return usuariosAsignados;
+    }
+
+    /**
+     * @param usuariosAsignados the usuariosAsignados to set
+     */
+    public void setUsuariosAsignados(Set<UsuarioDto> usuariosAsignados) {
+        this.usuariosAsignados = usuariosAsignados;
+    }
+
+    /**
+     * @return the usuariosNoAsignados
+     */
+    public Set<UsuarioDto> getUsuariosNoAsignados() {
+        return usuariosNoAsignados;
+    }
+
+    /**
+     * @param usuariosNoAsignados the usuariosNoAsignados to set
+     */
+    public void setUsuariosNoAsignados(Set<UsuarioDto> usuariosNoAsignados) {
+        this.usuariosNoAsignados = usuariosNoAsignados;
     }
 
 	  

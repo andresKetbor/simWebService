@@ -1,7 +1,8 @@
 package org.sim.services.entities.dtos;
 // Generated 06/08/2015 15:00:36 by Hibernate Tools 3.6.0
 
-import org.sim.services.entities.Libroreport;
+import java.util.HashSet;
+import java.util.Set;
 
 
 /**
@@ -19,7 +20,8 @@ public class PacienteDto  implements java.io.Serializable {
      private Integer edad;
      private Float altura;
      private Float peso;
-     
+     private Set<UsuarioDto> usuariosAsignados = new HashSet();
+     private Set<UsuarioDto> usuariosNoAsignados = new HashSet<>();
    
 
     public PacienteDto() {
@@ -96,18 +98,34 @@ public class PacienteDto  implements java.io.Serializable {
         this.peso = peso;
     }
 
-    /**
-     * @return the idPaciente
-     */
+
     public Integer getIdPaciente() {
         return idPaciente;
     }
 
-    /**
-     * @param idPaciente the idPaciente to set
-     */
+
     public void setIdPaciente(Integer idPaciente) {
         this.idPaciente = idPaciente;
+    }
+
+    
+    public Set<UsuarioDto> getUsuariosAsignados() {
+        return usuariosAsignados;
+    }
+
+    
+    public void setUsuariosAsignados(Set<UsuarioDto> usuariosAsignados) {
+        this.usuariosAsignados = usuariosAsignados;
+    }
+
+    
+    public Set<UsuarioDto> getUsuariosNoAsignados() {
+        return usuariosNoAsignados;
+    }
+
+    
+    public void setUsuariosNoAsignados(Set<UsuarioDto> usuariosNoAsignados) {
+        this.usuariosNoAsignados = usuariosNoAsignados;
     }
 
 }
