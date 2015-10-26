@@ -11,6 +11,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -153,4 +154,36 @@ public class AsignacionPacienteResource {
 
     }
 
+    
+    
+    
+    
+    @DELETE
+    public String desasignarPaciente(@QueryParam("idPaciente") int idPaciente, @QueryParam("idUsuario") int idUsuario ) {
+
+        String pacientesAsignadosResponse = "";
+        try {
+
+            HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
+
+            Paciente paciente = pacienteDao.findById(idPaciente);
+            Usuario usuario = usuarioDao.findById(idUsuario);
+            
+            paciente.getUsuarios().remove(usuario);
+            
+            pacienteDao.persist(paciente);
+            
+           HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();
+
+        } catch (HibernateException | JsonSyntaxException e) {
+            System.out.println(e.getMessage());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+
+            HibernateUtil.getSessionFactory().getCurrentSession().close();
+            return pacientesAsignadosResponse;
+        }
+    
+    }
 }
