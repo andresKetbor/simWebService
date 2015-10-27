@@ -32,6 +32,7 @@ public class Usuario  implements java.io.Serializable {
      private String nombre;
      private String usuario;
      private String password;
+     private String mail;
      private Set<Mensaje> mensajesForIdUsuarioRemitente = new HashSet<Mensaje>(0);
      private Set<Mensaje> mensajesForIdUsuaruiDestinatario = new HashSet<Mensaje>(0);
      private Set<Paciente> pacientes = new HashSet<>(0);
@@ -146,6 +147,16 @@ public class Usuario  implements java.io.Serializable {
 
     public void setPacientes(Set<Paciente> pacientes) {
         this.pacientes = pacientes;
+    }
+
+    @Column(name="mail", nullable=false, length=100)
+    public String getMail() {
+        return mail;
+    }
+
+    
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 
 

@@ -43,7 +43,7 @@ public class UsuarioResource {
         usuarioDto.setUsuario(usuario.getUsuario());
         usuarioDto.setPassword(usuario.getPassword());
         usuarioDto.setRol(new RolDto(usuario.getRol().getIdRol()));
-
+        usuarioDto.setMail(usuario.getMail());
         
         if(usuario.getPacientes()!=null){
         
@@ -82,7 +82,7 @@ public class UsuarioResource {
         usuario.setUsuario(usuarioDto.getUsuario());
         usuario.setPassword(usuarioDto.getPassword());
         usuario.setRol(new Rol(usuarioDto.getRol().getIdRol()));
-
+        usuario.setMail(usuarioDto.getMail());
         return usuario;
 
     }

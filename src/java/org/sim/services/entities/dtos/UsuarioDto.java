@@ -18,6 +18,7 @@ public class UsuarioDto  implements java.io.Serializable {
      private String nombre;
      private String usuario;
      private String password;
+     private String mail;
      private Set<PacienteDto> pacientes = new HashSet<>();
      
 
@@ -110,6 +111,20 @@ public class UsuarioDto  implements java.io.Serializable {
     
     public void setPacientes(Set<PacienteDto> pacientes) {
         this.pacientes = pacientes;
+    }
+
+    /**
+     * @return the mail
+     */
+    public String getMail() {
+        return mail;
+    }
+
+    /**
+     * @param mail the mail to set
+     */
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 }
 
