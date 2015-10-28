@@ -1,11 +1,10 @@
 package org.sim.services.entities.common.daos;
 
-
+import java.util.ArrayList;
+import org.hibernate.Query;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
-import org.hibernate.criterion.Restrictions;
-import org.hibernate.sql.JoinType;
 import org.sim.services.entities.Paciente;
 import org.sim.services.entities.Usuario;
 import org.sim.services.entities.common.GenericDao;
@@ -34,12 +33,12 @@ public class UsuarioDao extends GenericDao<Usuario> {
         getLog().info("getting instance of " + this.getPersistentClass().getName() + " with id: ");
         try {
             
-            //List<Usuario> usuarios  = (List<Usuario>)  getSession().createCriteria(Usuario.class).createCriteria("pacientes").add(Restrictions.eq("idPaciente", paciente.getIdPaciente())).list();
-           
-            List<Usuario> usuarios  = (List<Usuario>)  getSession().createCriteria(Usuario.class).createCriteria("pacientes",JoinType.LEFT_OUTER_JOIN).add(Restrictions.or(Restrictions.ne("idPaciente", paciente.getIdPaciente()),Restrictions.isNull("idPaciente"))).list();
+             Query query = getSession().createQuery("Select u from Usuario as u where u.idUsuario not in ( select us.idUsuario from Usuario as us join us.pacientes as pa where pa.idPaciente =" + paciente.getIdPaciente() + ")");
             
-            
-            return usuarios;
+             List<Usuario> usuarios = (List<Usuario>) query.list();
+             
+             return usuarios;
+        
         } catch (RuntimeException re) {
             getLog().log(Level.SEVERE, "get failed", re);
             throw re;
