@@ -7,7 +7,12 @@
 package org.sim.services.resources;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonSyntaxException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -48,10 +53,16 @@ public class LibroReportResource {
     
  private LibroreportDto getDtoFromEntite(Libroreport libroreport){
         
+        SimpleDateFormat formateador = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+       
+        String fechaAlta =  formateador.format(libroreport.getFechaAlta());
+        String fechaBaja = formateador.format(libroreport.getFechaBaja());
+     
+     
         LibroreportDto libroreportDto = new LibroreportDto();
         libroreportDto.setIdLibroReport(libroreport.getIdLibroReport());
-        libroreportDto.setFechaAlta(libroreport.getFechaAlta());
-        libroreportDto.setFechaBaja(libroreport.getFechaBaja());
+        libroreportDto.setFechaAlta(fechaAlta);
+        libroreportDto.setFechaBaja(fechaBaja);
         libroreportDto.setEstado(libroreport.getEstado());
         
         libroreportDto.setPaciente(new PacienteDto( libroreport.getPaciente().getIdPaciente(),
@@ -78,17 +89,23 @@ public class LibroReportResource {
 
                 if( medEnt instanceof Temperatura){
 
+                    
+                    
                     Temperatura temp = (Temperatura) medEnt;
                     medDto.setTemperatura(temp.getTemperatura());
                     medDto.setDescripcion(temp.getDescripcion());
-                    medDto.setFecha(temp.getFecha());
+                    String fecha =formateador.format(temp.getFecha());
+                    
+                    medDto.setFecha(fecha);
 
                 }
 
                 if(medEnt instanceof Nivelglucosa) {
 
                    Nivelglucosa ngEnti = (Nivelglucosa) medEnt;
-                   medDto.setFecha(ngEnti.getFecha());
+                   String fecha =formateador.format(ngEnti.getFecha());
+                   
+                   medDto.setFecha(fecha);
                    medDto.setDescripcion(ngEnti.getDescripcion());
                    medDto.setDosis(ngEnti.getDosis());
                    medDto.setGlucosa(ngEnti.getGlucosa());
@@ -98,7 +115,9 @@ public class LibroReportResource {
                 if(medEnt instanceof Freceunciarespiratoria) {
 
                      Freceunciarespiratoria freEnti = (Freceunciarespiratoria) medEnt;
-                     medDto.setFecha(medEnt.getFecha());
+                     String fecha =formateador.format(freEnti.getFecha());
+                     
+                     medDto.setFecha(fecha);
                      medDto.setDescripcion(medEnt.getDescripcion());
                      medDto.setFreceunciaRespiratoria(medEnt.getDescripcion());
 
@@ -107,7 +126,8 @@ public class LibroReportResource {
                  if(medEnt instanceof Saturometria){
 
                      Saturometria saEnti = (Saturometria) medEnt; 
-                     medDto.setFecha(saEnti.getFecha());
+                     String fecha =formateador.format(saEnti.getFecha());
+                     medDto.setFecha(fecha);
                      medDto.setDescripcion(saEnti.getDescripcion());  
                      medDto.setOxigenoEnSangre(saEnti.getOxigenoEnSangre());
 
@@ -116,7 +136,8 @@ public class LibroReportResource {
                  if(medEnt instanceof Tensionarterial){
 
                    Tensionarterial tenEnti = (Tensionarterial) medEnt;
-                   medDto.setFecha(tenEnti.getFecha());
+                   String fecha =formateador.format(tenEnti.getFecha());
+                   medDto.setFecha(fecha);
                    medDto.setDescripcion(tenEnti.getDescripcion());  
                    medDto.setTensionArterial(tenEnti.getTensionArterial());
 
@@ -139,8 +160,8 @@ public class LibroReportResource {
         
         Libroreport libroreport = new Libroreport();
         libroreport.setIdLibroReport(libroreportDto.getIdLibroReport());
-        libroreport.setFechaAlta(libroreportDto.getFechaAlta());
-        libroreport.setFechaBaja(libroreportDto.getFechaBaja());
+        libroreport.setFechaAlta(new Date(libroreportDto.getFechaAlta()));
+        libroreport.setFechaBaja( new Date(libroreportDto.getFechaBaja()));
         libroreport.setEstado(libroreportDto.getEstado());
         
         libroreport.setPaciente(new Paciente( 
@@ -165,7 +186,7 @@ public class LibroReportResource {
            if( medDto.getTemperatura()!= null){
             
               Temperatura tempEnti = new Temperatura();
-              tempEnti.setFecha(medDto.getFecha());
+              tempEnti.setFecha(new Date(medDto.getFecha()));
               tempEnti.setDescripcion(medDto.getDescripcion());
               tempEnti.setTemperatura(medDto.getTemperatura());
               medicionsEnt.add(tempEnti);
@@ -173,7 +194,7 @@ public class LibroReportResource {
                if((medDto.getGlucosa()!=null) && !(medDto.getGlucosa().isEmpty())) {
                
               Nivelglucosa ngEnti = new Nivelglucosa();
-              ngEnti.setFecha(medDto.getFecha());
+              ngEnti.setFecha(new Date(medDto.getFecha()));
               ngEnti.setDescripcion(medDto.getDescripcion());
               ngEnti.setDosis(medDto.getDosis());
               ngEnti.setGlucosa(medDto.getGlucosa());
@@ -182,7 +203,7 @@ public class LibroReportResource {
                    if( (medDto.getFreceunciaRespiratoria()!=null) &&  !(medDto.getFreceunciaRespiratoria().isEmpty())){
                        
                        Freceunciarespiratoria freEnti = new Freceunciarespiratoria();
-                       freEnti.setFecha(medDto.getFecha());
+                       freEnti.setFecha(new Date(medDto.getFecha()));
                        freEnti.setDescripcion(medDto.getDescripcion());
                        freEnti.setFreceunciaRespiratoria(medDto.getDescripcion());
                        medicionsEnt.add(freEnti);
@@ -191,7 +212,7 @@ public class LibroReportResource {
                        if(medDto.getOxigenoEnSangre()!=null){
                            
                            Saturometria saEnti = new Saturometria();
-                           saEnti.setFecha(medDto.getFecha());
+                           saEnti.setFecha(new Date(medDto.getFecha()));
                            saEnti.setDescripcion(medDto.getDescripcion());  
                            saEnti.setOxigenoEnSangre(medDto.getOxigenoEnSangre());
                            medicionsEnt.add(saEnti);
@@ -199,7 +220,7 @@ public class LibroReportResource {
                            if(medDto.getTensionArterial()!=null){
                                
                              Tensionarterial tenEnti = new Tensionarterial();
-                             tenEnti.setFecha(medDto.getFecha());
+                             tenEnti.setFecha(new Date(medDto.getFecha()));
                              tenEnti.setDescripcion(medDto.getDescripcion());  
                              tenEnti.setTensionArterial(medDto.getTensionArterial());
                              medicionsEnt.add(tenEnti);  
@@ -328,7 +349,7 @@ public class LibroReportResource {
      Gson gson = new Gson();
      
      Libroreport libroreport = libroReportDao.findById(id);
-     
+    
      libroReportResponse = gson.toJson(getDtoFromEntite(libroreport));
      
      HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();

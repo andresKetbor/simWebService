@@ -8,6 +8,7 @@ package org.sim.services.resources;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import java.util.Date;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -21,8 +22,6 @@ import org.sim.services.entities.Paciente;
 import org.sim.services.entities.common.daos.EcgDao;
 import org.sim.services.entities.common.daos.LibroReportDao;
 import org.sim.services.entities.dtos.EcgDto;
-import org.sim.services.entities.dtos.LibroreportDto;
-import org.sim.services.entities.dtos.PacienteDto;
 import org.sim.services.util.HibernateUtil;
 
 /**
@@ -78,7 +77,7 @@ public class EcgResource {
                                                         ecgDto.getLibroreport().getPaciente().getEdad(),
                                                         ecgDto.getLibroreport().getPaciente().getAltura(),
                                                         ecgDto.getLibroreport().getPaciente().getPeso()),
-                                                        ecgDto.getLibroreport().getFechaAlta(),
+                                                       new Date(ecgDto.getLibroreport().getFechaAlta()),
                                                         ecgDto.getLibroreport().getEstado()));
         
        

@@ -55,7 +55,7 @@ public class AsignacionPacienteResource {
          usuarioDto.setUsuario(usuario.getUsuario());
          usuarioDto.setPassword(usuario.getPassword());
          usuarioDto.setRol(new RolDto(usuario.getRol().getIdRol()));
-         
+         usuarioDto.setMail(usuario.getMail());
          usuariosAsignados.add(usuarioDto);
 
     }    
@@ -123,8 +123,7 @@ public class AsignacionPacienteResource {
             Paciente paciente = pacienteDao.findById(id);
             
             Set<Usuario> pacientes = paciente.getUsuarios();
-            
-            
+                        
             Set<UsuarioDto> usuariosAsignadosDto = getDtoFromEntite(paciente.getUsuarios());
             
             List<Usuario> usuariosNoAsignados = usuarioDao.findByNotPaciente(paciente);
