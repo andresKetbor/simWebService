@@ -5,6 +5,7 @@ import org.hibernate.Query;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
+import org.hibernate.criterion.Restrictions;
 import org.sim.services.entities.Paciente;
 import org.sim.services.entities.Usuario;
 import org.sim.services.entities.common.GenericDao;
@@ -47,5 +48,12 @@ public class UsuarioDao extends GenericDao<Usuario> {
     }
    
    
-    
+   public Usuario  findUsuarioByUsr(String usr ) {
+   
+       
+       Usuario usuario = (Usuario) getSession().createCriteria(Usuario.class).add(Restrictions.eq("usuario", usr)).uniqueResult();
+ 
+       
+       return usuario;
+   }
 }
