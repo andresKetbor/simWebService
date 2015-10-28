@@ -163,7 +163,7 @@ public class UsuarioResource {
     }
 
     @GET
-    public String getUsuario(@QueryParam("id") int id) {
+    public String getUsuario(@QueryParam("usuario") String usr) {
 
         String usuarioResponse = "";
         try {
@@ -172,7 +172,7 @@ public class UsuarioResource {
 
             Gson gson = new Gson();
 
-            Usuario usuario = usuarioDao.findById(id);
+            Usuario usuario = usuarioDao.findUsuarioByUsr(usr);
 
             usuarioResponse = gson.toJson(getDtoFromEntite(usuario));
 
