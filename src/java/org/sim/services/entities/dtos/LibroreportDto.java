@@ -12,8 +12,8 @@ public class LibroreportDto  implements java.io.Serializable {
 
 
      private Integer idLibroReport;
-     private Date fechaAlta;
-     private Date fechaBaja;
+     private String fechaAlta;
+     private String fechaBaja;
      private String estado;
      private PacienteDto paciente;
      private Set<MedicionDto> medicions = new HashSet<MedicionDto>(0);
@@ -23,7 +23,7 @@ public class LibroreportDto  implements java.io.Serializable {
     }
 
     
-    public LibroreportDto(Integer idLibroReport,Date fechaAlta, Date fechaBaja, String estado, PacienteDto paciente  ) {
+    public LibroreportDto(Integer idLibroReport,String fechaAlta, String fechaBaja, String estado, PacienteDto paciente  ) {
     
     this.idLibroReport=idLibroReport;
     this.fechaAlta = fechaAlta;
@@ -33,7 +33,7 @@ public class LibroreportDto  implements java.io.Serializable {
     
     }
 	
-    public LibroreportDto( Date fechaAlta, String estado) {
+    public LibroreportDto( String fechaAlta, String estado) {
         this.fechaAlta = fechaAlta;
         this.estado = estado;
     }
@@ -47,20 +47,20 @@ public class LibroreportDto  implements java.io.Serializable {
         this.idLibroReport = idLibroReport;
     }
     
-    public Date getFechaAlta() {
+    public String getFechaAlta() {
         return this.fechaAlta;
     }
     
-    public void setFechaAlta(Date fechaAlta) {
+    public void setFechaAlta(String fechaAlta) {
         this.fechaAlta = fechaAlta;
     }
 
     
-    public Date getFechaBaja() {
+    public String getFechaBaja() {
         return this.fechaBaja;
     }
     
-    public void setFechaBaja(Date fechaBaja) {
+    public void setFechaBaja(String fechaBaja) {
         this.fechaBaja = fechaBaja;
     }
 

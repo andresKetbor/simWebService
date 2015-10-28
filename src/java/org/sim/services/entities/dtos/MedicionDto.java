@@ -14,7 +14,7 @@ public class MedicionDto  implements java.io.Serializable {
 
      private Integer idMedicion;
      private Integer idLibroReport;
-     private Date fecha;
+     private String fecha;
      private String descripcion;
      private String glucosa;
      private String dosis;
@@ -27,12 +27,12 @@ public class MedicionDto  implements java.io.Serializable {
     }
 
 	
-    public MedicionDto(Integer idMedicion, Integer idLibroreport, Date fecha) {
+    public MedicionDto(Integer idMedicion, Integer idLibroreport, String fecha) {
         this.idMedicion = idMedicion;
         this.idLibroReport = idLibroreport;
         this.fecha = fecha;
     }
-    public MedicionDto(Integer idMedicion, Integer idLibroreport, Date fecha, String descripcion) {
+    public MedicionDto(Integer idMedicion, Integer idLibroreport, String fecha, String descripcion) {
        this.idMedicion = idMedicion;
        this.idLibroReport = idLibroreport;
        this.fecha = fecha;
@@ -57,11 +57,11 @@ public class MedicionDto  implements java.io.Serializable {
     }
 
 
-    public Date getFecha() {
+    public String getFecha() {
         return this.fecha;
     }
     
-    public void setFecha(Date fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 
