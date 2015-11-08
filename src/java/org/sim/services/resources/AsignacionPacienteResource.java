@@ -93,7 +93,8 @@ public class AsignacionPacienteResource {
             
             Paciente paciente = pacienteDao.findById(asignacionPacienteDto.getIdPaciente());
             
-             paciente.setUsuarios(usuarios);
+            paciente.getUsuarios().addAll((Set)usuarios);
+             //paciente.setUsuarios(usuarios);
  
              pacienteDao.persist(paciente);
              
