@@ -24,6 +24,7 @@ import org.sim.services.entities.Rol;
 import org.sim.services.entities.Usuario;
 import org.sim.services.entities.common.daos.AlertaDao;
 import org.sim.services.entities.common.daos.LibroReportDao;
+import org.sim.services.entities.dtos.AlertaApiDto;
 import org.sim.services.entities.dtos.AlertaDto;
 import org.sim.services.entities.dtos.MensajeDto;
 import org.sim.services.entities.dtos.RolDto;
@@ -87,15 +88,26 @@ public class AlertaResource {
      Gson gson = new Gson();
      
      try{
-     String mensaje = gson.toJson(alerta);
-            
+       
+         AlertaApiDto alertaApiDto = new AlertaApiDto();
+         
+         alertaApiDto.setMessage(alerta.getMensajeDto().getTexto());
+         alertaApiDto.setRegistrationIdsToSend(alerta.getMensajeDto().getIdUsuarioDestinatario().getMensajeRegId());
+         
+         String mensaje = gson.toJson(alerta);
+     
+     
+     
      URL url = new URL("https://gcm-http.googleapis.com/gcm/send");
              
      connection = (HttpURLConnection) url.openConnection();
      connection.setRequestMethod("POST");
-     connection.setRequestProperty("Authorization", "Key=AIzaSyDHs3Q5SOE4fIbYYmZzo17Dk96_Ita-eyg");
+     connection.setRequestProperty("Authorization", "Key=AIzaSyBkOtEYmM5QXhtOW0cFQdwUXDiWGARErCA");
      connection.setRequestProperty("Content-Type", "text/json");
          
+     // ide del proyecto en las api de google proyecto-sim
+     
+     
      connection.setDoOutput(true);
      connection.setDoInput(true);
          
@@ -138,12 +150,14 @@ public class AlertaResource {
     @POST   
  public void addAlerta(String alertaRequest){
      
+     AlertaDto alertaDto =null;
+     
      try{
       HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
      
       Gson gson = new Gson();
      
-      AlertaDto alertaDto = gson.fromJson(alertaRequest, AlertaDto.class);
+      alertaDto = gson.fromJson(alertaRequest, AlertaDto.class);
      
       Alerta alerta = getEntitieFromDto(alertaDto);
      
@@ -155,12 +169,22 @@ public class AlertaResource {
       HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();     
       
      }catch(HibernateException | JsonSyntaxException e){
+         
+         if(alertaDto == null){
+         
+          /*alertaDto = new AlertaDto();
+          alertaDto.*/
          System.out.println(e.getMessage());
+         
+         }
+         
+         
      }catch(Exception e){
          System.out.println(e.getMessage());
      }
      finally{
          HibernateUtil.getSessionFactory().getCurrentSession().close();
+     
      }
  }  
  

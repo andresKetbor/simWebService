@@ -6,7 +6,7 @@ import org.sim.services.entities.Libroreport;
 
 
 
-public class EcgDto  implements java.io.Serializable {
+public class EcgDto extends CommonDto implements java.io.Serializable {
 
 
      private Integer idEcg;

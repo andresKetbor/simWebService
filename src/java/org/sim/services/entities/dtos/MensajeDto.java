@@ -5,21 +5,21 @@ package org.sim.services.entities.dtos;
 import org.sim.services.entities.*;
 
 
-public class MensajeDto  implements java.io.Serializable {
+public class MensajeDto extends CommonDto implements java.io.Serializable {
 
 
      private Integer idMensaje;
      private UsuarioDto usuarioRemitente;
-     private UsuarioDto usuaruiDestinatario;
+     private UsuarioDto usuarioDestinatario;
      private String texto;
 
     public MensajeDto() {
     }
 
-    public MensajeDto( UsuarioDto usuarioRemitente, UsuarioDto usuaruiDestinatario, String texto) {
+    public MensajeDto( UsuarioDto usuarioRemitente, UsuarioDto usuarioDestinatario, String texto) {
        
        this.usuarioRemitente = usuarioRemitente;
-       this.usuaruiDestinatario = usuaruiDestinatario;
+       this.usuarioDestinatario = usuarioDestinatario;
        this.texto = texto;
     }
    
@@ -42,12 +42,12 @@ public class MensajeDto  implements java.io.Serializable {
     }
 
 
-    public UsuarioDto UsuaruiDestinatario() {
-        return this.usuaruiDestinatario;
+    public UsuarioDto getIdUsuarioDestinatario() {
+        return this.usuarioDestinatario;
     }
     
-    public void setidUsuaruiDestinatario(UsuarioDto usuaruiDestinatario) {
-        this.usuaruiDestinatario = usuaruiDestinatario;
+    public void setIdUsuaruiDestinatario(UsuarioDto usuaruiDestinatario) {
+        this.usuarioDestinatario = usuaruiDestinatario;
     }
 
     

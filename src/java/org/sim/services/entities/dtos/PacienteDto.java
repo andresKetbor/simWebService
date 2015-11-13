@@ -10,7 +10,7 @@ import java.util.Set;
  */
 
 
-public class PacienteDto  implements java.io.Serializable {
+public class PacienteDto extends CommonDto implements java.io.Serializable {
 
 
      private Integer idPaciente;

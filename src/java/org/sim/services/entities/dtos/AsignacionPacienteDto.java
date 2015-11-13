@@ -7,7 +7,7 @@ import org.sim.services.entities.Usuario;
 
 
 
-public class AsignacionPacienteDto implements java.io.Serializable {
+public class AsignacionPacienteDto extends CommonDto implements java.io.Serializable {
 
 
      private Integer idPaciente;
@@ -15,6 +15,7 @@ public class AsignacionPacienteDto implements java.io.Serializable {
      private Set<Integer> idsUsuario = new HashSet();
      private Set<UsuarioDto> usuariosAsignados = new HashSet();
      private Set<UsuarioDto> usuariosNoAsignados = new HashSet();
+     
      
     public AsignacionPacienteDto() {
     }
@@ -67,5 +68,5 @@ public class AsignacionPacienteDto implements java.io.Serializable {
         this.usuariosNoAsignados = usuariosNoAsignados;
     }
 
-	  
+    	  
 }

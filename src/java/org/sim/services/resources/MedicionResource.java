@@ -70,7 +70,7 @@ public class MedicionResource {
               medicionsEnt.add(ngEnti);
                
                }else{
-                   if( (medDto.getFreceunciaRespiratoria()!=null) &&  !(medDto.getFreceunciaRespiratoria().isEmpty())){
+                   if( (medDto.getFrecuenciaRespiratoria()!=null) &&  !(medDto.getFrecuenciaRespiratoria().isEmpty())){
                        
                        Freceunciarespiratoria freEnti = new Freceunciarespiratoria();
                        freEnti.setFecha(new Date(medDto.getFecha()));

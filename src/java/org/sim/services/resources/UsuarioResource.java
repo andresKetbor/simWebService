@@ -44,6 +44,7 @@ public class UsuarioResource {
         usuarioDto.setPassword(usuario.getPassword());
         usuarioDto.setRol(new RolDto(usuario.getRol().getIdRol()));
         usuarioDto.setMail(usuario.getMail());
+        //usuarioDto.setMensajeRegId(usuario.getMensajeRegId());
         
         if(usuario.getPacientes()!=null){
         
@@ -83,6 +84,7 @@ public class UsuarioResource {
         usuario.setPassword(usuarioDto.getPassword());
         usuario.setRol(new Rol(usuarioDto.getRol().getIdRol()));
         usuario.setMail(usuarioDto.getMail());
+        //usuario.setMensajeRegId(usuarioDto.getMensajeRegId());
         return usuario;
 
     }
@@ -163,7 +165,7 @@ public class UsuarioResource {
     }
 
     @GET
-    public String getUsuario(@QueryParam("usuario") String usr) {
+    public String getUsuario(@QueryParam("usuario") String usuarioRequest) {
 
         String usuarioResponse = "";
         try {
@@ -172,7 +174,7 @@ public class UsuarioResource {
 
             Gson gson = new Gson();
 
-            Usuario usuario = usuarioDao.findUsuarioByUsr(usr);
+            Usuario usuario = usuarioDao.findUsuarioByUsr(usuarioRequest);
 
             usuarioResponse = gson.toJson(getDtoFromEntite(usuario));
 

@@ -119,7 +119,7 @@ public class LibroReportResource {
                      
                      medDto.setFecha(fecha);
                      medDto.setDescripcion(medEnt.getDescripcion());
-                     medDto.setFreceunciaRespiratoria(medEnt.getDescripcion());
+                     medDto.setFrecuenciaRespiratoria(medEnt.getDescripcion());
 
                  }
 
@@ -200,7 +200,7 @@ public class LibroReportResource {
               ngEnti.setGlucosa(medDto.getGlucosa());
               medicionsEnt.add(ngEnti);
                }else{
-                   if( (medDto.getFreceunciaRespiratoria()!=null) &&  !(medDto.getFreceunciaRespiratoria().isEmpty())){
+                   if( (medDto.getFrecuenciaRespiratoria()!=null) &&  !(medDto.getFrecuenciaRespiratoria().isEmpty())){
                        
                        Freceunciarespiratoria freEnti = new Freceunciarespiratoria();
                        freEnti.setFecha(new Date(medDto.getFecha()));
@@ -245,14 +245,16 @@ public class LibroReportResource {
  
 
     @POST   
- public void addLibroReport(String libroReportRequest){
+ public String addLibroReport(String libroReportRequest){
      
+     LibroreportDto libroreportDto=null;
+     Gson gson = null;
      try{
       HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
      
-      Gson gson = new Gson();
+      gson = new Gson();
      
-      LibroreportDto libroreportDto = gson.fromJson(libroReportRequest, LibroreportDto.class);
+      libroreportDto = gson.fromJson(libroReportRequest, LibroreportDto.class);
       
      Libroreport libroReport = getEntitieFromDto(libroreportDto);
      
@@ -266,11 +268,25 @@ public class LibroReportResource {
       
      }catch(HibernateException | JsonSyntaxException e){
          System.out.println(e.getMessage());
+         if(libroreportDto == null){
+                
+              libroreportDto = new LibroreportDto();  
+            }
+         libroreportDto.setError(e.getMessage());
+         
      }catch(Exception e){
          System.out.println(e.getMessage());
+         
+         if(libroreportDto == null){
+                
+              libroreportDto = new LibroreportDto();  
+            }
+         
+         libroreportDto.setError(e.getMessage());
      }
      finally{
          HibernateUtil.getSessionFactory().getCurrentSession().close();         
+         return gson.toJson(libroreportDto);
      }
  }  
  
@@ -296,14 +312,16 @@ public class LibroReportResource {
  
  
  @PUT  
- public void updateLibroResport(String libroReportRequest){
+ public String updateLibroResport(String libroReportRequest){
      
+     LibroreportDto libroreportDto=null;
+     Gson gson = null;
      try{ 
      HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
      
-      Gson gson = new Gson();
+      gson = new Gson();
      
-      LibroreportDto libroreportDto = gson.fromJson(libroReportRequest, LibroreportDto.class);
+      libroreportDto = gson.fromJson(libroReportRequest, LibroreportDto.class);
      
       Libroreport libroReport = getEntitieFromDto(libroreportDto);
       
@@ -327,12 +345,28 @@ public class LibroReportResource {
      
      }catch(HibernateException | JsonSyntaxException e){
          System.out.println(e.getMessage());
+         
+         if(libroreportDto == null){
+                
+              libroreportDto = new LibroreportDto();  
+            }
+         libroreportDto.setError(e.getMessage());
+         
      }catch(Exception e){
          System.out.println(e.getMessage());
+         
+         if(libroreportDto == null){
+                
+              libroreportDto = new LibroreportDto();  
+            }
+         
+         libroreportDto.setError(e.getMessage());
      }
      finally{
         
-         HibernateUtil.getSessionFactory().getCurrentSession().close();              
+         HibernateUtil.getSessionFactory().getCurrentSession().close();  
+         
+         return gson.toJson(libroreportDto);
      }
      
  }

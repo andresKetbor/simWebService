@@ -80,34 +80,49 @@ public class AsignacionPacienteResource {
     }
 
     @POST
-    public void asignarPaciente(String usuarioRequest) {
+    public String asignarPaciente(String usuarioRequest) {
 
+        AsignacionPacienteDto asignacionPacienteDto = null;
+        Gson gson = new Gson();
+        
         try {
             HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
 
-            Gson gson = new Gson();
-
-             AsignacionPacienteDto asignacionPacienteDto = gson.fromJson(usuarioRequest, AsignacionPacienteDto.class);
+            asignacionPacienteDto = gson.fromJson(usuarioRequest, AsignacionPacienteDto.class);
              
             Set<Usuario> usuarios =  usuarioDao.findByListIds(asignacionPacienteDto.getIdsUsuario());
             
             Paciente paciente = pacienteDao.findById(asignacionPacienteDto.getIdPaciente());
             
             paciente.getUsuarios().addAll((Set)usuarios);
-             //paciente.setUsuarios(usuarios);
  
              pacienteDao.persist(paciente);
              
             HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();
 
         } catch (HibernateException | JsonSyntaxException e) {
-            System.out.println(e.getMessage());
+                 
+            if(asignacionPacienteDto == null){
+                
+              asignacionPacienteDto = new AsignacionPacienteDto();  
+            }
+               asignacionPacienteDto.setError(e.getMessage());   
+               System.out.println(e.getMessage());
+               
         } catch (Exception e) {
+            
             System.out.println(e.getMessage());
+            
+            if(asignacionPacienteDto == null){
+                
+              asignacionPacienteDto = new AsignacionPacienteDto();  
+            }
+            asignacionPacienteDto.setError(e.getMessage());
+            
         } finally {
 
             HibernateUtil.getSessionFactory().getCurrentSession().close();
-
+            return gson.toJson(asignacionPacienteDto);
         }
     }
 
@@ -115,12 +130,14 @@ public class AsignacionPacienteResource {
     public String getPacientesAsignados(@QueryParam("id") int id) {
 
         String pacientesAsignadosResponse = "";
+        Gson gson = new Gson();
+        AsignacionPacienteDto asignacionPacienteDto=null;
+        
         try {
 
             HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
 
-            Gson gson = new Gson();
-
+            
             Paciente paciente = pacienteDao.findById(id);
             
             Set<Usuario> pacientes = paciente.getUsuarios();
@@ -131,37 +148,50 @@ public class AsignacionPacienteResource {
            
             Set<UsuarioDto> usuariosNoAsignadosDto = getDtoFromEntite(new HashSet<Usuario>(usuariosNoAsignados));
             
-            AsignacionPacienteDto asignacionPacienteDto = new AsignacionPacienteDto();
+            asignacionPacienteDto = new AsignacionPacienteDto();
             
             asignacionPacienteDto.setUsuariosNoAsignados(usuariosNoAsignadosDto);
             asignacionPacienteDto.setUsuariosAsignados(usuariosAsignadosDto);
             asignacionPacienteDto.setIdPaciente(id);
-            
-            
+           
             pacientesAsignadosResponse = gson.toJson(asignacionPacienteDto);
             
            HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();
 
         } catch (HibernateException | JsonSyntaxException e) {
             System.out.println(e.getMessage());
+            
+            if(asignacionPacienteDto == null){
+                
+              asignacionPacienteDto = new AsignacionPacienteDto();  
+            }
+            
+            asignacionPacienteDto.setError(e.getMessage());
+            
         } catch (Exception e) {
             System.out.println(e.getMessage());
+            
+            if(asignacionPacienteDto == null){
+                
+              asignacionPacienteDto = new AsignacionPacienteDto();  
+            }
+            
+            asignacionPacienteDto.setError(e.getMessage());
+            
         } finally {
 
             HibernateUtil.getSessionFactory().getCurrentSession().close();
-            return pacientesAsignadosResponse;
+            return gson.toJson(asignacionPacienteDto);
         }
 
     }
 
     
     
-    
-    
     @DELETE
-    public String desasignarPaciente(@QueryParam("idPaciente") int idPaciente, @QueryParam("idUsuario") int idUsuario ) {
+    public void desasignarPaciente(@QueryParam("idPaciente") int idPaciente, @QueryParam("idUsuario") int idUsuario ) {
 
-        String pacientesAsignadosResponse = "";
+        
         try {
 
             HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
@@ -182,7 +212,7 @@ public class AsignacionPacienteResource {
         } finally {
 
             HibernateUtil.getSessionFactory().getCurrentSession().close();
-            return pacientesAsignadosResponse;
+            
         }
     
     }

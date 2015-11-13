@@ -5,7 +5,7 @@ import java.util.Date;
 
 
 
-public class AlertaDto implements java.io.Serializable {
+public class AlertaDto extends CommonDto implements java.io.Serializable {
 
 
      private Integer idAlerta;
@@ -13,6 +13,7 @@ public class AlertaDto implements java.io.Serializable {
      private String criticidad;
      private Date fecha;
      private MensajeDto mensajeDto;
+     private String error;
 
     public AlertaDto() {
     }

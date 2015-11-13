@@ -27,7 +27,7 @@ public class Freceunciarespiratoria  extends Medicion {
     }
    
     
-    @Column(name="FreceunciaRespiratoria", nullable=false, length=20)
+    @Column(name="FreceunciaRespiratoria", nullable=false, length=50)
     public String getFreceunciaRespiratoria() {
         return this.freceunciaRespiratoria;
     }

@@ -33,6 +33,7 @@ public class Usuario  implements java.io.Serializable {
      private String usuario;
      private String password;
      private String mail;
+     private String mensajeRegId;
      private Set<Mensaje> mensajesForIdUsuarioRemitente = new HashSet<Mensaje>(0);
      private Set<Mensaje> mensajesForIdUsuaruiDestinatario = new HashSet<Mensaje>(0);
      private Set<Paciente> pacientes = new HashSet<>(0);
@@ -89,7 +90,7 @@ public class Usuario  implements java.io.Serializable {
     }
 
     
-    @Column(name="Nombre", nullable=false, length=25)
+    @Column(name="Nombre", nullable=false, length=50)
     public String getNombre() {
         return this.nombre;
     }
@@ -98,7 +99,7 @@ public class Usuario  implements java.io.Serializable {
         this.nombre = nombre;
     }
 
-    @Column(name="Usuario", nullable=false, length=25)
+    @Column(name="Usuario", nullable=false, length=50)
     public String getUsuario() {
         return usuario;
     }
@@ -108,7 +109,7 @@ public class Usuario  implements java.io.Serializable {
         this.usuario = usuario;
     }
 
-    @Column(name="Password", nullable=false, length=25)
+    @Column(name="Password", nullable=false, length=300)
     public String getPassword() {
         return password;
     }
@@ -119,6 +120,28 @@ public class Usuario  implements java.io.Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
+    
+    
+        @Column(name="mail", nullable=false, length=100)
+    public String getMail() {
+        return mail;
+    }
+
+    
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
+    @Column(name="mensajeRegId", nullable=false, length=300)
+    public String getMensajeRegId() {
+        return mensajeRegId;
+    }
+
+    
+    public void setMensajeRegId(String mensajeRegId) {
+        this.mensajeRegId = mensajeRegId;
+    }
+
 
 @OneToMany(fetch=FetchType.LAZY, mappedBy="usuarioRemitente")
     public Set<Mensaje> getMensajesForIdUsuarioRemitente() {
@@ -148,19 +171,6 @@ public class Usuario  implements java.io.Serializable {
     public void setPacientes(Set<Paciente> pacientes) {
         this.pacientes = pacientes;
     }
-
-    @Column(name="mail", nullable=false, length=100)
-    public String getMail() {
-        return mail;
-    }
-
-    
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
-
-
-
 
 }
 

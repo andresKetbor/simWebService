@@ -8,7 +8,7 @@ import org.sim.services.entities.Paciente;
 
 
 
-public class LibroreportDto  implements java.io.Serializable {
+public class LibroreportDto extends CommonDto implements java.io.Serializable {
 
 
      private Integer idLibroReport;
