@@ -103,7 +103,6 @@ public class AsignacionPacienteResource {
         } catch (HibernateException | JsonSyntaxException e) {
                  
             if(asignacionPacienteDto == null){
-                
               asignacionPacienteDto = new AsignacionPacienteDto();  
             }
                asignacionPacienteDto.setError(e.getMessage());   
@@ -113,8 +112,7 @@ public class AsignacionPacienteResource {
             
             System.out.println(e.getMessage());
             
-            if(asignacionPacienteDto == null){
-                
+            if(asignacionPacienteDto == null){                
               asignacionPacienteDto = new AsignacionPacienteDto();  
             }
             asignacionPacienteDto.setError(e.getMessage());
@@ -129,7 +127,6 @@ public class AsignacionPacienteResource {
     @GET
     public String getPacientesAsignados(@QueryParam("id") int id) {
 
-        String pacientesAsignadosResponse = "";
         Gson gson = new Gson();
         AsignacionPacienteDto asignacionPacienteDto=null;
         
@@ -153,16 +150,12 @@ public class AsignacionPacienteResource {
             asignacionPacienteDto.setUsuariosNoAsignados(usuariosNoAsignadosDto);
             asignacionPacienteDto.setUsuariosAsignados(usuariosAsignadosDto);
             asignacionPacienteDto.setIdPaciente(id);
-           
-            pacientesAsignadosResponse = gson.toJson(asignacionPacienteDto);
             
            HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();
 
         } catch (HibernateException | JsonSyntaxException e) {
-            System.out.println(e.getMessage());
-            
+            System.out.println(e.getMessage()); 
             if(asignacionPacienteDto == null){
-                
               asignacionPacienteDto = new AsignacionPacienteDto();  
             }
             
@@ -170,9 +163,7 @@ public class AsignacionPacienteResource {
             
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            
             if(asignacionPacienteDto == null){
-                
               asignacionPacienteDto = new AsignacionPacienteDto();  
             }
             

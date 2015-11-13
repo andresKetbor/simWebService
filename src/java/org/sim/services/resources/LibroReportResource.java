@@ -256,7 +256,7 @@ public class LibroReportResource {
      
       libroreportDto = gson.fromJson(libroReportRequest, LibroreportDto.class);
       
-     Libroreport libroReport = getEntitieFromDto(libroreportDto);
+      Libroreport libroReport = getEntitieFromDto(libroreportDto);
      
       libroReportDao.persist(libroReport);
      
@@ -269,16 +269,13 @@ public class LibroReportResource {
      }catch(HibernateException | JsonSyntaxException e){
          System.out.println(e.getMessage());
          if(libroreportDto == null){
-                
               libroreportDto = new LibroreportDto();  
             }
          libroreportDto.setError(e.getMessage());
          
      }catch(Exception e){
          System.out.println(e.getMessage());
-         
          if(libroreportDto == null){
-                
               libroreportDto = new LibroreportDto();  
             }
          
@@ -345,18 +342,14 @@ public class LibroReportResource {
      
      }catch(HibernateException | JsonSyntaxException e){
          System.out.println(e.getMessage());
-         
          if(libroreportDto == null){
-                
               libroreportDto = new LibroreportDto();  
             }
          libroreportDto.setError(e.getMessage());
          
      }catch(Exception e){
          System.out.println(e.getMessage());
-         
          if(libroreportDto == null){
-                
               libroreportDto = new LibroreportDto();  
             }
          
@@ -365,7 +358,6 @@ public class LibroReportResource {
      finally{
         
          HibernateUtil.getSessionFactory().getCurrentSession().close();  
-         
          return gson.toJson(libroreportDto);
      }
      
@@ -375,40 +367,41 @@ public class LibroReportResource {
   @GET
     public String getLibroReport(@QueryParam ("id") int id){
     
-     String libroReportResponse ="";   
+     LibroreportDto libroreportDto = null;
+     Gson gson = null;
      try{   
         
      HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
      
-     Gson gson = new Gson();
+     gson = new Gson();
      
      Libroreport libroreport = libroReportDao.findById(id);
     
-     libroReportResponse = gson.toJson(getDtoFromEntite(libroreport));
+     libroreportDto =  getDtoFromEntite(libroreport);
      
      HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();
      }catch(HibernateException | JsonSyntaxException e){
          System.out.println(e.getMessage());
+          if(libroreportDto == null){
+              libroreportDto = new LibroreportDto();  
+            }
+         
+         libroreportDto.setError(e.getMessage());
      }catch(Exception e){
          System.out.println(e.getMessage());
+          if(libroreportDto == null){
+              libroreportDto = new LibroreportDto();  
+            }
+         
+         libroreportDto.setError(e.getMessage());
      }
          finally{
          HibernateUtil.getSessionFactory().getCurrentSession().close();              
-         return libroReportResponse;
+         return gson.toJson(libroreportDto);
      }
     
 
     
     }
-    
- 
-
-    
-    
-        
-        
-        
-    
-    
     
 }

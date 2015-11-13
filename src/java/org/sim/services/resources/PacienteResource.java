@@ -99,14 +99,15 @@ public class PacienteResource{
  
     
     @POST   
- public void addPaciente(String pacienteRequest){
-     
+ public String addPaciente(String pacienteRequest){
+     Gson gson = null;
+     PacienteDto pacienteDto = null;
      try{
       HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
      
-      Gson gson = new Gson();
+      gson = new Gson();
      
-      PacienteDto pacienteDto = gson.fromJson(pacienteRequest, PacienteDto.class);
+      pacienteDto = gson.fromJson(pacienteRequest, PacienteDto.class);
      
       pacienteDao.persist(getEntitieFromDto(pacienteDto));
      
@@ -114,12 +115,23 @@ public class PacienteResource{
       
      }catch(HibernateException | JsonSyntaxException e){
          System.out.println(e.getMessage());
+            if(pacienteDto == null){
+              pacienteDto = new PacienteDto();  
+            }
+         
+         pacienteDto.setError(e.getMessage());
      }catch(Exception e){
          System.out.println(e.getMessage());
+            if(pacienteDto == null){
+              pacienteDto = new PacienteDto();  
+            }
+         
+         pacienteDto.setError(e.getMessage());
      }
      finally{
          
      HibernateUtil.getSessionFactory().getCurrentSession().close();                       
+     return gson.toJson(pacienteDto);
      }
  }  
  
@@ -147,25 +159,38 @@ public class PacienteResource{
  
  
  @PUT  
- public void updatePaciente(String pacienteRequest){
+ public String updatePaciente(String pacienteRequest){
      
+     Gson gson = null;
+     PacienteDto pacienteDto = null;
      try{ 
      HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
      
-      Gson gson = new Gson();
+      gson = new Gson();
      
-      PacienteDto pacienteDto = gson.fromJson(pacienteRequest, PacienteDto.class);
+      pacienteDto = gson.fromJson(pacienteRequest, PacienteDto.class);
      
      pacienteDao.merge(getEntitieFromDto(pacienteDto));
      
      HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();
      }catch(HibernateException | JsonSyntaxException e){
          System.out.println(e.getMessage());
+         if(pacienteDto == null){
+              pacienteDto = new PacienteDto();  
+            }
+         
+         pacienteDto.setError(e.getMessage());
      }catch(Exception e){
          System.out.println(e.getMessage());
+         if(pacienteDto == null){
+              pacienteDto = new PacienteDto();  
+            }
+         
+         pacienteDto.setError(e.getMessage());
      }
      finally{
          HibernateUtil.getSessionFactory().getCurrentSession().close();                       
+         return gson.toJson(pacienteDto);
      }
      
  }
@@ -174,27 +199,38 @@ public class PacienteResource{
   @GET
     public String getPaciente(@QueryParam ("id") int id){
     
-     String pacienteResponse ="";   
+     Gson gson = null;
+     PacienteDto pacienteDto = null;   
      try{   
         
      HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
      
-     Gson gson = new Gson();
+     gson = new Gson();
      
      Paciente paciente = pacienteDao.findById(id);
      
-     pacienteResponse = gson.toJson(getDtoFromEntite(paciente));
+     pacienteDto = getDtoFromEntite(paciente);
      
      HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();     
      
      }catch(HibernateException | JsonSyntaxException e){
          System.out.println(e.getMessage());
+         if(pacienteDto == null){
+              pacienteDto = new PacienteDto();  
+            }
+         
+         pacienteDto.setError(e.getMessage());
      }catch(Exception e){
          System.out.println(e.getMessage());
+         if(pacienteDto == null){
+              pacienteDto = new PacienteDto();  
+            }
+         
+         pacienteDto.setError(e.getMessage());
      }
      finally{
          HibernateUtil.getSessionFactory().getCurrentSession().close();                       
-         return pacienteResponse;
+         return gson.toJson(pacienteDto);
      }
     
 

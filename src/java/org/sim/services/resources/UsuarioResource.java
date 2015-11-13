@@ -90,14 +90,17 @@ public class UsuarioResource {
     }
 
     @POST
-    public void addUsuario(String usuarioRequest) {
+    public String addUsuario(String usuarioRequest) {
 
+        UsuarioDto usuarioDto = null;
+        Gson gson = null;
+        
         try {
             HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
 
-            Gson gson = new Gson();
+            gson = new Gson();
 
-            UsuarioDto usuarioDto = gson.fromJson(usuarioRequest, UsuarioDto.class);
+            usuarioDto = gson.fromJson(usuarioRequest, UsuarioDto.class);
 
             usuarioDao.persist(getEntitieFromDto(usuarioDto));
 
@@ -105,12 +108,24 @@ public class UsuarioResource {
 
         } catch (HibernateException | JsonSyntaxException e) {
             System.out.println(e.getMessage());
+            if(usuarioDto == null){
+              usuarioDto = new UsuarioDto();  
+            }
+         
+         usuarioDto.setError(e.getMessage());
+            
         } catch (Exception e) {
             System.out.println(e.getMessage());
+             if(usuarioDto == null){
+              usuarioDto = new UsuarioDto();  
+            }
+         
+         usuarioDto.setError(e.getMessage());
+            
         } finally {
 
             HibernateUtil.getSessionFactory().getCurrentSession().close();
-
+            return gson.toJson(usuarioDto);
         }
     }
 
@@ -139,14 +154,17 @@ public class UsuarioResource {
     }
 
     @PUT
-    public void updateUsuario(String usuarioRequest) {
+    public String updateUsuario(String usuarioRequest) {
 
+        UsuarioDto usuarioDto = null;
+        Gson gson = null;
+        
         try {
             HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
 
-            Gson gson = new Gson();
+            gson = new Gson();
 
-            UsuarioDto usuarioDto = gson.fromJson(usuarioRequest, UsuarioDto.class);
+            usuarioDto = gson.fromJson(usuarioRequest, UsuarioDto.class);
 
             usuarioDao.merge(getEntitieFromDto(usuarioDto));
 
@@ -154,12 +172,22 @@ public class UsuarioResource {
 
         } catch (HibernateException | JsonSyntaxException e) {
             System.out.println(e.getMessage());
+            if(usuarioDto == null){
+              usuarioDto = new UsuarioDto();  
+            }
+         
+         usuarioDto.setError(e.getMessage());
+            
         } catch (Exception e) {
             System.out.println(e.getMessage());
+            if(usuarioDto == null){
+              usuarioDto = new UsuarioDto();  
+            }
+         
+         usuarioDto.setError(e.getMessage());
         } finally {
-
             HibernateUtil.getSessionFactory().getCurrentSession().close();
-
+            return gson.toJson(usuarioDto);
         }
 
     }
@@ -168,26 +196,37 @@ public class UsuarioResource {
     public String getUsuario(@QueryParam("usuario") String usuarioRequest) {
 
         String usuarioResponse = "";
+        UsuarioDto usuarioDto = null;
+        Gson gson = null;
         try {
 
             HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
 
-            Gson gson = new Gson();
+            gson = new Gson();
 
             Usuario usuario = usuarioDao.findUsuarioByUsr(usuarioRequest);
 
-            usuarioResponse = gson.toJson(getDtoFromEntite(usuario));
-
+            usuarioDto = getDtoFromEntite(usuario);
+            
             HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();
 
         } catch (HibernateException | JsonSyntaxException e) {
             System.out.println(e.getMessage());
+             if(usuarioDto == null){    
+              usuarioDto = new UsuarioDto();  
+            }
+         
+         usuarioDto.setError(e.getMessage());
         } catch (Exception e) {
             System.out.println(e.getMessage());
+             if(usuarioDto == null){
+              usuarioDto = new UsuarioDto();  
+            }
+         
+         usuarioDto.setError(e.getMessage());
         } finally {
-
             HibernateUtil.getSessionFactory().getCurrentSession().close();
-            return usuarioResponse;
+            return gson.toJson(usuarioDto);
         }
 
     }
