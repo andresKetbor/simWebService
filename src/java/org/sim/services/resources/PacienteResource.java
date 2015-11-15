@@ -64,7 +64,7 @@ public class PacienteResource{
             usuarioDto.setNombre(usuario.getNombre());
             usuarioDto.setUsuario(usuario.getUsuario());
             usuarioDto.setPassword(usuario.getPassword());
-            usuarioDto.setRol(new RolDto(usuario.getRol().getIdRol()));
+            usuarioDto.setRol(new RolDto(usuario.getRol().getIdRol(), usuario.getRol().getNombreRol()));
             
             
             usuariosDto.add(usuarioDto);
@@ -112,21 +112,21 @@ public class PacienteResource{
       pacienteDao.persist(getEntitieFromDto(pacienteDto));
      
      HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();     
-      
+     pacienteDto.setError("OK");
      }catch(HibernateException | JsonSyntaxException e){
          System.out.println(e.getMessage());
             if(pacienteDto == null){
               pacienteDto = new PacienteDto();  
             }
          
-         pacienteDto.setError(e.getMessage());
+         pacienteDto.setError("Error al agregar Paciente : " + e.getMessage());
      }catch(Exception e){
          System.out.println(e.getMessage());
             if(pacienteDto == null){
               pacienteDto = new PacienteDto();  
             }
          
-         pacienteDto.setError(e.getMessage());
+         pacienteDto.setError("Error al agregar Paciente : " + e.getMessage());
      }
      finally{
          
@@ -173,20 +173,21 @@ public class PacienteResource{
      pacienteDao.merge(getEntitieFromDto(pacienteDto));
      
      HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();
+     pacienteDto.setError("OK");
      }catch(HibernateException | JsonSyntaxException e){
          System.out.println(e.getMessage());
          if(pacienteDto == null){
               pacienteDto = new PacienteDto();  
             }
          
-         pacienteDto.setError(e.getMessage());
+         pacienteDto.setError("Error al modificar Paciente : " + e.getMessage());
      }catch(Exception e){
          System.out.println(e.getMessage());
          if(pacienteDto == null){
               pacienteDto = new PacienteDto();  
             }
          
-         pacienteDto.setError(e.getMessage());
+         pacienteDto.setError("Error al modificar Paciente : " + e.getMessage());
      }
      finally{
          HibernateUtil.getSessionFactory().getCurrentSession().close();                       
@@ -212,21 +213,21 @@ public class PacienteResource{
      pacienteDto = getDtoFromEntite(paciente);
      
      HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();     
-     
+     pacienteDto.setError("OK");
      }catch(HibernateException | JsonSyntaxException e){
          System.out.println(e.getMessage());
          if(pacienteDto == null){
               pacienteDto = new PacienteDto();  
             }
          
-         pacienteDto.setError(e.getMessage());
+         pacienteDto.setError("Error al consultar Paciente : " + e.getMessage());
      }catch(Exception e){
          System.out.println(e.getMessage());
          if(pacienteDto == null){
               pacienteDto = new PacienteDto();  
             }
          
-         pacienteDto.setError(e.getMessage());
+         pacienteDto.setError("Error al consultar Paciente : " + e.getMessage());
      }
      finally{
          HibernateUtil.getSessionFactory().getCurrentSession().close();                       

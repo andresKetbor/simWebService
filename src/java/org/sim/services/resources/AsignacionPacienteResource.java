@@ -54,7 +54,7 @@ public class AsignacionPacienteResource {
          usuarioDto.setNombre(usuario.getNombre());
          usuarioDto.setUsuario(usuario.getUsuario());
          usuarioDto.setPassword(usuario.getPassword());
-         usuarioDto.setRol(new RolDto(usuario.getRol().getIdRol()));
+         usuarioDto.setRol(new RolDto(usuario.getRol().getIdRol(), usuario.getRol().getNombreRol()));
          usuarioDto.setMail(usuario.getMail());
          usuariosAsignados.add(usuarioDto);
 
@@ -99,23 +99,23 @@ public class AsignacionPacienteResource {
              pacienteDao.persist(paciente);
              
             HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();
-
+            asignacionPacienteDto.setError("OK");
         } catch (HibernateException | JsonSyntaxException e) {
                  
             if(asignacionPacienteDto == null){
               asignacionPacienteDto = new AsignacionPacienteDto();  
             }
-               asignacionPacienteDto.setError(e.getMessage());   
-               System.out.println(e.getMessage());
+               asignacionPacienteDto.setError("Error al asignar paciente : " + e.getMessage());   
+               System.out.println("Error al asignar paciente : " + e.getMessage());
                
         } catch (Exception e) {
             
-            System.out.println(e.getMessage());
+            System.out.println("Error al asignar paciente : " + e.getMessage());
             
             if(asignacionPacienteDto == null){                
               asignacionPacienteDto = new AsignacionPacienteDto();  
             }
-            asignacionPacienteDto.setError(e.getMessage());
+            asignacionPacienteDto.setError("Error al asignar paciente : " + e.getMessage());
             
         } finally {
 
@@ -152,14 +152,14 @@ public class AsignacionPacienteResource {
             asignacionPacienteDto.setIdPaciente(id);
             
            HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();
-
+           asignacionPacienteDto.setError("OK");
         } catch (HibernateException | JsonSyntaxException e) {
             System.out.println(e.getMessage()); 
             if(asignacionPacienteDto == null){
               asignacionPacienteDto = new AsignacionPacienteDto();  
             }
             
-            asignacionPacienteDto.setError(e.getMessage());
+            asignacionPacienteDto.setError("Error al consultar asignaciones : " + e.getMessage());
             
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -167,7 +167,7 @@ public class AsignacionPacienteResource {
               asignacionPacienteDto = new AsignacionPacienteDto();  
             }
             
-            asignacionPacienteDto.setError(e.getMessage());
+            asignacionPacienteDto.setError("Error al consultar asignaciones : " + e.getMessage());
             
         } finally {
 

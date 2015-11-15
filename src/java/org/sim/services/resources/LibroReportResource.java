@@ -271,7 +271,7 @@ public class LibroReportResource {
          if(libroreportDto == null){
               libroreportDto = new LibroreportDto();  
             }
-         libroreportDto.setError(e.getMessage());
+         libroreportDto.setError("Error al agregar libro Report : " + e.getMessage());
          
      }catch(Exception e){
          System.out.println(e.getMessage());
@@ -279,7 +279,7 @@ public class LibroReportResource {
               libroreportDto = new LibroreportDto();  
             }
          
-         libroreportDto.setError(e.getMessage());
+         libroreportDto.setError("Error al agregar libro Report : " + e.getMessage());
      }
      finally{
          HibernateUtil.getSessionFactory().getCurrentSession().close();         
@@ -345,7 +345,7 @@ public class LibroReportResource {
          if(libroreportDto == null){
               libroreportDto = new LibroreportDto();  
             }
-         libroreportDto.setError(e.getMessage());
+         libroreportDto.setError("Error al modificar libro Report : " + e.getMessage());
          
      }catch(Exception e){
          System.out.println(e.getMessage());
@@ -353,7 +353,7 @@ public class LibroReportResource {
               libroreportDto = new LibroreportDto();  
             }
          
-         libroreportDto.setError(e.getMessage());
+         libroreportDto.setError("Error al modificar libro Report : " + e.getMessage());
      }
      finally{
         
@@ -386,14 +386,14 @@ public class LibroReportResource {
               libroreportDto = new LibroreportDto();  
             }
          
-         libroreportDto.setError(e.getMessage());
+         libroreportDto.setError("Error al consultar libro Report : " + e.getMessage());
      }catch(Exception e){
          System.out.println(e.getMessage());
           if(libroreportDto == null){
               libroreportDto = new LibroreportDto();  
             }
          
-         libroreportDto.setError(e.getMessage());
+         libroreportDto.setError("Error al consultar libro Report : " + e.getMessage());
      }
          finally{
          HibernateUtil.getSessionFactory().getCurrentSession().close();              

@@ -49,9 +49,9 @@ public class AlertaResource {
         alertaDto.setIdAlerta(alerta.getIdAlerta());
         alertaDto.setFecha(alerta.getFecha());
         
-        alertaDto.setMensajeDto(new MensajeDto(new UsuarioDto(new RolDto(alerta.getMensaje().getUsuarioRemitente().getRol().getIdRol()),alerta.getMensaje().getUsuarioRemitente().getDni(),
+        alertaDto.setMensajeDto(new MensajeDto(new UsuarioDto(new RolDto(alerta.getMensaje().getUsuarioRemitente().getRol().getIdRol(), alerta.getMensaje().getUsuarioRemitente().getRol().getNombreRol()),alerta.getMensaje().getUsuarioRemitente().getDni(),
                                                 alerta.getMensaje().getUsuarioRemitente().getNombre()),
-                                                new UsuarioDto(new RolDto(alerta.getMensaje().getUsuarioDestinatario().getRol().getIdRol()),alerta.getMensaje().getUsuarioDestinatario().getDni(),
+                                                new UsuarioDto(new RolDto(alerta.getMensaje().getUsuarioDestinatario().getRol().getIdRol(), alerta.getMensaje().getUsuarioDestinatario().getRol().getNombreRol()),alerta.getMensaje().getUsuarioDestinatario().getDni(),
                                                 alerta.getMensaje().getUsuarioDestinatario().getNombre()
                                                 ), alerta.getMensaje().getTexto()));
         

@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -36,8 +37,9 @@ public class Paciente  implements java.io.Serializable {
      private Float peso;
      private Libroreport libroreport;
      private Set<Usuario> usuarios = new HashSet<Usuario>();
-
-    public Paciente() {
+     private Set<Visita> visitas = new HashSet<>();
+    
+     public Paciente() {
     }
 
 	
@@ -172,7 +174,17 @@ public class Paciente  implements java.io.Serializable {
     }
 
 
+@OneToMany(fetch=FetchType.LAZY, mappedBy="paciente")
+    public Set<Visita> getVisitas() {
+        return visitas;
+    }
 
+    /**
+     * @param visitas the visitas to set
+     */
+    public void setVisitas(Set<Visita> visitas) {
+        this.visitas = visitas;
+    }
 
 }
 

@@ -36,6 +36,7 @@ public class Usuario  implements java.io.Serializable {
      private String mensajeRegId;
      private Set<Mensaje> mensajesForIdUsuarioRemitente = new HashSet<Mensaje>(0);
      private Set<Mensaje> mensajesForIdUsuaruiDestinatario = new HashSet<Mensaje>(0);
+     private Set<Visita> visitas = new HashSet<Visita>(0);
      private Set<Paciente> pacientes = new HashSet<>(0);
 
     public Usuario() {
@@ -170,6 +171,21 @@ public class Usuario  implements java.io.Serializable {
 
     public void setPacientes(Set<Paciente> pacientes) {
         this.pacientes = pacientes;
+    }
+
+    /**
+     * @return the visitas
+     */
+    @OneToMany(fetch=FetchType.LAZY, mappedBy="usuario")
+    public Set<Visita> getVisitas() {
+        return visitas;
+    }
+
+    /**
+     * @param visitas the visitas to set
+     */
+    public void setVisitas(Set<Visita> visitas) {
+        this.visitas = visitas;
     }
 
 }

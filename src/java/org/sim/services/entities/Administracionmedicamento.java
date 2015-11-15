@@ -65,7 +65,7 @@ public class Administracionmedicamento  implements java.io.Serializable {
         this.libroreport = libroreport;
     }
 
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name="Fecha", nullable=false, length=10)
     public Date getFecha() {
         return this.fecha;

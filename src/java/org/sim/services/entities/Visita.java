@@ -5,9 +5,12 @@ package org.sim.services.entities;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -25,6 +28,8 @@ public class Visita  implements java.io.Serializable {
      private Integer idVisita;
      private Date fechaVisita;
      private Float frecuencia;
+     private Usuario usuario;
+     private Paciente paciente;
 
     public Visita() {
     }
@@ -50,7 +55,7 @@ public class Visita  implements java.io.Serializable {
         this.idVisita = idVisita;
     }
 
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name="FechaVisita", nullable=false, length=10)
     public Date getFechaVisita() {
         return this.fechaVisita;
@@ -68,6 +73,35 @@ public class Visita  implements java.io.Serializable {
     
     public void setFrecuencia(Float frecuencia) {
         this.frecuencia = frecuencia;
+    }
+
+    /**
+     * @return the usuario
+     */
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="idUsuario", nullable=false)
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    /**
+     * @param usuario the usuario to set
+     */
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+   @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="idPaciente", nullable=false)
+    public Paciente getPaciente() {
+        return paciente;
+    }
+
+    /**
+     * @param paciente the paciente to set
+     */
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
     }
 
 

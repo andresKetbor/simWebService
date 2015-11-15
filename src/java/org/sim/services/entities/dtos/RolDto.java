@@ -16,9 +16,9 @@ public class RolDto extends CommonDto implements java.io.Serializable {
     }
 
 	
-    public RolDto(int idRol) {
+    public RolDto(int idRol, String rol) {
         this.idRol = idRol;
-        //this.nombreRol = nombre;        
+        this.nombreRol = rol;        
     }
 
   

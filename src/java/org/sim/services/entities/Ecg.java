@@ -82,7 +82,7 @@ public class Ecg  implements java.io.Serializable {
         this.estado = estado;
     }
 
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name="Fecha", nullable=false, length=10)
     public Date getFecha() {
         return this.fecha;

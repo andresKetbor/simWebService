@@ -100,7 +100,7 @@ public class Libroreport  implements java.io.Serializable {
         this.paciente = paciente;
     }
 
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name="fechaAlta", nullable=false, length=10)
     public Date getFechaAlta() {
         return this.fechaAlta;
@@ -110,7 +110,7 @@ public class Libroreport  implements java.io.Serializable {
         this.fechaAlta = fechaAlta;
     }
 
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name="fechaBaja", length=10)
     public Date getFechaBaja() {
         return this.fechaBaja;

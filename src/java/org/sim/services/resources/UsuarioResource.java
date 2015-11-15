@@ -42,7 +42,7 @@ public class UsuarioResource {
         usuarioDto.setNombre(usuario.getNombre());
         usuarioDto.setUsuario(usuario.getUsuario());
         usuarioDto.setPassword(usuario.getPassword());
-        usuarioDto.setRol(new RolDto(usuario.getRol().getIdRol()));
+        usuarioDto.setRol(new RolDto(usuario.getRol().getIdRol(), usuario.getRol().getNombreRol()));
         usuarioDto.setMail(usuario.getMail());
         //usuarioDto.setMensajeRegId(usuario.getMensajeRegId());
         
@@ -105,14 +105,14 @@ public class UsuarioResource {
             usuarioDao.persist(getEntitieFromDto(usuarioDto));
 
             HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();
-
+            usuarioDto.setError("OK");
         } catch (HibernateException | JsonSyntaxException e) {
             System.out.println(e.getMessage());
             if(usuarioDto == null){
               usuarioDto = new UsuarioDto();  
             }
          
-         usuarioDto.setError(e.getMessage());
+         usuarioDto.setError("Error al agregar Usuario : " + e.getMessage());
             
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -120,7 +120,7 @@ public class UsuarioResource {
               usuarioDto = new UsuarioDto();  
             }
          
-         usuarioDto.setError(e.getMessage());
+         usuarioDto.setError("Error al agregar Usuario : " + e.getMessage());
             
         } finally {
 
@@ -169,14 +169,15 @@ public class UsuarioResource {
             usuarioDao.merge(getEntitieFromDto(usuarioDto));
 
             HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();
-
+            
+            usuarioDto.setError("OK");
         } catch (HibernateException | JsonSyntaxException e) {
             System.out.println(e.getMessage());
             if(usuarioDto == null){
               usuarioDto = new UsuarioDto();  
             }
          
-         usuarioDto.setError(e.getMessage());
+         usuarioDto.setError("Error al modificar Usuario : " + e.getMessage());
             
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -184,7 +185,7 @@ public class UsuarioResource {
               usuarioDto = new UsuarioDto();  
             }
          
-         usuarioDto.setError(e.getMessage());
+         usuarioDto.setError("Error al modificar Usuario : " + e.getMessage());
         } finally {
             HibernateUtil.getSessionFactory().getCurrentSession().close();
             return gson.toJson(usuarioDto);
@@ -209,24 +210,25 @@ public class UsuarioResource {
             usuarioDto = getDtoFromEntite(usuario);
             
             HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();
-
+            
+            usuarioDto.setError("OK");
         } catch (HibernateException | JsonSyntaxException e) {
             System.out.println(e.getMessage());
              if(usuarioDto == null){    
               usuarioDto = new UsuarioDto();  
             }
          
-         usuarioDto.setError(e.getMessage());
+         usuarioDto.setError("Error al consultar usuario : " + e.getMessage());
         } catch (Exception e) {
             System.out.println(e.getMessage());
              if(usuarioDto == null){
               usuarioDto = new UsuarioDto();  
             }
          
-         usuarioDto.setError(e.getMessage());
+         usuarioDto.setError("Error al consultar usuario : " + e.getMessage());
         } finally {
             HibernateUtil.getSessionFactory().getCurrentSession().close();
-            return gson.toJson(usuarioDto);
+           return gson.toJson(usuarioDto);
         }
 
     }
