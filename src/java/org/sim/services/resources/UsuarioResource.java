@@ -130,8 +130,10 @@ public class UsuarioResource {
     }
 
     @DELETE
-    public void deleteUsuario(@QueryParam("id") int id) {
+    public String deleteUsuario(@QueryParam("id") int id) {
 
+        UsuarioDto usuarioDto = new UsuarioDto();
+        Gson gson = new Gson();
         try {
 
             HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
@@ -141,14 +143,17 @@ public class UsuarioResource {
             usuarioDao.delete(usuario);
 
             HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();
-
+            usuarioDto.setError("OK");
         } catch (HibernateException | JsonSyntaxException e) {
             System.out.println(e.getMessage());
+            usuarioDto.setError("Error al dar de baja el usuario : " + e.getMessage());
         } catch (Exception e) {
             System.out.println(e.getMessage());
+            usuarioDto.setError("Error al dar de baja el usuario : " + e.getMessage());
         } finally {
 
             HibernateUtil.getSessionFactory().getCurrentSession().close();
+            return gson.toJson(usuarioDto);
         }
 
     }

@@ -130,14 +130,15 @@ public class MedicionResource {
     
  
  @POST   
- public void addMedicion(String medicionRequest){
+ public String addMedicion(String medicionRequest){
+     
+     MedicionesDto medicionesDto = new MedicionesDto();
+     Gson gson = new Gson();
      
      try{
       HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
      
-      Gson gson = new Gson();
-     
-      MedicionesDto medicionesDto = gson.fromJson(medicionRequest, MedicionesDto.class);
+      medicionesDto = gson.fromJson(medicionRequest, MedicionesDto.class);
       
       Libroreport libroReport = libroReportDao.findById(medicionesDto.getIdLibroReport());
       
@@ -146,16 +147,21 @@ public class MedicionResource {
       
       medicionDao.persist(mediciones);
       
-      
       HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();
+      
+      medicionesDto.setError("OK");
       
      }catch(HibernateException | JsonSyntaxException e){
          System.out.println(e.getMessage());
+         medicionesDto.setError("Error al agregar las mediciones : " + e.getMessage());
      }catch(Exception e){
          System.out.println(e.getMessage());
+         
+         medicionesDto.setError("Error al agregar las mediciones : " + e.getMessage());
      }
      finally{
          HibernateUtil.getSessionFactory().getCurrentSession().close();         
+         return gson.toJson(medicionesDto);
      }
  }  
  

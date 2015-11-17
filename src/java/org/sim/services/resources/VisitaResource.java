@@ -117,7 +117,10 @@ public class VisitaResource {
  
  
  @DELETE  
- public void deleteVisita(@QueryParam ("id") int id){
+ public String deleteVisita(@QueryParam ("id") int id){
+     
+     VisitaDto visitaDto = new VisitaDto();
+     Gson gson = new Gson();
      
      try{ 
      HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
@@ -127,10 +130,13 @@ public class VisitaResource {
       visitaDao.delete(visita);
       
       HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();
+      visitaDto.setError("OK");
      }catch(HibernateException e){
          System.out.println(e.getMessage());
+         visitaDto.setError("Error al eliminar la visita: " + e.getMessage());
      }finally{   
      HibernateUtil.getSessionFactory().getCurrentSession().close();
+     return gson.toJson(visitaDto);
      }
  }     
  

@@ -290,8 +290,10 @@ public class LibroReportResource {
  
  
  @DELETE  
- public void deleteLibroReport(@QueryParam ("id") int id){
+ public String deleteLibroReport(@QueryParam ("id") int id){
      
+     LibroreportDto libroreportDto = new LibroreportDto();
+     Gson gson = new Gson();
      try{ 
      HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
      
@@ -300,10 +302,13 @@ public class LibroReportResource {
       libroReportDao.delete(libroreport);
       
       HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();     
+      libroreportDto.setError("OK");
      }catch(HibernateException e){
          System.out.println(e.getMessage());
+         libroreportDto.setError("Error al dar de baja el libro report: " + e.getMessage());
      }finally{   
      HibernateUtil.getSessionFactory().getCurrentSession().close();    
+     return gson.toJson(libroreportDto);
      }
  }     
  

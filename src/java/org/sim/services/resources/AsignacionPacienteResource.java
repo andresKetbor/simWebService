@@ -180,8 +180,10 @@ public class AsignacionPacienteResource {
     
     
     @DELETE
-    public void desasignarPaciente(@QueryParam("idPaciente") int idPaciente, @QueryParam("idUsuario") int idUsuario ) {
+    public String desasignarPaciente(@QueryParam("idPaciente") int idPaciente, @QueryParam("idUsuario") int idUsuario ) {
 
+        Gson gson = new Gson();
+       AsignacionPacienteDto asignacionPacienteDto= new AsignacionPacienteDto();
         
         try {
 
@@ -196,14 +198,18 @@ public class AsignacionPacienteResource {
             
            HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();
 
+           asignacionPacienteDto.setError("OK");
         } catch (HibernateException | JsonSyntaxException e) {
             System.out.println(e.getMessage());
+            asignacionPacienteDto.setError("Error en la desasignación : " + e.getMessage());
         } catch (Exception e) {
             System.out.println(e.getMessage());
+            asignacionPacienteDto.setError("Error en la desasignación : " + e.getMessage());
+            
         } finally {
 
             HibernateUtil.getSessionFactory().getCurrentSession().close();
-            
+            return gson.toJson(asignacionPacienteDto);
         }
     
     }

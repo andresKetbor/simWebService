@@ -138,7 +138,9 @@ public class PacienteResource{
  
  
  @DELETE  
- public void deletePaciente(@QueryParam ("id") int id){
+ public String deletePaciente(@QueryParam ("id") int id){
+     Gson gson = new Gson();
+     PacienteDto pacienteDto = new PacienteDto();
      
      try{ 
      HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
@@ -148,12 +150,14 @@ public class PacienteResource{
       pacienteDao.delete(paciente);
       
       HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();
+      pacienteDto.setError("OK");
      }catch(HibernateException e){
          System.out.println(e.getMessage());
+         pacienteDto.setError("Error al dar de baja el paciente: " + e.getMessage());
      }finally{   
          
      HibernateUtil.getSessionFactory().getCurrentSession().close();                  
-          
+     return gson.toJson(pacienteDto);
      }
  }     
  
