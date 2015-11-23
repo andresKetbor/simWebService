@@ -56,7 +56,6 @@ public class VisitaResource {
       VisitaDto visitaDto = new VisitaDto();
        
       visitaDto.setFechaVisita(visita.getFechaVisita().toString());
-      visitaDto.setFrecuencia(visita.getFrecuencia());
       visitaDto.setIdPaciente(visita.getPaciente().getIdPaciente());
       visitaDto.setIdUsuario(visita.getUsuario().getIdUsuario());
       visitaDto.setIdVisita(visita.getIdVisita());

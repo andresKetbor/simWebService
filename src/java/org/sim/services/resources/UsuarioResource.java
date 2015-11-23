@@ -44,7 +44,7 @@ public class UsuarioResource {
         usuarioDto.setPassword(usuario.getPassword());
         usuarioDto.setRol(new RolDto(usuario.getRol().getIdRol(), usuario.getRol().getNombreRol()));
         usuarioDto.setMail(usuario.getMail());
-        //usuarioDto.setMensajeRegId(usuario.getMensajeRegId());
+        usuarioDto.setMensajeRegId(usuario.getMensajeRegId());
         
         if(usuario.getPacientes()!=null){
         
@@ -84,7 +84,7 @@ public class UsuarioResource {
         usuario.setPassword(usuarioDto.getPassword());
         usuario.setRol(new Rol(usuarioDto.getRol().getIdRol()));
         usuario.setMail(usuarioDto.getMail());
-        //usuario.setMensajeRegId(usuarioDto.getMensajeRegId());
+        usuario.setMensajeRegId(usuarioDto.getMensajeRegId());
         return usuario;
 
     }

@@ -27,7 +27,6 @@ public class Visita  implements java.io.Serializable {
 
      private Integer idVisita;
      private Date fechaVisita;
-     private Float frecuencia;
      private Usuario usuario;
      private Paciente paciente;
 
@@ -38,11 +37,7 @@ public class Visita  implements java.io.Serializable {
     public Visita(Date fechaVisita) {
         this.fechaVisita = fechaVisita;
     }
-    public Visita(Date fechaVisita, Float frecuencia) {
-       this.fechaVisita = fechaVisita;
-       this.frecuencia = frecuencia;
-    }
-   
+    
      @Id @GeneratedValue(strategy=IDENTITY)
 
     
@@ -65,15 +60,6 @@ public class Visita  implements java.io.Serializable {
         this.fechaVisita = fechaVisita;
     }
 
-    
-    @Column(name="Frecuencia", precision=12, scale=0)
-    public Float getFrecuencia() {
-        return this.frecuencia;
-    }
-    
-    public void setFrecuencia(Float frecuencia) {
-        this.frecuencia = frecuencia;
-    }
 
     /**
      * @return the usuario

@@ -12,7 +12,6 @@ public class VisitaDto extends CommonDto implements java.io.Serializable {
 
      private Integer idVisita;
      private String fechaVisita;
-     private Float frecuencia;
      private int idPaciente;
      private int idUsuario;
 
@@ -33,20 +32,7 @@ public class VisitaDto extends CommonDto implements java.io.Serializable {
         this.fechaVisita = fechaVisita;
     }
 
-    /**
-     * @return the frecuencia
-     */
-    public Float getFrecuencia() {
-        return frecuencia;
-    }
-
-    /**
-     * @param frecuencia the frecuencia to set
-     */
-    public void setFrecuencia(Float frecuencia) {
-        this.frecuencia = frecuencia;
-    }
-
+    
     /**
      * @return the idPaciente
      */

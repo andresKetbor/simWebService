@@ -8,42 +8,29 @@ import java.util.Date;
 public class AlertaDto extends CommonDto implements java.io.Serializable {
 
 
-     private Integer idAlerta;
      private Integer idLibroReport;
-     private String criticidad;
+     private Integer idUsuario ;
+     private Integer criticidad;
      private Date fecha;
-     private MensajeDto mensajeDto;
-     private String error;
+     private String mensaje;
+     
+     
 
     public AlertaDto() {
     }
 
 	
-    public AlertaDto( String criticidad, Date fecha) {
+    public AlertaDto( Integer criticidad, Date fecha) {
         this.criticidad = criticidad;
         this.fecha = fecha;
     }
-    public AlertaDto(String criticidad, Date fecha, MensajeDto mensajeDto) {
-       
-       this.criticidad = criticidad;
-       this.fecha = fecha;
-       this.mensajeDto = mensajeDto;
-    }
-   
      
-    public Integer getIdAlerta() {
-        return this.idAlerta;
-    }
     
-    public void setIdAlerta(Integer idAlerta) {
-        this.idAlerta = idAlerta;
-    }
-    
-    public String getCriticidad() {
+    public Integer getCriticidad() {
         return this.criticidad;
     }
     
-    public void setCriticidad(String criticidad) {
+    public void setCriticidad(Integer criticidad) {
         this.criticidad = criticidad;
     }
 
@@ -56,14 +43,6 @@ public class AlertaDto extends CommonDto implements java.io.Serializable {
         this.fecha = fecha;
     }
 
-
-    public MensajeDto getMensajeDto() {
-        return this.mensajeDto;
-    }
-    
-    public void setMensajeDto(MensajeDto mensajeDto) {
-        this.mensajeDto = mensajeDto;
-    }
 
     /**
      * @return the idLibroReport
@@ -79,9 +58,32 @@ public class AlertaDto extends CommonDto implements java.io.Serializable {
         this.idLibroReport = idLibroReport;
     }
 
+    /**
+     * @return the idUsuario
+     */
+    public Integer getIdUsuario() {
+        return idUsuario;
+    }
 
+    /**
+     * @param idUsuario the idUsuario to set
+     */
+    public void setIdUsuario(Integer idUsuario) {
+        this.idUsuario = idUsuario;
+    }
 
+    /**
+     * @return the mensaje
+     */
+    public String getMensaje() {
+        return mensaje;
+    }
+
+    /**
+     * @param mensaje the mensaje to set
+     */
+    public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
+    }
 
 }
-
-
