@@ -20,6 +20,7 @@ public class UsuarioDto extends CommonDto implements java.io.Serializable {
      private String password;
      private String mail;
      private String mensajeRegId;
+     private String fechaNacimiento;
      private Set<PacienteDto> pacientes = new HashSet<>();
       
 
@@ -140,6 +141,20 @@ public class UsuarioDto extends CommonDto implements java.io.Serializable {
      */
     public void setMensajeRegId(String mensajeRegId) {
         this.mensajeRegId = mensajeRegId;
+    }
+
+    /**
+     * @return the fechaNacimiento
+     */
+    public String getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    /**
+     * @param fechaNacimiento the fechaNacimiento to set
+     */
+    public void setFechaNacimiento(String fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
     }
 
 }

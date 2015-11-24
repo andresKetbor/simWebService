@@ -7,6 +7,8 @@ package org.sim.services.resources;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Iterator;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -35,6 +37,8 @@ public class UsuarioResource {
 
     private UsuarioDto getDtoFromEntite(Usuario usuario) {
 
+        SimpleDateFormat formateador = new SimpleDateFormat("dd/MM/yyyy");
+        
         UsuarioDto usuarioDto = new UsuarioDto();
         usuarioDto.setIdUsuario(usuario.getIdUsuario());
         usuarioDto.setDni(usuario.getDni());
@@ -45,7 +49,7 @@ public class UsuarioResource {
         usuarioDto.setRol(new RolDto(usuario.getRol().getIdRol(), usuario.getRol().getNombreRol()));
         usuarioDto.setMail(usuario.getMail());
         usuarioDto.setMensajeRegId(usuario.getMensajeRegId());
-        
+        usuarioDto.setFechaNacimiento(formateador.format(usuario.getFechaNacimiento()));
         if(usuario.getPacientes()!=null){
         
         Iterator<Paciente> iter =usuario.getPacientes().iterator();
@@ -85,6 +89,7 @@ public class UsuarioResource {
         usuario.setRol(new Rol(usuarioDto.getRol().getIdRol()));
         usuario.setMail(usuarioDto.getMail());
         usuario.setMensajeRegId(usuarioDto.getMensajeRegId());
+        usuario.setFechaNacimiento(new Date(usuarioDto.getFechaNacimiento()));
         return usuario;
 
     }
