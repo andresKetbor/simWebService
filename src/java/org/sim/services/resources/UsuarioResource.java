@@ -49,7 +49,6 @@ public class UsuarioResource {
         usuarioDto.setRol(new RolDto(usuario.getRol().getIdRol(), usuario.getRol().getNombreRol()));
         usuarioDto.setMail(usuario.getMail());
         usuarioDto.setMensajeRegId(usuario.getMensajeRegId());
-        usuarioDto.setFechaNacimiento(formateador.format(usuario.getFechaNacimiento()));
         if(usuario.getPacientes()!=null){
         
         Iterator<Paciente> iter =usuario.getPacientes().iterator();
@@ -89,7 +88,6 @@ public class UsuarioResource {
         usuario.setRol(new Rol(usuarioDto.getRol().getIdRol()));
         usuario.setMail(usuarioDto.getMail());
         usuario.setMensajeRegId(usuarioDto.getMensajeRegId());
-        usuario.setFechaNacimiento(new Date(usuarioDto.getFechaNacimiento()));
         return usuario;
 
     }

@@ -214,23 +214,9 @@ private void enviarAlerta(String textoMensaje, List<String> idsRegistro){
       }
       
          enviarAlerta(textoMensaje, idsRegistro);
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
+        
       
       HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();     
-      
-      
-      
-      
       
       administracionMedicamentoDto.setError("OK");
      

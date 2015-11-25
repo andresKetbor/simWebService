@@ -37,7 +37,6 @@ public class Usuario  implements java.io.Serializable {
      private String password;
      private String mail;
      private String mensajeRegId;
-     private Date fechaNacimiento;
      private Set<Mensaje> mensajesForIdUsuarioRemitente = new HashSet<Mensaje>(0);
      private Set<Mensaje> mensajesForIdUsuaruiDestinatario = new HashSet<Mensaje>(0);
      private Set<Visita> visitas = new HashSet<Visita>(0);
@@ -193,16 +192,6 @@ public class Usuario  implements java.io.Serializable {
     }
 
     
-    @Temporal(TemporalType.DATE)
-    @Column(name="fechaNacimiento", nullable=false, length=10)
-    public Date getFechaNacimiento() {
-        return this.fechaNacimiento;
-    }
-    
-    public void setFechaNacimiento(Date fechaNacimiento) {
-        this.fechaNacimiento = fechaNacimiento;
-    }
-
     
 }
 
