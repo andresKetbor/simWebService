@@ -55,11 +55,10 @@ PacienteDao pacienteDao = new PacienteDao();
      return pacienteListDto;
         
     }    
-     
- 
+   
  
   @GET
-    public String getPaciente(){
+  public String getPaciente(){
     
      Gson gson = null;
      PacienteListDto pacienteListDto = null;   
@@ -94,15 +93,9 @@ PacienteDao pacienteDao = new PacienteDao();
          HibernateUtil.getSessionFactory().getCurrentSession().close();                       
          return gson.toJson(pacienteListDto);
      }
-    
-
-    
+     
     }
-    
- 
-
-    
-    
+     
         
         
         

@@ -28,19 +28,19 @@ public class Administracionmedicamento  implements java.io.Serializable {
      private Integer idAdminMedic;
      private Libroreport libroreport;
      private Date fecha;
-     private String dosis;
+     private Float volumen;
      private String medicamento;
-     private String administracion;
+     private Float goteo;
 
     public Administracionmedicamento() {
     }
 
-    public Administracionmedicamento(Libroreport libroreport, Date fecha, String dosis, String medicamento, String administracion) {
+    public Administracionmedicamento(Libroreport libroreport, Date fecha, Float volumen, String medicamento, Float goteo) {
        this.libroreport = libroreport;
        this.fecha = fecha;
-       this.dosis = dosis;
+       this.volumen = volumen;
        this.medicamento = medicamento;
-       this.administracion = administracion;
+       this.goteo = goteo;
     }
    
      @Id @GeneratedValue(strategy=IDENTITY)
@@ -66,7 +66,7 @@ public class Administracionmedicamento  implements java.io.Serializable {
     }
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name="Fecha", nullable=false, length=10)
+    @Column(name="fecha", nullable=false, length=10)
     public Date getFecha() {
         return this.fecha;
     }
@@ -76,17 +76,17 @@ public class Administracionmedicamento  implements java.io.Serializable {
     }
 
     
-    @Column(name="Dosis", nullable=false, length=20)
-    public String getDosis() {
-        return this.dosis;
+    @Column(name="volumen", nullable=false, length=20)
+    public Float getVolumen() {
+        return this.volumen;
     }
     
-    public void setDosis(String dosis) {
-        this.dosis = dosis;
+    public void setVolumen(Float volumen) {
+        this.volumen = volumen;
     }
 
     
-    @Column(name="Medicamento", nullable=false, length=50)
+    @Column(name="medicamento", nullable=false, length=50)
     public String getMedicamento() {
         return this.medicamento;
     }
@@ -96,18 +96,14 @@ public class Administracionmedicamento  implements java.io.Serializable {
     }
 
     
-    @Column(name="Administracion", nullable=false, length=50)
-    public String getAdministracion() {
-        return this.administracion;
+    @Column(name="goteo", nullable=false, length=50)
+    public Float getGoteo() {
+        return this.goteo;
     }
     
-    public void setAdministracion(String administracion) {
-        this.administracion = administracion;
+    public void setGoteo(Float goteo) {
+        this.goteo = goteo;
     }
-
-
 
 
 }
-
-
