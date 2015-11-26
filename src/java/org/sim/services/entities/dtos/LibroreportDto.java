@@ -1,10 +1,8 @@
 package org.sim.services.entities.dtos;
 // Generated Aug 22, 2015 1:16:11 PM by Hibernate Tools 4.3.1
 
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-import org.sim.services.entities.Paciente;
 
 
 
@@ -17,6 +15,7 @@ public class LibroreportDto extends CommonDto implements java.io.Serializable {
      private String estado;
      private PacienteDto paciente;
      private Set<MedicionDto> medicions = new HashSet<MedicionDto>(0);
+     private Set<AdministracionMedicamentoDto> administracionMedicamentos = new HashSet<AdministracionMedicamentoDto>(0);
      
 
     public LibroreportDto() {
@@ -99,6 +98,20 @@ public class LibroreportDto extends CommonDto implements java.io.Serializable {
      */
     public void setMedicions(Set<MedicionDto> medicions) {
         this.medicions = medicions;
+    }
+
+    /**
+     * @return the administracionMedicamentos
+     */
+    public Set<AdministracionMedicamentoDto> getAdministracionMedicamentos() {
+        return administracionMedicamentos;
+    }
+
+    /**
+     * @param administracionMedicamentos the administracionMedicamentos to set
+     */
+    public void setAdministracionMedicamentos(Set<AdministracionMedicamentoDto> administracionMedicamentos) {
+        this.administracionMedicamentos = administracionMedicamentos;
     }
 
 

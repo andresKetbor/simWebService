@@ -7,12 +7,9 @@
 package org.sim.services.resources;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonSyntaxException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -23,6 +20,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
 import org.hibernate.HibernateException;
+import org.sim.services.entities.Administracionmedicamento;
 import org.sim.services.entities.Freceunciarespiratoria;
 import org.sim.services.entities.Libroreport;
 import org.sim.services.entities.Medicion;
@@ -34,6 +32,7 @@ import org.sim.services.entities.Tensionarterial;
 import org.sim.services.entities.common.daos.LibroReportDao;
 import org.sim.services.entities.common.daos.MedicionDao;
 import org.sim.services.entities.common.daos.PacienteDao;
+import org.sim.services.entities.dtos.AdministracionMedicamentoDto;
 import org.sim.services.entities.dtos.LibroreportDto;
 import org.sim.services.entities.dtos.MedicionDto;
 import org.sim.services.entities.dtos.PacienteDto;
@@ -89,8 +88,6 @@ public class LibroReportResource {
 
                 if( medEnt instanceof Temperatura){
 
-                    
-                    
                     Temperatura temp = (Temperatura) medEnt;
                     medDto.setTemperatura(temp.getTemperatura());
                     medDto.setDescripcion(temp.getDescripcion());
@@ -150,7 +147,30 @@ public class LibroReportResource {
               
                 
        libroreportDto.setMedicions(medicionsDto);
+              
+       if(!libroreport.getAdministracionmedicamentos().isEmpty()){
+       
+           Set<AdministracionMedicamentoDto> administracioMedicamentosDto = new HashSet<AdministracionMedicamentoDto>(0);            
         
+           Iterator<Administracionmedicamento> it = libroreport.getAdministracionmedicamentos().iterator();
+        
+           while(it.hasNext()){ 
+        
+            Administracionmedicamento administracionmedicamento =(Administracionmedicamento) it.next();
+            AdministracionMedicamentoDto administracionMedicamentoDto = new AdministracionMedicamentoDto();
+         
+            administracionMedicamentoDto.setIdAdminMedic(administracionmedicamento.getIdAdminMedic());
+            administracionMedicamentoDto.setMedicamento(administracionmedicamento.getMedicamento());
+            administracionMedicamentoDto.setVolumen(administracionmedicamento.getVolumen());
+            administracionMedicamentoDto.setGoteo(administracionmedicamento.getGoteo());
+            administracionMedicamentoDto.setFecha(formateador.format(administracionmedicamento.getFecha()));
+        
+            administracioMedicamentosDto.add(administracionMedicamentoDto);
+       }
+       
+       libroreportDto.setAdministracionMedicamentos(administracioMedicamentosDto);
+       }
+       
        return libroreportDto;
         
     }    
