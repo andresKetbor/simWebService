@@ -20,6 +20,7 @@ public class PacienteDto extends CommonDto implements java.io.Serializable {
      private Integer edad;
      private Float altura;
      private Float peso;
+     
      private Set<UsuarioDto> usuariosAsignados = new HashSet();
      private Set<UsuarioDto> usuariosNoAsignados = new HashSet<>();
    

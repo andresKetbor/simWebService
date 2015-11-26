@@ -45,9 +45,9 @@ PacienteDao pacienteDao = new PacienteDao();
         pacienteDto.setNombre(paciente.getNombre());
         pacienteDto.setApellido(paciente.getApellido());
         pacienteDto.setAltura(paciente.getAltura());
-        paciente.setPeso(paciente.getPeso());
-        paciente.setEdad(paciente.getEdad());
-        
+        pacienteDto.setPeso(paciente.getPeso());
+        pacienteDto.setEdad(paciente.getEdad());
+         
         pacientesDto.add(pacienteDto);
      }
         

@@ -153,7 +153,7 @@ private void enviarAlerta(String textoMensaje, List<String> idsRegistro){
         administracionmedicamento.setMedicamento(administracionMedicamentoDto.getMedicamento());
         administracionmedicamento.setVolumen(administracionMedicamentoDto.getVolumen());
         administracionmedicamento.setGoteo(administracionMedicamentoDto.getGoteo());
-        administracionmedicamento.setFecha(new Date(administracionMedicamentoDto.getFecha()));
+        administracionmedicamento.setFecha(new Date());
         return administracionmedicamento;
         
     }
@@ -181,11 +181,11 @@ private void enviarAlerta(String textoMensaje, List<String> idsRegistro){
       Usuario usuarioRemitente = usuarioDao.findById(administracionMedicamentoDto.getIdUsuario());
       Set<Usuario> usuarios = libroreport.getPaciente().getUsuarios();
       
-      
+      SimpleDateFormat formateador = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
       String textoMensaje = "Medicamento: " + administracionmedicamento.getMedicamento() + 
-                            "Valumen: " + administracionmedicamento.getVolumen() + 
-                            "Goteo: " + administracionmedicamento.getGoteo() + 
-                            "Fecha: "  + administracionmedicamento.getFecha();
+                            ", Valumen: " + administracionmedicamento.getVolumen() + " ml/Hr" +
+                            ", Goteo: " + administracionmedicamento.getGoteo() +  " Gotas/min" +
+                            ", Fecha: "  + formateador.format(administracionmedicamento.getFecha());
       
       Iterator<Usuario> it = usuarios.iterator();
       List<String> idsRegistro = new ArrayList<>();

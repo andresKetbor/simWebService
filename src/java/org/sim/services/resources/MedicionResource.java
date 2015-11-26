@@ -55,7 +55,7 @@ public class MedicionResource {
           if( medDto.getTemperatura()!= null){
             
               Temperatura tempEnti = new Temperatura();
-              tempEnti.setFecha(new Date(medDto.getFecha()));
+              tempEnti.setFecha(new Date());
               tempEnti.setDescripcion(medDto.getDescripcion());
               tempEnti.setTemperatura(medDto.getTemperatura());
               medicionsEnt.add(tempEnti);
@@ -63,7 +63,7 @@ public class MedicionResource {
                if((medDto.getGlucosa()!=null) && !(medDto.getGlucosa().isEmpty())) {
                
               Nivelglucosa ngEnti = new Nivelglucosa();
-              ngEnti.setFecha(new Date(medDto.getFecha()));
+              ngEnti.setFecha(new Date());
               ngEnti.setDescripcion(medDto.getDescripcion());
               ngEnti.setDosis(medDto.getDosis());
               ngEnti.setGlucosa(medDto.getGlucosa());
@@ -73,7 +73,7 @@ public class MedicionResource {
                    if( (medDto.getFrecuenciaRespiratoria()!=null) &&  !(medDto.getFrecuenciaRespiratoria().isEmpty())){
                        
                        Freceunciarespiratoria freEnti = new Freceunciarespiratoria();
-                       freEnti.setFecha(new Date(medDto.getFecha()));
+                       freEnti.setFecha(new Date());
                        freEnti.setDescripcion(medDto.getDescripcion());
                        freEnti.setFreceunciaRespiratoria(medDto.getDescripcion());
                        medicionsEnt.add(freEnti);
@@ -82,7 +82,7 @@ public class MedicionResource {
                        if(medDto.getOxigenoEnSangre()!=null){
                            
                            Saturometria saEnti = new Saturometria();
-                           saEnti.setFecha(new Date(medDto.getFecha()));
+                           saEnti.setFecha(new Date());
                            saEnti.setDescripcion(medDto.getDescripcion());  
                            saEnti.setOxigenoEnSangre(medDto.getOxigenoEnSangre());
                            medicionsEnt.add(saEnti);
@@ -91,7 +91,7 @@ public class MedicionResource {
                            if(medDto.getTensionArterial()!=null){
                                
                              Tensionarterial tenEnti = new Tensionarterial();
-                             tenEnti.setFecha(new Date(medDto.getFecha()));
+                             tenEnti.setFecha(new Date());
                              tenEnti.setDescripcion(medDto.getDescripcion());  
                              tenEnti.setTensionArterial(medDto.getTensionArterial());
                              medicionsEnt.add(tenEnti);
