@@ -27,28 +27,29 @@ public class Ecg  implements java.io.Serializable {
 
      private Integer idEcg;
      private Libroreport libroreport;
-     private String estado;
+     private String diagnostico;
+     private String diagnosticoDetallado;
      private Date fecha;
      private String captura;
-     private float ppm;
+     private Float ppmMax;
+     private Float ppmMin;
+     private Float ppmProm;
 
     public Ecg() {
     }
 
 	
-    public Ecg(Libroreport libroreport, String estado, Date fecha, float ppm) {
+    public Ecg(Libroreport libroreport, String diagnostico,String diagnosticoDettalado, Date fecha, Float ppmMax, Float ppmMin, Float ppmProm) {
         this.libroreport = libroreport;
-        this.estado = estado;
+        this.diagnostico = diagnostico;
+        this.diagnosticoDetallado = diagnosticoDettalado;
         this.fecha = fecha;
-        this.ppm = ppm;
+        this.ppmMax = ppmMax;
+        this.ppmMin = ppmMin;
+        this.ppmProm = ppmProm;
     }
-    public Ecg(Libroreport libroreport, String estado, Date fecha, String captura, float ppm) {
-       this.libroreport = libroreport;
-       this.estado = estado;
-       this.fecha = fecha;
-       this.captura = captura;
-       this.ppm = ppm;
-    }
+    
+    
    
      @Id @GeneratedValue(strategy=IDENTITY)
 
@@ -73,17 +74,26 @@ public class Ecg  implements java.io.Serializable {
     }
 
     
-    @Column(name="Estado", nullable=false, length=25)
-    public String getEstado() {
-        return this.estado;
+     @Column(name="diagnostico", length=50)
+     public String getDiagnostico() {
+        return this.diagnostico;
     }
     
-    public void setEstado(String estado) {
-        this.estado = estado;
+    public void setDiagnostico(String diagnostico) {
+        this.diagnostico = diagnostico;
+    }
+    
+    @Column(name="diagnosticoDetallado",  length=500)
+    public String getDiagnosticoDetallado() {
+        return this.diagnosticoDetallado;
+    }
+    
+    public void setDiagnosticoDetallado(String diagnosticoDetallado) {
+        this.diagnosticoDetallado = diagnosticoDetallado;
     }
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name="Fecha", nullable=false, length=10)
+    @Column(name="fecha", nullable=false, length=10)
     public Date getFecha() {
         return this.fecha;
     }
@@ -92,26 +102,41 @@ public class Ecg  implements java.io.Serializable {
         this.fecha = fecha;
     }
 
-    
-    @Column(name="Captura", length=100)
-    public String getCaptura() {
+       
+    @Column(name="captura")
+   public String getCaptura() {
         return this.captura;
     }
     
     public void setCaptura(String captura) {
         this.captura = captura;
     }
-
     
-    @Column(name="PPM", nullable=false, precision=12, scale=0)
-    public float getPpm() {
-        return this.ppm;
+    
+    @Column(name="ppmMax", precision=12, scale=0)
+    public Float getPpmMax() {
+        return this.ppmMax;
     }
     
-    public void setPpm(float ppm) {
-        this.ppm = ppm;
+    public void setPpmMax(Float ppmMax) {
+        this.ppmMax = ppmMax;
     }
-
+@Column(name="ppmMin",  precision=12, scale=0)
+    public Float getPpmMin() {
+        return this.ppmMin;
+    }
+    
+    public void setPpmMin(Float ppmMin) {
+        this.ppmMin = ppmMin;
+    }
+    @Column(name="ppmProm",  precision=12, scale=0)
+    public Float getPpmProm() {
+        return this.ppmProm;
+    }
+    
+    public void setPpmProm(Float ppmProm) {
+        this.ppmProm = ppmProm;
+    }
 
 
 

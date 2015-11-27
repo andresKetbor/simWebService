@@ -2,7 +2,6 @@ package org.sim.services.entities;
 // Generated Oct 17, 2015 2:43:20 PM by Hibernate Tools 4.3.1
 
 
-import org.sim.services.entities.Categoriarangoedad;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;

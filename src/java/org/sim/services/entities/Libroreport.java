@@ -2,8 +2,10 @@ package org.sim.services.entities;
 // Generated Aug 22, 2015 1:16:11 PM by Hibernate Tools 4.3.1
 
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +15,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.OrderBy;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -37,7 +40,7 @@ public class Libroreport  implements java.io.Serializable {
      private Set<Alerta> alertas = new HashSet<Alerta>(0);
      private Set<Administracionmedicamento> administracionmedicamentos = new HashSet<Administracionmedicamento>(0);
      private Set<Nota> notas = new HashSet<Nota>(0);
-     private Set<Ecg> ecgs = new HashSet<Ecg>(0);
+     private List<Ecg> ecgs = new ArrayList<Ecg>(0);
 
     public Libroreport() {
     }
@@ -67,7 +70,7 @@ public class Libroreport  implements java.io.Serializable {
     
     
     
-    public Libroreport(Paciente paciente, Date fechaAlta, Date fechaBaja, String estado, Set<Medicion> medicions, Set<Alerta> alertas, Set<Administracionmedicamento> administracionmedicamentos, Set<Nota> notas, Set<Ecg> ecgs) {
+    public Libroreport(Paciente paciente, Date fechaAlta, Date fechaBaja, String estado, Set<Medicion> medicions, Set<Alerta> alertas, Set<Administracionmedicamento> administracionmedicamentos, Set<Nota> notas, List<Ecg> ecgs) {
        this.paciente = paciente;
        this.fechaAlta = fechaAlta;
        this.fechaBaja = fechaBaja;
@@ -167,11 +170,12 @@ public class Libroreport  implements java.io.Serializable {
     }
 
 @OneToMany(fetch=FetchType.LAZY, mappedBy="libroreport")
-    public Set<Ecg> getEcgs() {
+@OrderBy("idEcg DESC")
+    public List<Ecg> getEcgs() {
         return this.ecgs;
     }
     
-    public void setEcgs(Set<Ecg> ecgs) {
+    public void setEcgs(List<Ecg> ecgs) {
         this.ecgs = ecgs;
     }
 

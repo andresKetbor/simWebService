@@ -1,7 +1,9 @@
 package org.sim.services.entities.dtos;
 // Generated 06/08/2015 15:00:36 by Hibernate Tools 3.6.0
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -23,7 +25,7 @@ public class PacienteDto extends CommonDto implements java.io.Serializable {
      
      private Set<UsuarioDto> usuariosAsignados = new HashSet();
      private Set<UsuarioDto> usuariosNoAsignados = new HashSet<>();
-   
+     private List<EcgDto> ecgsDto = new ArrayList<>();
 
     public PacienteDto() {
     }
@@ -50,7 +52,6 @@ public class PacienteDto extends CommonDto implements java.io.Serializable {
     }
 
     
-
     public String getNombre() {
         return this.nombre;
     }
@@ -127,6 +128,20 @@ public class PacienteDto extends CommonDto implements java.io.Serializable {
     
     public void setUsuariosNoAsignados(Set<UsuarioDto> usuariosNoAsignados) {
         this.usuariosNoAsignados = usuariosNoAsignados;
+    }
+
+    /**
+     * @return the ecgsDto
+     */
+    public List<EcgDto> getEcgsDto() {
+        return ecgsDto;
+    }
+
+    /**
+     * @param ecgsDto the ecgsDto to set
+     */
+    public void setEcgsDto(List<EcgDto> ecgsDto) {
+        this.ecgsDto = ecgsDto;
     }
 
 }

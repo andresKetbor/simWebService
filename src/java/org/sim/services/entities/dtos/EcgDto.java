@@ -2,40 +2,38 @@ package org.sim.services.entities.dtos;
 // Generated Aug 22, 2015 1:16:11 PM by Hibernate Tools 4.3.1
 
 import java.util.Date;
-import org.sim.services.entities.Libroreport;
 
 
 
-public class EcgDto extends CommonDto implements java.io.Serializable {
+public class EcgDto  implements java.io.Serializable {
 
 
      private Integer idEcg;
-     private LibroreportDto libroreport;
-     private String estado;
+     private Integer idLibroReport;
+     private String diagnostico;
+     private String diagnosticoDetallado;
      private Date fecha;
      private String captura;
-     private Float ppm;
+     private Float ppmMax;
+     private Float ppmMin;
+     private Float ppmProm;
 
     public EcgDto() {
     }
 
 	
-    public EcgDto(LibroreportDto libroreport, String estado, Date fecha, Float ppm) {
-        this.libroreport = libroreport;
-        this.estado = estado;
+    public EcgDto(Integer idLibroreport, String diagnostico,String diagnosticoDettalado, Date fecha, Float ppmMax, Float ppmMin, Float ppmProm) {
+        this.idLibroReport = idLibroreport;
+        this.diagnostico = diagnostico;
+        this.diagnosticoDetallado = diagnosticoDettalado;
         this.fecha = fecha;
-        this.ppm = ppm;
+        this.ppmMax = ppmMax;
+        this.ppmMin = ppmMin;
+        this.ppmProm = ppmProm;
     }
-    public EcgDto(LibroreportDto libroreport, String estado, Date fecha, String captura, Float ppm) {
-       this.libroreport = libroreport;
-       this.estado = estado;
-       this.fecha = fecha;
-       this.captura = captura;
-       this.ppm = ppm;
-    }
-   
     
-
+    
+   
     public Integer getIdEcg() {
         return this.idEcg;
     }
@@ -44,23 +42,34 @@ public class EcgDto extends CommonDto implements java.io.Serializable {
         this.idEcg = idEcg;
     }
 
-    public LibroreportDto getLibroreport() {
-        return this.libroreport;
+
+    public Integer getIdLibroreport() {
+        return this.idLibroReport;
     }
     
-    public void setLibroreport(LibroreportDto libroreport) {
-        this.libroreport = libroreport;
+    public void setLibroreport(Integer idLibroReport) {
+        this.idLibroReport = idLibroReport;
     }
 
     
 
-    public String getEstado() {
-        return this.estado;
+     public String getDiagnostico() {
+        return this.diagnostico;
     }
     
-    public void setEstado(String estado) {
-        this.estado = estado;
+    public void setDiagnostico(String diagnostico) {
+        this.diagnostico = diagnostico;
     }
+    
+
+    public String getDiagnosticoDetallado() {
+        return this.diagnosticoDetallado;
+    }
+    
+    public void setDiagnosticoDetallado(String diagnosticoDetallado) {
+        this.diagnosticoDetallado = diagnosticoDetallado;
+    }
+
 
     public Date getFecha() {
         return this.fecha;
@@ -71,24 +80,40 @@ public class EcgDto extends CommonDto implements java.io.Serializable {
     }
 
     
-
-    public String getCaptura() {
+   public String getCaptura() {
         return this.captura;
     }
     
     public void setCaptura(String captura) {
         this.captura = captura;
     }
+    
+    
 
-
-    public Float getPpm() {
-        return this.ppm;
+    public Float getPpmMax() {
+        return this.ppmMax;
     }
     
-    public void setPpm(Float ppm) {
-        this.ppm = ppm;
+    public void setPpmMax(Float ppmMax) {
+        this.ppmMax = ppmMax;
     }
 
+    public Float getPpmMin() {
+        return this.ppmMin;
+    }
+    
+    public void setPpmMin(Float ppmMin) {
+        this.ppmMin = ppmMin;
+    }
+
+    
+    public Float getPpmProm() {
+        return this.ppmProm;
+    }
+    
+    public void setPpmProm(Float ppmProm) {
+        this.ppmProm = ppmProm;
+    }
 
 
 
