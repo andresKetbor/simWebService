@@ -5,7 +5,7 @@ import java.util.Date;
 
 
 
-public class EcgDto  implements java.io.Serializable {
+public class EcgDto extends CommonDto implements java.io.Serializable {
 
 
      private Integer idEcg;
@@ -115,8 +115,4 @@ public class EcgDto  implements java.io.Serializable {
         this.ppmProm = ppmProm;
     }
 
-
-
 }
-
-

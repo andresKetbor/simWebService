@@ -129,10 +129,8 @@ public class EcgResource {
         }
      
  }       
-    
-    
-    
-    
+     
+   
  private EcgDto getDtoFromEntite(Ecg ecg){
         
         EcgDto ecgDto = new EcgDto();
@@ -164,72 +162,50 @@ public class EcgResource {
     }
  
  
-    @POST   
- public void addEcg(String ecgRequest){
+  @POST   
+ public String addEcg(String ecgRequest){
      
+     EcgDto ecgDto = null;
+     Gson gson = null;
      try{
       HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
      
-      Gson gson = new Gson();
+      gson = new Gson();
      
-      EcgDto ecgDto = gson.fromJson(ecgRequest, EcgDto.class);
+      ecgDto = gson.fromJson(ecgRequest, EcgDto.class);
      
       Ecg ecg = getEntitieFromDto(ecgDto);
      
       Libroreport libroReport = libroReportDao.findById(ecgDto.getIdLibroreport());
+     
+      if(ecgDto.getIdLibroreport()==1){
       
-      ecg.setLibroreport(libroReport);
-      
-      ecgDao.persist(ecg);
-      
-      if(ecgDto.getPpmMax()!=null){
-             
-       Usuario usuarioMonitor = usuarioDao.findById(100);
-       Set<Usuario> usuarios = libroReport.getPaciente().getUsuarios();
-       String textoMensaje = "ECG : " + ecgDto.getDiagnostico();
-       
-       Iterator<Usuario> it = usuarios.iterator();
-       List<String> idsRegistro = new ArrayList<>();
-      
-      while(it.hasNext()){
-          
-          Usuario usuarioDestinatario = (Usuario) it.next();
-                                  
-              Alerta alerta = new Alerta();
-              alerta.setLibroreport(libroReport);
-               
-              Mensaje mensaje = new Mensaje(usuarioMonitor,usuarioDestinatario, textoMensaje);
-              alerta.setMensaje(mensaje);
-              alerta.setFecha(new Date());
-              alerta.setCriticidad(criticidadDao.findById(1));
-              
-              alertaDao.persist(alerta);
-              mensaje.setAlerta(alerta);
-              mensajeDao.persist(mensaje);
-          
-              idsRegistro.add(usuarioDestinatario.getMensajeRegId());
+        ecg.setLibroreport(libroReport);
+        ecgDao.persist(ecg);
       }
-      
-          
-          enviarAlerta(textoMensaje,idsRegistro);
-          
-          
-      }else{
-          
-       	Runtime.getRuntime().exec("");    
-          // comando de linux para ejecutar el 
-          
-      }
-      
+         
       HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();     
+        
+      //Runtime.getRuntime().exec("");    
+      
+     ecgDto.setError("OK" );
       
      }catch(HibernateException | JsonSyntaxException e){
          System.out.println(e.getMessage());
+         if(ecgDto == null){
+              ecgDto = new EcgDto();  
+            }
+         ecgDto.setError("Error al agregar el ECG : " + e.getMessage());
      }catch(Exception e){
          System.out.println(e.getMessage());
+          if(ecgDto == null){
+              ecgDto = new EcgDto();  
+            }
+         ecgDto.setError("Error al agregar el ECG : " + e.getMessage());
      }
      finally{
          HibernateUtil.getSessionFactory().getCurrentSession().close();
+         return gson.toJson(ecgDto);
      }
  }  
  
@@ -255,27 +231,76 @@ public class EcgResource {
  
  
  @PUT  
- public void updateEcg(String ecgRequest){
+ public String updateEcg(String ecgRequest){
+     
+     Gson gson = null;
+     EcgDto ecgDto = null;
      
      try{ 
      HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
      
-      Gson gson = new Gson();
+       gson = new Gson();
      
-      EcgDto ecgDto = gson.fromJson(ecgRequest, EcgDto.class);
+       ecgDto = gson.fromJson(ecgRequest, EcgDto.class);
      
-      Ecg ecg = getEntitieFromDto(ecgDto);
+      Ecg ecg = ecgDao.findByEdad(ecgDto.getIdEcg());
       
+      ecg.setDiagnostico(ecgDto.getDiagnostico());
+      ecg.setDiagnosticoDetallado(ecgDto.getDiagnosticoDetallado());
+      ecg.setPpmMax(ecgDto.getPpmMax());
+      ecg.setPpmMin(ecgDto.getPpmMin());
+      ecg.setPpmProm(ecgDto.getPpmProm());
       ecgDao.merge(ecg);
-        
+      
+      Libroreport libroReport = ecg.getLibroreport();
+      
+      Usuario usuarioMonitor = usuarioDao.findById(100);
+      Set<Usuario> usuarios = libroReport.getPaciente().getUsuarios();
+      String textoMensaje = "ECG : " + ecgDto.getDiagnostico();
+       
+      Iterator<Usuario> it = usuarios.iterator();
+      List<String> idsRegistro = new ArrayList<>();
+      
+      while(it.hasNext()){
+          
+          Usuario usuarioDestinatario = (Usuario) it.next();
+                                  
+              Alerta alerta = new Alerta();
+              alerta.setLibroreport(libroReport);
+               
+              Mensaje mensaje = new Mensaje(usuarioMonitor,usuarioDestinatario, textoMensaje);
+              alerta.setMensaje(mensaje);
+              alerta.setFecha(new Date());
+              alerta.setCriticidad(criticidadDao.findById(1));
+              
+              alertaDao.persist(alerta);
+              mensaje.setAlerta(alerta);
+              mensajeDao.persist(mensaje);
+          
+              idsRegistro.add(usuarioDestinatario.getMensajeRegId());
+      }
+      
+          
+          enviarAlerta(textoMensaje,idsRegistro);
+      
      HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();
+     ecgDto.setError("OK" );
      }catch(HibernateException | JsonSyntaxException e){
          System.out.println(e.getMessage());
+          if(ecgDto == null){
+              ecgDto = new EcgDto();  
+            }
+         ecgDto.setError("Error al actualizar el ECG : " + e.getMessage());
      }catch(Exception e){
          System.out.println(e.getMessage());
+          if(ecgDto == null){
+              ecgDto = new EcgDto();  
+            }
+         ecgDto.setError("Error al actualizar el ECG : " + e.getMessage());
      }
      finally{
          HibernateUtil.getSessionFactory().getCurrentSession().close();     
+         return gson.toJson(ecgDto);
      }
      
  }
@@ -284,41 +309,41 @@ public class EcgResource {
   @GET
     public String getEcg(@QueryParam ("id") int id){
     
-     String ecgResponse ="";   
+     Gson gson = null;
+     EcgDto ecgDto = null;   
+     
      try{   
         
      HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
      
-     Gson gson = new Gson();
+     gson = new Gson();
      
      Ecg ecg = ecgDao.findById(id);
-     
-     ecgResponse = gson.toJson(getDtoFromEntite(ecg));
-     
+     ecgDto = getDtoFromEntite(ecg);
+    
      HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();
-     
+     ecgDto.setError("OK" );
      }catch(HibernateException | JsonSyntaxException e){
          System.out.println(e.getMessage());
+               if(ecgDto == null){
+              ecgDto = new EcgDto();  
+            }
+         ecgDto.setError("Error al actualizar consultar ECG : " + e.getMessage());
+         
      }catch(Exception e){
          System.out.println(e.getMessage());
+               if(ecgDto == null){
+              ecgDto = new EcgDto();  
+            }
+         ecgDto.setError("Error al consultar ECG : " + e.getMessage());
      }
      finally{
          HibernateUtil.getSessionFactory().getCurrentSession().close();
-         return ecgResponse;
+         return gson.toJson(ecgDto);
      }
     
 
     
     }
-    
- 
-
-    
-    
-        
-        
-        
-    
-    
-    
+   
 }
