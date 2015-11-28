@@ -9,7 +9,10 @@ package org.sim.services.resources;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -182,12 +185,22 @@ public class EcgResource {
       
         ecg.setLibroreport(libroReport);
         ecgDao.persist(ecg);
+      }else{
+          
+          ecg.setIdEcg(ecgDto.getIdEcg());
       }
          
-      HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();     
-        
-      //Runtime.getRuntime().exec("");    
+           
+      String nombreArchivo = ecg.getIdEcg() + libroReport.getPaciente().getNombre();
+      File archivo = new File(nombreArchivo + ".txt");
+      BufferedWriter bw = new BufferedWriter(new FileWriter(archivo));
+                     bw.write(ecgDto.getCaptura());
       
+      bw.close();
+      
+      Runtime.getRuntime().exec("java -jar analisisECG.jar " + nombreArchivo);    
+      
+     HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit(); 
      ecgDto.setError("OK" );
       
      }catch(HibernateException | JsonSyntaxException e){
@@ -243,7 +256,7 @@ public class EcgResource {
      
        ecgDto = gson.fromJson(ecgRequest, EcgDto.class);
      
-      Ecg ecg = ecgDao.findByEdad(ecgDto.getIdEcg());
+      Ecg ecg = ecgDao.findById(ecgDto.getIdEcg());
       
       ecg.setDiagnostico(ecgDto.getDiagnostico());
       ecg.setDiagnosticoDetallado(ecgDto.getDiagnosticoDetallado());
@@ -256,7 +269,8 @@ public class EcgResource {
       
       Usuario usuarioMonitor = usuarioDao.findById(100);
       Set<Usuario> usuarios = libroReport.getPaciente().getUsuarios();
-      String textoMensaje = "ECG : " + ecgDto.getDiagnostico();
+      String textoMensaje = "ECG Diagnóstico : " + ecgDto.getDiagnostico() + " Paciente: " + 
+                             libroReport.getPaciente().getNombre() + " " +   libroReport.getPaciente().getApellido();
        
       Iterator<Usuario> it = usuarios.iterator();
       List<String> idsRegistro = new ArrayList<>();

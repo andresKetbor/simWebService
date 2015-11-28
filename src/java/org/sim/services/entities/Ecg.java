@@ -74,7 +74,7 @@ public class Ecg  implements java.io.Serializable {
     }
 
     
-     @Column(name="diagnostico", length=50)
+     @Column(name="diagnostico", length=100)
      public String getDiagnostico() {
         return this.diagnostico;
     }
